@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    environment:
+      - PORT
+      - MODE=dev
+      - DB_URL=postgresql://$DB_USER:$DB_PASS@db:$DB_PORT/$DB_NAME
+    ports:
+      - "${PORT}:${PORT}"
+    networks:
+      - backend
+
+  client:
+    networks:
+      - frontend
+    build:
+        context: ./client
+    command: npm start
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    networks:
+      - backend
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+networks:
+  backend:
+  frontend:
+
+volumes:
+  db-data:
