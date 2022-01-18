@@ -11,7 +11,7 @@ services:
       # - "${PORT}:${PORT}"
     # networks:
       # - backend
-# 
+#
   # client:
     # networks:
       # - frontend
@@ -25,7 +25,9 @@ services:
       # - "${CLIENT_PORT}:${CLIENT_PORT}"
 
   db:
+    container_name: db
     image: postgres:alpine
+    restart: always
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
