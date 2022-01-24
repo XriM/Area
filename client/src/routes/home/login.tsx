@@ -1,6 +1,5 @@
-import React, { Component }  from 'react';
 import "../../App.css";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, FloatingLabel } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -13,72 +12,94 @@ function ShowLogin() {
   const [show, setShow] = useState<boolean>(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [successAlert, setShowAlert] = useState<boolean>(false);
 
   const [actualEmail, setEmail] = useState<string>("");
   const [actualPasswd, setPasswd] = useState<string>("");
   const input_user: UserResponse = { id: "", email: "", password: ""};
 
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = async (event: { currentTarget: any; preventDefault: () => void; stopPropagation: () => void; }) => {
+    setShowAlert(true);
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+    const result = await signin(actualEmail, actualPasswd);
+    if (result !== "") {
+      handleClose();
+      setEmail("");
+      setPasswd("");
+      navigate("/profile");
+    }
+  };
+
   return (
     <>
       <Button
-        variant="outline-primary"
+        variant="outline-light"
         className="loginButton"
         onClick={handleShow}
       >
-        Connexion
+        Signin
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} noValidate validated={validated} onSubmit={handleSubmit}>
         <Modal.Header closeButton>
-          <Modal.Title>Connexion</Modal.Title>
+          <Modal.Title>Signin</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
+            <Form.Group className="mb-3">
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Email address"
+                className="mb-3"
+              >
               <Form.Control
+                required
                 type="text"
-                placeholder="xxx.xxx@gmail.com"
-                id="emailLOG"
                 value={actualEmail}
                 onChange={(e) => {
                   input_user.email = e.target.value;
                   setEmail(e.target.value);
                 }}
               />
+              </FloatingLabel>
             </Form.Group>
+            
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Mot de passe</Form.Label>
+            <Form.Group className="mb-3">
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Password"
+                className="mb-3"
+              >
               <Form.Control
+                required
                 type="password"
-                placeholder="********"
-                id="passwdLOG"
                 value={actualPasswd}
                 onChange={(e) => {
                   input_user.password = e.target.value;
                   setPasswd(e.target.value);
                 }}
               />
+              </FloatingLabel>
             </Form.Group>
             <Button
               variant="primary"
-              onClick={async () => {
-                const result = await signin(actualEmail, actualPasswd);
-                if (result !== "") {
-                  handleClose();
-                  setEmail("");
-                  setPasswd("");
-                  navigate("/WHERE_YOU_DESIRE_WHEN_LOGGED");
-                }
-              }}
+              type="submit"
             >
-              Se connecter
+              Signin
             </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <a style={{ opacity: 0.8 }}>*Project Name* Entreprise</a>
+          <a style={{ opacity: 0.8 }}>Area Enterprise</a>
         </Modal.Footer>
       </Modal>
     </>

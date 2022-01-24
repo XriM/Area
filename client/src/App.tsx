@@ -4,7 +4,19 @@ import { NavbarHome, Body } from "./routes/exports";
 
 function App() {
   return (
-    <div>
+    <div className="area" >
+      <ul className="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
       <NavbarHome />
       <Body />
     </div>
