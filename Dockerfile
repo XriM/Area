@@ -11,11 +11,14 @@ COPY package*.json ./
 
 USER node
 
-RUN npm install express
+RUN npm install express dotenv pg jsonwebtoken
+RUN npm install nodemon
 RUN npm install
 
 COPY --chown=node:node . .
 
+RUN source .envrc
+
 EXPOSE 3000
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "start" ]
