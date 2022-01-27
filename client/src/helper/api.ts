@@ -99,7 +99,7 @@ export async function updateUser(id : string, email : string) {
 
 export async function signout() {
   await axios
-    .post(url + "/users/signout")
+    .post(url + "/users/me/signout")
     .then((res) => {
       console.log(res);
       alert("Successfully signed out.");
