@@ -1,53 +1,47 @@
 version: '3'
 
 services:
-    app:
-      build: .
-      depends_on:
-        - db
-      ports:
-        - "8000:8000"
-      networks:
-        - backend
-      environment:
-        - PORT=8000
-        - MODE=dev
-        - DB_URL=postgresql://$DB_USER:$DB_PASS@db:$DB_PORT/$DB_NAME
-    # ports:
-      # - "${PORT}:${PORT}"
-    # networks:
-      # - backend
-#
-  # client:
-    # networks:
-      # - frontend
-    # build:
-        # context: ./client
-    # command: npm start
-    # volumes:
-      # - ./client/:/usr/app
-      # - /usr/app/node_modules
-    # ports:
-      # - "${CLIENT_PORT}:${CLIENT_PORT}"
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "${PORT}:${PORT}"
+    networks:
+      - backend
+    environment:
+      - PORT=$PORT
+      - MODE=$MODE
+      - DB_URL=postgresql://$DB_USER:$DB_PASS@db:$DB_PORT/$DB_NAME        
 
-    db:
-      container_name: db
-      image: postgres:alpine
-      restart: always
-      environment:
-        - POSTGRES_USER=${DB_USER}
-        - POSTGRES_PASSWORD=${DB_PASS}
-        - POSTGRES_DB=${DB_NAME}
-      # networks:
-        # - backend
-      volumes:
-        - db-data:/var/lib/postgresql/data
-        - ./schema/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+  client:
+    networks:
+      - frontend
+    build:
+        context: ./client
+    command: npm start
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    networks:
+      - backend
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./schema/schema.sql:/docker-entrypoint-initdb.d/schema.sql
 
 networks:
   backend:
-    driver: bridge
-  # frontend:
+  frontend:
 
 volumes:
   db-data:

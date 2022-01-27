@@ -3,7 +3,7 @@ import "../../App.css";
 import { Modal, Button, Form, FloatingLabel } from "react-bootstrap";
 
 import { UserResponse } from "../../helper/types";
-import { signup } from "../exports";
+import { signup } from "..";
 
 function ShowSignup() {
   const [show, setShow] = useState<boolean>(false);
