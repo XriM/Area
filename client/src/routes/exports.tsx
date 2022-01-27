@@ -7,6 +7,7 @@ import {
   signin,
   signout,
   deleteAccount,
+  ping
 } from "../helper/api";
 
 export {
@@ -19,4 +20,5 @@ export {
   signin,
   signout,
   deleteAccount,
+  ping
 };

@@ -1,52 +1,71 @@
-CREATE TABLE IF NOT EXISTS user_table(
-    id INT PRIMARY KEY NOT NULL,
+CREATE TABLE IF NOT EXISTS users(
+    id INT NOT NULL,
     password VARCHAR,
     email VARCHAR NOT NULL,
-    username VARCHAR NOT NULL
+    username VARCHAR NOT NULL,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE action_table (
-    id INT PRIMARY KEY NOT NULL,
-    name VARCHAR NOT NULL
+CREATE TABLE actions (
+    id INT NOT NULL,
+    name VARCHAR NOT NULL,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE reaction_table (
-    id INT PRIMARY KEY NOT NULL,
-    name VARCHAR NOT NULL
+CREATE TABLE reactions (
+    id INT NOT NULL,
+    name VARCHAR NOT NULL,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE service_table (
-    id INT PRIMARY KEY NOT NULL,
-    NAME VARCHAR NOT NULL
+CREATE TABLE services (
+    id INT NOT NULL,
+    NAME VARCHAR NOT NULL,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE area_table (
-    id INT PRIMARY KEY NOT NULL,
-    action_id INT FOREIGN KEY NOT NULL,
-    reaction_id INT FOREIGN KEY NOT NULL
+CREATE TABLE areas (
+    id INT NOT NULL,
+    action_id INT NOT NULL,
+    reaction_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (action_id) REFERENCES actions(id),
+    FOREIGN KEY (reaction_id) REFERENCES reactions(id)
 );
 
-CREATE TABLE IF NOT EXISTS user_service_table (
-    id INT PRIMARY KEY NOT NULL,
-    user_id INT FOREIGN KEY NOT NULL,
-    service_id INT FOREIGN KEY NOT NULL,
-    token VARCHAR
+CREATE TABLE IF NOT EXISTS user_service (
+    id INT NOT NULL,
+    user_id INT NOT NULL,
+    service_id INT NOT NULL,
+    token VARCHAR,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (service_id) REFERENCES services(id)
 );
 
-CREATE TABLE user_area_table (
-    id INT PRIMARY KEY NOT NULL,
-    user_id INT FOREIGN KEY NOT NULL,
-    area_id INT FOREIGN KEY NOT NULL
+CREATE TABLE user_area (
+    id INT NOT NULL,
+    user_id INT NOT NULL,
+    area_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (area_id) REFERENCES areas(id)
 );
 
-CREATE TABLE service_reaction_table(
-    id INT PRIMARY KEY NOT NULL,
-    service_id INT FOREIGN KEY NULL,
-    reaction_id INT FOREIGN KEY NOT NULL
+CREATE TABLE service_reaction (
+    id INT NOT NULL,
+    service_id INT NULL,
+    reaction_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (service_id) REFERENCES services(id),
+    FOREIGN KEY (reaction_id) REFERENCES reactions(id)
 );
 
-CREATE TABLE service_action_table (
-    id INT PRIMARY KEY NOT NULL,
-    service_id INT FOREIGN KEY NOT NULL,
-    action_id INT FOREIGN KEY NOT NULL
+CREATE TABLE service_action (
+    id INT NOT NULL,
+    service_id INT NOT NULL,
+    action_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (service_id) REFERENCES services(id),
+    FOREIGN KEY (action_id) REFERENCES actions(id)
 );

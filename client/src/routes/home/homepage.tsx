@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
-import { ShowLogin, ShowSignup } from "../exports";
+import { ShowLogin, ShowSignup, ping } from "../exports";
 
 function NavbarHome() {
   const [id, setId] = useState<string>("");
@@ -23,6 +23,7 @@ function NavbarHome() {
           </Nav>
           <Faq />
           <Contact />
+          <ServerTest />
         </Navbar.Collapse>
       </Container>
     </Navbar>
@@ -74,6 +75,23 @@ function Contact() {
         onClick = { () => {navigate("/contact")}}
       >
         Contact
+      </Button>
+    </>
+  );
+}
+
+function ServerTest() {
+
+  return (
+    <>
+      <Button
+        variant="light"
+        className="loginButton"
+        onClick = { async () => {
+          await ping();
+        }}
+      >
+        PingServer
       </Button>
     </>
   );

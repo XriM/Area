@@ -4,6 +4,30 @@ import { User } from './types';
 
 axios.defaults.withCredentials = true;
 
+async function ping() {
+  const url = "http://localhost:8000/";
+
+  await axios
+    .get(url, { withCredentials: true })
+    .then((res) => {
+      console.log(res);
+      alert(
+        "Server up."
+      );
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data.error.message);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        alert(
+          "An error of type " + error.response.status + " occured."
+        );
+      }
+    });
+  return;
+}
+
 async function signup(email: string, password: string) {
   const url = "http://localhost:8000/users/signup";
   const params : User = {
@@ -125,4 +149,5 @@ export {
   signin,
   signout,
   deleteAccount,
+  ping
 };
