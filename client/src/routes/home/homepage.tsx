@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
-import { ShowLogin, ShowSignup, ping } from "../exports";
+import { ShowLogin, ShowSignup, ping } from "..";
 
 function NavbarHome() {
   const [id, setId] = useState<string>("");
