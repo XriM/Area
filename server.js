@@ -57,12 +57,11 @@ app.post('/users/signup', async (req, res) => {
             }
             console.log(results.rows);
 
-            if (results.row.length > 0) {
+            if (results.rows.length > 0) {
                 errors.push({message: "Email already exist"})
                 //res.render('signup', { errors })
             }
-            }
-        )
+        });
     }
 });
 
