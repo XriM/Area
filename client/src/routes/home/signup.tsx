@@ -12,25 +12,8 @@ function ShowSignup() {
 
   const [actualEmail, setEmail] = useState<string>("");
   const [actualPasswd, setPasswd] = useState<string>("");
-  const input_user: UserResponse = { id: "", email: "", password: "" };
-
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = async (event: { currentTarget: any; preventDefault: () => void; stopPropagation: () => void; }) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-    const result = await signup(actualEmail, actualPasswd);
-    if (result === true) {
-      handleClose();
-      setEmail("");
-      setPasswd("");
-    }
-  };
+  const [actualUsername, setUsername] = useState<string>("");
+  const input_user: UserResponse = { id: "", email: "", password: "", username: "" };
 
   return (
     <>
@@ -38,7 +21,7 @@ function ShowSignup() {
         Signup
       </Button>
 
-      <Modal show={show} onHide={handleClose} noValidate validated={validated} onSubmit={handleSubmit}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Signup</Modal.Title>
         </Modal.Header>
@@ -51,7 +34,6 @@ function ShowSignup() {
                 className="mb-3"
               >
               <Form.Control
-                required
                 type="text"
                 value={actualEmail}
                 onChange={(e) => {
@@ -59,9 +41,22 @@ function ShowSignup() {
                   setEmail(e.target.value);
                 }}
               />
-              <Form.Control.Feedback type="invalid">
-                Please provide a valid email.
-              </Form.Control.Feedback>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Username"
+                className="mb-3"
+              >
+              <Form.Control
+                type="text"
+                value={actualUsername}
+                onChange={(e) => {
+                  input_user.username = e.target.value;
+                  setUsername(e.target.value);
+                }}
+              />
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -71,7 +66,6 @@ function ShowSignup() {
                 className="mb-3"
               >
               <Form.Control
-                required
                 type="password"
                 value={actualPasswd}
                 onChange={(e) => {
@@ -86,7 +80,14 @@ function ShowSignup() {
             </Form.Group>
             <Button
             variant="primary"
-            type="submit"
+            onClick = {async () => {
+              const result = await signup(actualEmail, actualPasswd, actualUsername);
+              if (result === true) {
+                handleClose();
+                setEmail("");
+                setPasswd("");
+              }
+            }}
             >
               Signup
             </Button>

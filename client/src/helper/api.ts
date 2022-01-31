@@ -5,7 +5,7 @@ import { User, Area, UserResponse } from './types';
 // set axios params
 
 axios.defaults.withCredentials = true;
-const url = "http://localhost:8000/";
+const url = "http://localhost:8000";
 
 function getError(error : any) {
   if (error.response) {
@@ -37,10 +37,11 @@ export async function ping() {
 
 // user management
 
-export async function signup(email: string, password: string) {
+export async function signup(email: string, password: string, username: string) {
   const params : User = {
     email: email,
     password: password,
+    username : username,
   };
   let signup = false;
 
@@ -49,8 +50,8 @@ export async function signup(email: string, password: string) {
     .then((res) => {
       console.log(res);
       alert(
-        "Your signup has been taken into account with email " +
-          res.data.email +
+        "Your signup has been taken into account " +
+          res.data.username +
           ". Please signin now."
       );
       signup = true;
@@ -62,18 +63,19 @@ export async function signup(email: string, password: string) {
 }
 
 export async function signin(email: string, password: string) {
-  const params : User = {
+  const params : { email: string, password: string } = {
     email: email,
     password: password,
   };
   let id = "";
+  let username = "";
 
   await axios
     .post(url + "/users/signin", params)
     .then((res) => {
       console.log(res);
       id = res.data.id;
-      alert("Signed in ! Welcome back " + res.data.email);
+      alert("Signed in ! Welcome back " + res.data.username);
     })
     .catch((error) => {
       getError(error);
@@ -144,7 +146,7 @@ export async function getUsers() {
 }
 
 export async function getUser(id : string) {
-  let user : UserResponse = { id : "", email : "", password : "" };
+  let user : UserResponse = { id : "", email : "", password : "", username: "" };
 
   await axios
     .get(url + "/users/" + id)

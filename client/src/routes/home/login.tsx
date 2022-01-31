@@ -12,31 +12,10 @@ function ShowLogin() {
   const [show, setShow] = useState<boolean>(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [successAlert, setShowAlert] = useState<boolean>(false);
 
   const [actualEmail, setEmail] = useState<string>("");
   const [actualPasswd, setPasswd] = useState<string>("");
-  const input_user: UserResponse = { id: "", email: "", password: ""};
-
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = async (event: { currentTarget: any; preventDefault: () => void; stopPropagation: () => void; }) => {
-    setShowAlert(true);
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-    const result = await signin(actualEmail, actualPasswd);
-    if (result !== "") {
-      handleClose();
-      setEmail("");
-      setPasswd("");
-      navigate("/profile");
-    }
-  };
+  const input_user: UserResponse = { id: "", email: "", password: "", username: ""};
 
   return (
     <>
@@ -48,7 +27,7 @@ function ShowLogin() {
         Signin
       </Button>
 
-      <Modal show={show} onHide={handleClose} noValidate validated={validated} onSubmit={handleSubmit}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Signin</Modal.Title>
         </Modal.Header>
@@ -92,7 +71,15 @@ function ShowLogin() {
             </Form.Group>
             <Button
               variant="primary"
-              type="submit"
+              onClick={ async () => {
+                const result = await signin(actualEmail, actualPasswd);
+                if (result !== "") {
+                  handleClose();
+                  setEmail("");
+                  setPasswd("");
+                  navigate("/profile");
+                }
+              }}
             >
               Signin
             </Button>
