@@ -21,8 +21,8 @@ class NavDrawer extends StatelessWidget {
               ),
               Wrap(
                 direction: Axis.vertical,
-                spacing: 0, // to apply margin in the main axis of the wrap
-                runSpacing: 0, // to apply margin in the cross axis of the wrap
+                spacing: 0,
+                runSpacing: 0,
                 children: [
                   const Text(
                     'UserName',

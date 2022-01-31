@@ -12,11 +12,11 @@ class widgets extends StatelessWidget {
           width: 150.0,
           color: Colors.transparent,
           child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.lightBlue,
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              child: new Center(
-                child: new Text(
+              child: const Center(
+                child: Text(
                   "TEST",
                   style: TextStyle(fontSize: 22, color: Colors.white),
                   textAlign: TextAlign.center,
