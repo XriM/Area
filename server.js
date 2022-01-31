@@ -51,22 +51,18 @@ app.post('/users/signup', async (req, res) => {
         let hashedPassword = await bcrypt.hash(password, 10);
         console.log(hashedPassword)
 
-         pool.query(
-             `SELECT * FROM user_table
-             WHERE email = $1`,
-             [email],
-             (err, results) => {
-                 if (err) {
-                     throw err;
-                 }
-                 console.log(results.rows);
+        pool.query(`SELECT * FROM users WHERE email = $1`, [email], (err, results) => {
+            if (err) {
+                throw err;
+            }
+            console.log(results.rows);
 
-                 if (results.row.length > 0) {
-                     errors.push({message: "Email already exist"})
-                     //res.render('signup', { errors })
-                 }
-             }
-         )
+            if (results.row.length > 0) {
+                errors.push({message: "Email already exist"})
+                //res.render('signup', { errors })
+            }
+            }
+        )
     }
 });
 
