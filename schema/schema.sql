@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users(
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     password VARCHAR,
     email VARCHAR NOT NULL,
     username VARCHAR NOT NULL,
@@ -7,25 +7,25 @@ CREATE TABLE IF NOT EXISTS users(
 );
 
 CREATE TABLE actions (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     name VARCHAR NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE reactions (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     name VARCHAR NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE services (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     NAME VARCHAR NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE areas (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     action_id INT NOT NULL,
     reaction_id INT NOT NULL,
     PRIMARY KEY (id),
@@ -34,7 +34,7 @@ CREATE TABLE areas (
 );
 
 CREATE TABLE IF NOT EXISTS user_service (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     user_id INT NOT NULL,
     service_id INT NOT NULL,
     token VARCHAR,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS user_service (
 );
 
 CREATE TABLE user_area (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     user_id INT NOT NULL,
     area_id INT NOT NULL,
     PRIMARY KEY (id),
@@ -53,7 +53,7 @@ CREATE TABLE user_area (
 );
 
 CREATE TABLE service_reaction (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     service_id INT NULL,
     reaction_id INT NOT NULL,
     PRIMARY KEY (id),
@@ -62,7 +62,7 @@ CREATE TABLE service_reaction (
 );
 
 CREATE TABLE service_action (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     service_id INT NOT NULL,
     action_id INT NOT NULL,
     PRIMARY KEY (id),

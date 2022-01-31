@@ -1,8 +1,9 @@
-import bcrypt = require('bcrypt');
-import token = require('./token');
-import * as pool from '../dbConfig';
+const bcrypt = require('bcrypt')
+const token = require('./token')
+const { pool } = require('../dbConfig')
 
-async function login(req, res) {
+exports.login = async(req, res) => {
+    req.body = JSON.parse(JSON.stringify(req.body));
     let email = '';
     let password = '';
     if (req.body.hasOwnProperty('email') && req.body.hasOwnProperty('password')) {
@@ -13,14 +14,11 @@ async function login(req, res) {
     }
     let username = '';
     let hash = '';
-    pool.pool.query(`SELECT * FROM user_table WHERE email = $1`, [email], (err, results) => {
-        if (err) {
-            throw err;
-        }
-        username = results.rows[0].username;
-        hash = results.rows[0].password;
-    });
+    user = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    username = user.rows[0].username;
+    hash = user.rows[0].password;
     let newToken = '';
+    console.log(username);
     if (!username) {
         return res.status(400).send({ message: "Email doesn't exists!" });
     } else if (!await bcrypt.compare(password, hash)) {
@@ -30,5 +28,3 @@ async function login(req, res) {
         return res.status(200).send({ token: newToken, message: 'Successfully logged in!' });
     }
 }
-
-export = login;

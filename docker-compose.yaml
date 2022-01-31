@@ -1,7 +1,9 @@
 version: '3'
 
+
 services:
   app:
+    restart: always
     build: .
     depends_on:
       - db
@@ -13,7 +15,6 @@ services:
       - PORT=$PORT
       - MODE=$MODE
       - DB_URL=postgresql://root:dbpass@db:5432/area
-
   # client:
   #   networks:
   #     - frontend
@@ -33,6 +34,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=dbpass
       - POSTGRES_DB=area
+    ports:
+      - "5432:5432"
     networks:
       - backend
     volumes:
