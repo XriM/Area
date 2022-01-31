@@ -9,6 +9,4 @@ COPY . .
 
 EXPOSE $PORT
 
-EXPOSE 5432
-
-# CMD ["npm", "start"]
+CMD ["npm", "start"]

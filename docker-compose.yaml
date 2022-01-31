@@ -34,8 +34,6 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=dbpass
       - POSTGRES_DB=area
-    ports:
-      - "5432:5432"
     networks:
       - backend
     volumes:

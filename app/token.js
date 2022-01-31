@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 exports.generateAccessToken = (username) => {
-    return jwt.sign({ user: username }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ username: username }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
 }
 
 exports.authenticateToken = (req, res, next) => {
@@ -14,11 +14,11 @@ exports.authenticateToken = (req, res, next) => {
     if (token == null) return res.status(401).send({ message: 'You need to signin to an account!' });
 
     jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-        console.log(err);
+        console.log(user);
         if (err) {
             return res.status(498).send({ message: 'Invalid token!' });
         }
         req.user = user;
         next()
-    })
+    });
 };
