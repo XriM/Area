@@ -4,7 +4,7 @@
 const express = require('express');
 
 // Constants
-const PORT = 3000;
+const PORT = 8000;
 const HOST = '0.0.0.0';
 const { pool } = require("./dbConfig")
 const bcrypt = require('bcrypt')
@@ -20,6 +20,10 @@ app.get('/users/signup', (req, res) => {
     res.render('signup')
     console.log("ICI:")
     console.log(process.env.DB_NAME)
+    console.log("ICI 2:")
+    console.log(process.env.HOST)
+    console.log("ICI,3:")
+    console.log(process.env.PORT)
 });
 
 app.post('/users/signup', async (req, res) => {
@@ -47,22 +51,22 @@ app.post('/users/signup', async (req, res) => {
         let hashedPassword = await bcrypt.hash(password, 10);
         console.log(hashedPassword)
 
-        pool.query(
-            `SELECT * FROM user_table
-            WHERE email = $1`,
-            [email],
-            (err, results) => {
-                if (err) {
-                    throw err;
-                }
-                console.log(results.rows);
+        // pool.query(
+        //     `SELECT * FROM user_table
+        //     WHERE email = $1`,
+        //     [email],
+        //     (err, results) => {
+        //         if (err) {
+        //             throw err;
+        //         }
+        //         console.log(results.rows);
 
-                if (results.row.length > 0) {
-                    errors.push({message: "Email already exist"})
-                    res.render('signup', { errors })
-                }
-            }
-        )
+        //         if (results.row.length > 0) {
+        //             errors.push({message: "Email already exist"})
+        //             res.render('signup', { errors })
+        //         }
+        //     }
+        // )
     }
 });
 
