@@ -20,7 +20,7 @@ CREATE TABLE reactions (
 
 CREATE TABLE services (
     id SERIAL NOT NULL,
-    NAME VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
     PRIMARY KEY (id)
 );
 
