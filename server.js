@@ -1,11 +1,10 @@
 const { login } = require('./app/login')
 const { authenticateToken } = require('./app/token')
-const { userServices } = require('./app/services')
+const { getUserServices, getUserService, postUserService } = require('./app/services')
 const { signup } = require('./app/signup')
 const { usersGet } = require('./app/users')
 const { userGet } = require('./app/users')
-const { userLogout } = require('./app/users')
-const { userPatch } = require('./app/users')
+xconst { userPatch } = require('./app/users')
 const { userDelete } = require('./app/users')
 
 const express = require('express');
@@ -28,15 +27,16 @@ app.get('/users/signup', (req, res) => {
 });
 
 app.get('/users', authenticateToken, usersGet);
-app.get('/users/:id', authenticateToken, userGet);
-app.post('/users/:username/logout', userLogout);
-app.patch('/users/:username', userPatch);
-app.delete('/users/:username', userDelete);
+app.get('/users/:username', authenticateToken, userGet);
+app.patch('/users/:username', authenticateToken, userPatch);
+app.delete('/users/:username', authenticateToken, userDelete);
 
 app.post('/users/signup', signup);
 app.post('/users/login', login);
 
-app.get('/users/:username/services', authenticateToken, userServices);
+app.get('/users/:username/services', authenticateToken, getUserServices);
+app.get('/users/:username/services/:service_id', authenticateToken, getUserService);
+app.post('/users/:username/services/:service_id', authenticateToken, postUserService);
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);

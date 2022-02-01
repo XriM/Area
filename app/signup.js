@@ -29,8 +29,8 @@ exports.signup = async(req, res) => {
                 }
                 console.log(results.rows);
                 if (results.rows.length > 0) {
-                    return res.render("signup", {
-                        message: "Email already registered"
+                    return res.status(400).render("signup", {
+                        message: "Email address already in use!"
                     });
                 } else {
                     pool.query(
@@ -42,7 +42,7 @@ exports.signup = async(req, res) => {
                                 throw err;
                             }
                             console.log(results.rows);
-                            res.send("You are now registered. Please log in");
+                            res.status(200).send({ message: "Account created!" });
                         }
                     );
                 }
