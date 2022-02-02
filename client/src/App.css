@@ -19,6 +19,21 @@ body {
   overflow-x: hidden;
 }
 
+.body__style {
+  background: url("https://coolbackgrounds.io/images/backgrounds/index/aqua-d9b59c89.png") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -41,15 +56,6 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
-
-.body__style {
-  background: url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-    no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
 
 .alert-fixed {
@@ -210,4 +216,34 @@ body {
       border-radius: 50%;
   }
 
+}
+
+/* profile */
+
+.profile__content {
+  text-align: center;
+  position: absolute;
+  left: 10%;
+  top: 11%;
+}
+
+.profile__card {
+  box-shadow: 0 3px 5px 0 rgba(0,0,0,.3), 0 3px 5px 0 rgba(0,0,0,.3);
+}
+
+.profile__services {
+  position: absolute;
+  top: 15%;
+}
+
+.row__services {
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  margin-top: 10px;
+  vertical-align: middle;
+}
+
+/* triggers */
+
+.trigger__card {
+  margin: 10px;
 }
