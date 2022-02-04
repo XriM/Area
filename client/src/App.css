@@ -123,7 +123,6 @@ body {
   background: rgba(255, 255, 255, 0.2);
   animation: animate 25s linear infinite;
   bottom: -150px;
-  
 }
 
 .circles li:nth-child(1){
@@ -245,5 +244,17 @@ body {
 /* triggers */
 
 .trigger__card {
+  margin: 10px;
+}
+
+/* create */
+
+.create__action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: lightskyblue;
+  min-height: 5ch;
   margin: 10px;
 }

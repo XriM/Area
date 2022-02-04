@@ -21,9 +21,6 @@ function NavbarHome() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
           </Nav>
-          <Faq />
-          <Contact />
-          <ServerTest />
         </Navbar.Collapse>
       </Container>
     </Navbar>

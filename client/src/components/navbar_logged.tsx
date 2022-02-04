@@ -38,7 +38,7 @@ function MyWidgets() {
       <Button
         variant="light"
         className=""
-        onClick = { () => {navigate("/my-widgets")}}
+        onClick = { () => {navigate("/triggers")}}
         style={{ borderBlockColor: 'black', marginRight: 30 }}
       >
         My triggers

@@ -61,7 +61,7 @@ function Body() {
       <Col>
       <div className="profile__content">
         <Card className="profile__card" style={{ width: '22rem' }}>
-          <Card.Img variant="top" src="https://icon-library.com/images/cool-profile-icon/cool-profile-icon-2.jpg" />
+          <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStfWoLPMXPJcl0FevoQekopVsL_Uh_SKiJjg&usqp=CAU" />
           <Card.Body>
             <Card.Title>{Username}</Card.Title>
             <Card.Text>
