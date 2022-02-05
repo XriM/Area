@@ -15,7 +15,7 @@ function NavbarLogged() {
     <>
     <Navbar bg="light" expand="lg">
       <Container>
-      <Navbar.Brand href="/">AREA</Navbar.Brand>
+      <Navbar.Brand href="/" className="principal__color" style={{fontWeight: "bold"}}>AREA</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -37,9 +37,9 @@ function MyWidgets() {
     <>
       <Button
         variant="light"
-        className=""
+        className="secondary__btn__color"
         onClick = { () => {navigate("/triggers")}}
-        style={{ borderBlockColor: 'black', marginRight: 30 }}
+        style={{ marginRight: 30 }}
       >
         My triggers
       </Button>
@@ -54,9 +54,9 @@ function CreateTrigger() {
     <>
       <Button
         variant="light"
-        className=""
+        className="secondary__btn__color"
         onClick = { () => {navigate("/create")}}
-        style={{ borderBlockColor: 'black', marginRight: 30 }}
+        style={{ marginRight: 30 }}
       >
         Create
       </Button>
@@ -68,7 +68,7 @@ function Profile() {
   let navigate = useNavigate();
 
   return (
-    <Button variant="outline-dark" onClick={() => { navigate('/profile') }}><FontAwesomeIcon icon={faUser} style={{color: 'black'}}/></Button>
+    <Button variant="dark" className="secondary__btn__color" onClick={() => { navigate('/profile') }}><FontAwesomeIcon icon={faUser} style={{color: 'white'}}/></Button>
   );
 }
 

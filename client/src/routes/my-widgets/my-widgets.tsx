@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
 
 import { UserResponse, User } from "../../helper/types";
 import { deleteArea, getArea, getAreas, NavbarLogged } from "..";
@@ -35,7 +36,7 @@ export default function MyWidgets() {
 }
 
 function Body() {
-  const [Name, setName] = useState<string>("Tell me when my friend is logged on steam");
+  const [Name, setName] = useState<string>("Area X");
   const [ActionName, setActionName] = useState<string>("Steam");
   const [radioValue, setRadioValue] = useState('1');
   const radios = [
@@ -60,6 +61,7 @@ function Body() {
             arrReactions.push(result[i].reactionName[j]);
           }
           setReactionNames(arrReactions);
+          var checkbox = "checkbox" + i;
           arrTriggers.push(
             <div key={result[i].id} className="trigger__card">
               <Card className="profile__card" style={{ width: '30rem' }}>
@@ -82,25 +84,13 @@ function Body() {
                 <Card.Footer>
                   <small className="text-muted">
                     <Row><Col md={10} style={{marginTop: 5}}>
-                    <ButtonGroup>
-                      {radios.map((radio, idx) => (
-                        <ToggleButton
-                          key={idx}
-                          id={`radio-${idx}`}
-                          type="radio"
-                          variant={idx % 2 ? 'outline-danger' : 'outline-primary'}
-                          name="radio"
-                          value={radio.value}
-                          checked={radioValue === radio.value}
-                          onChange={(e) => setRadioValue(e.currentTarget.value)}
-                        >
-                          {radio.name}
-                        </ToggleButton>
-                      ))}
-                    </ButtonGroup>
+                    <CheckBoxWrapper>
+                      <CheckBox id={checkbox} type="checkbox" />
+                      <CheckBoxLabel htmlFor={checkbox} />
+                    </CheckBoxWrapper>
                     </Col>
                     <Col md={1} style={{marginTop: 5}}>
-                    <Button variant="danger" onClick={ async () => {
+                    <Button variant="danger" className="secondary__btn__color" onClick={ async () => {
                       const result = await deleteArea("");
                       if (result === 0) {
                         window.location.reload();
@@ -127,9 +117,9 @@ function Body() {
     <div className="trigger__card">
       <Card className="profile__card" style={{ width: '30rem' }}>
         <Card.Body>
-          <Card.Title style={{ textAlign: 'center' }}>{Name}</Card.Title>
-          <br/>
+        <Card.Title style={{ textAlign: 'center' }}>{Name}</Card.Title>
           <Card.Text>
+            <br/>
             <Row>
               <Col>
                 <p><a style={{ fontWeight: 'bold' }}>Action:</a> {ActionName}</p>
@@ -146,25 +136,13 @@ function Body() {
         <small className="text-muted">
           <Row>
             <Col md={10} style={{marginTop: 5}}>
-              <ButtonGroup>
-                {radios.map((radio, idx) => (
-                  <ToggleButton
-                    key={idx}
-                    id={`radio-${idx}`}
-                    type="radio"
-                    variant={idx % 2 ? 'outline-danger' : 'outline-primary'}
-                    name="radio"
-                    value={radio.value}
-                    checked={radioValue === radio.value}
-                    onChange={(e) => setRadioValue(e.currentTarget.value)}
-                  >
-                    {radio.name}
-                  </ToggleButton>
-                ))}
-              </ButtonGroup>
+              <CheckBoxWrapper>
+                <CheckBox id="checkbox" type="checkbox" />
+                <CheckBoxLabel htmlFor="checkbox" />
+              </CheckBoxWrapper>
             </Col>
-            <Col md={1} style={{marginTop: 5}}>
-              <Button variant="danger" onClick={ async () => {
+            <Col md={1}>
+              <Button variant="danger" className="secondary__btn__color" onClick={ async () => {
                 const result = await deleteArea("");
                 if (result === 0) {
                   window.location.reload();
@@ -196,26 +174,15 @@ function Body() {
         </Card.Body>
         <Card.Footer>
         <small className="text-muted">
-          <Row><Col md={10} style={{marginTop: 5}}>
-          <ButtonGroup>
-            {radios.map((radio, idx) => (
-              <ToggleButton
-                key={idx}
-                id={`radio-${idx}`}
-                type="radio"
-                variant={idx % 2 ? 'outline-danger' : 'outline-primary'}
-                name="radio"
-                value={radio.value}
-                checked={radioValue === radio.value}
-                onChange={(e) => setRadioValue(e.currentTarget.value)}
-              >
-                {radio.name}
-              </ToggleButton>
-            ))}
-          </ButtonGroup>
+          <Row>
+            <Col md={10} style={{marginTop: 5}}>
+            <CheckBoxWrapper>
+              <CheckBox id="checkbox1" type="checkbox" />
+              <CheckBoxLabel htmlFor="checkbox1" />
+            </CheckBoxWrapper>
           </Col>
-          <Col md={1} style={{marginTop: 5}}>
-          <Button variant="danger" onClick={ async () => {
+          <Col md={1}>
+          <Button variant="danger" className="secondary__btn__color" onClick={ async () => {
             const result = await deleteArea("");
             if (result === 0) {
               window.location.reload();
@@ -234,3 +201,47 @@ function Body() {
     </>
   );
 }
+
+const CheckBoxWrapper = styled.div`
+  position: relative;
+`;
+const CheckBoxLabel = styled.label`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 26px;
+  border-radius: 15px;
+  background: #bebebe;
+  cursor: pointer;
+  &::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin: 3px;
+    background: #ffffff;
+    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    transition: 0.2s;
+  }
+`;
+const CheckBox = styled.input`
+  opacity: 0;
+  z-index: 1;
+  border-radius: 15px;
+  width: 42px;
+  height: 26px;
+  &:checked + ${CheckBoxLabel} {
+    background: #4fbe79;
+    &::after {
+      content: "";
+      display: block;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      margin-left: 21px;
+      transition: 0.2s;
+    }
+  }
+`;

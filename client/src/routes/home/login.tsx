@@ -20,8 +20,8 @@ function ShowLogin() {
   return (
     <>
       <Button
-        variant="outline-light"
-        className="loginButton"
+        variant="light"
+        className="secondary__btn__color"
         onClick={handleShow}
       >
         Signin
@@ -71,6 +71,7 @@ function ShowLogin() {
             </Form.Group>
             <Button
               variant="primary"
+              className="principal__btn__color"
               onClick={ async () => {
                 const result = await signin(actualEmail, actualPasswd);
                 if (result !== "") {
@@ -82,6 +83,11 @@ function ShowLogin() {
               }}
             >
               Signin
+            </Button>
+            <Button
+            variant="primary" style={{marginLeft: 5}} className="principal__cancel__color"
+            onClick={handleClose}>
+              Cancel
             </Button>
           </Form>
         </Modal.Body>
