@@ -24,6 +24,7 @@ CREATE TABLE areas (
     id SERIAL PRIMARY KEY,
     action_id INT NOT NULL,
     reaction_id INT NOT NULL,
+    area_name VARCHAR NOT NULL,
     FOREIGN KEY (action_id) REFERENCES actions(id),
     FOREIGN KEY (reaction_id) REFERENCES reactions(id)
 );

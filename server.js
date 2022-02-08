@@ -8,6 +8,7 @@ const { userPatch } = require('./app/users')
 const { userDelete } = require('./app/users')
 const { getReactions, getReaction } = require('./app/reactions')
 const { getActions, getAction } = require('./app/actions')
+const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
 
 const express = require('express');
 
@@ -41,10 +42,16 @@ app.get('/users/:username/services/:service_id', authenticateToken, getUserServi
 app.post('/users/:username/services/:service_id', authenticateToken, postUserService);
 
 app.get('/users/:username/reactions', authenticateToken, getReactions);
-app.get('/users/:username/reactions/:reactions_id', authenticateToken, getReaction);
+app.get('/users/:username/reactions/:reaction_id', authenticateToken, getReaction);
 
 app.get('/users/:username/actions', authenticateToken, getActions);
-app.get('/users/:username/actions/:actions_id', authenticateToken, getAction);
+app.get('/users/:username/actions/:action_id', authenticateToken, getAction);
+
+app.get('/users/:username/areas', authenticateToken, getAreas);
+app.get('/users/:username/areas/:area_id', authenticateToken, getArea);
+app.post('/users/:username/areas', authenticateToken, postArea);
+app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea);
+app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea);   
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
