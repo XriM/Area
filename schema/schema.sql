@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS user_service (
     user_id INT NOT NULL,
     service_id INT NOT NULL,
     token VARCHAR,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (service_id) REFERENCES services(id)
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_service FOREIGN KEY (service_id) REFERENCES services(id)
 );
 
 CREATE TABLE user_area (

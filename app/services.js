@@ -48,7 +48,7 @@ exports.getUserService = async(req, res) => {
 }
 
 const add_user_service_without_token = `INSERT INTO user_service (user_id, service_id) VALUES ($1, $2) RETURNING (user_id, service_id)`;
-const add_user_service_with_token = `INSERT INTO user_service (user_id, service_id, token) VALUES ($1, $2) RETURNING (user_id, service_id, token)`;
+const add_user_service_with_token = `INSERT INTO user_service (user_id, service_id, token) VALUES ($1, $2, $3) RETURNING (user_id, service_id, token)`;
 
 async function addServiceToUser(user_id, service_id, token) {
     let result;
@@ -66,11 +66,31 @@ exports.postUserService = async(req, res) => {
     if (req.user.username != req.params.username) {
         return res.status(498).send({ message: "Invalid token!" });
     }
+
     user_id = await pool.query(`SELECT id FROM users WHERE username = $1`, [req.user.username]);
-    if (req.body.hasOwnProperty('token')) {
-        result = await addServiceToUser(user_id.rows[0].id, req.params.id, null);
-    } else {
-        result = await addServiceToUser(user_id.rows[0].id, req.params.id, req.body.token);
+    service_id = await pool.query(`SELECT id FROM services WHERE id = $1`, [parseInt(req.params.service_id)]);
+    if (service_id == []) {
+        return res.status(400).send({ message: "No service with this id" });
     }
-    res.status(200).send("Service token successfully loaded");
+    if (req.body.hasOwnProperty('token')) {
+        result = await addServiceToUser(user_id.rows[0].id, service_id.rows[0].id, null);
+    } else {
+        result = await addServiceToUser(user_id.rows[0].id, service_id.rows[0].id, req.body.token);
+    }
+    res.status(200).send({ message: "Service token successfully loaded" });
+}
+
+exports.deleteUserService = async(req, res) => {
+    req.body = JSON.parse(JSON.stringify(req.body));
+    if (req.user.username != req.params.username) {
+        return res.status(498).send({ message: "Invalid token!" });
+    }
+
+    user_id = await pool.query(`SELECT id FROM users WHERE username = $1`);
+    service_id = await pool.query(`SELECT id FROM services WHERE id = $1`, [parseInt(req.params.service_id)]);
+    if (service_id == []) {
+        return res.status(400).send({ message: "No service with this id" });
+    }
+    result = await pool.query(`DELETE FROM user_service WHERE user_id = $1 AND service_id = $2`, [user_id.rows[0].id, service_id.rows[0].id]);
+    return res.status(200).send({message: 'No longer connected to service'});
 }
