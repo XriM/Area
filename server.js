@@ -9,7 +9,9 @@ const { userDelete } = require('./app/users')
 const { getReactions, getReaction } = require('./app/reactions')
 const { getActions, getAction } = require('./app/actions')
 const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
-
+const { ip } = require('./ip')
+//const publicIp = require('public-ip')
+//import publicIp from 'public-ip';
 const express = require('express');
 
 // Constants
@@ -20,6 +22,9 @@ const bcrypt = require("bcrypt");
 
 // App
 const app = express();
+
+console.log("IP:    ");
+console.log(ip);
 
 app.use(express.urlencoded({ extended: false }))
 app.set("view engine", "ejs")
