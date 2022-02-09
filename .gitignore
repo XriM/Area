@@ -6,3 +6,8 @@ yarn.lock
 npm-debug.log*
 .DS_Store
 .vscode
+flutter_docker/workspace/build
+flutter_docker/workspace/dart/
+flutter_docker/workspace/packages
+flutter_docker/workspace/pubspec.lock
+flutter_docker/workspace/dart_tool/
