@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'routes/first_screen.dart';
 import 'routes/second_screen.dart';
 import 'routes/third_screen.dart';
+import 'routes/loginPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: ''),
     );
   }
 }
@@ -34,13 +37,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 enum ScreenType {
+  loginPage,
   firstScreen,
   secondScreen,
   thirdScreen,
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ScreenType _screenType = ScreenType.firstScreen;
+  ScreenType _screenType = ScreenType.loginPage;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -139,6 +143,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onTap: () => onTabTapped(ScreenType.thirdScreen),
             ),
+            ListTile(
+              leading: const Icon(
+                Icons.account_box_rounded,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'test',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onTap: () => onTabTapped(ScreenType.loginPage),
+            ),
           ],
         ),
       ),
@@ -154,6 +169,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return const SecondScreen();
       case ScreenType.thirdScreen:
         return const ThirdScreen();
+      case ScreenType.loginPage:
+        return const LoginPage();
     }
   }
 
@@ -175,60 +192,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return "AREA | Create";
       case ScreenType.thirdScreen:
         return "AREA | Profile";
+      case ScreenType.loginPage:
+        return "";
     }
   }
 }
-
-
-
-
-
-
-
-
-
-// import 'package:area_app/widgets.dart';
-// import 'package:flutter/material.dart';
-// import 'sideBar.dart';
-
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: MyHomePage(),
-//     );
-//   }
-// }
-
-// class MyHomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           centerTitle: false,
-//           iconTheme: IconThemeData(color: Color(0xff333333)),
-//           backgroundColor: Colors.white,
-//           elevation: 0,
-//           bottom: PreferredSize(
-//               child: Container(
-//                 color: Color(0xff333333),
-//                 height: 4.0,
-//                 width: 350,
-//               ),
-//               preferredSize: Size.fromHeight(10.0)),
-//           title: Text(
-//             'AREA',
-//             style: TextStyle(color: Color(0xff333333)),
-//           ),
-//         ),
-//         endDrawer: NavDrawer(),
-//         body: widgets());
-//   }
-// }

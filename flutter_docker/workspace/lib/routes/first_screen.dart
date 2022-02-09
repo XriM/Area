@@ -25,19 +25,19 @@ class FirstScreen extends StatelessWidget {
                     // alignment: WrapAlignment.spaceBetween,
 
                     children: [
-                      Text(" "),
-                      SizedBox(
+                      const Text(" "),
+                      const SizedBox(
                         height: 25,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 280,
-                        child: const Text(
+                        child: Text(
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ",
                           style: TextStyle(fontSize: 18, color: Colors.white),
                           textAlign: TextAlign.justify,
                         ),
                       ),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       Wrap(
                         alignment: WrapAlignment.spaceEvenly,
                         direction: Axis.horizontal,
@@ -56,7 +56,7 @@ class FirstScreen extends StatelessWidget {
                               text: Text('OFF'),
                             ),
                           ),
-                          SizedBox(width: 50),
+                          const SizedBox(width: 50),
                           IconButton(
                             onPressed: () => {},
                             icon: const Icon(Icons.cancel_rounded),
