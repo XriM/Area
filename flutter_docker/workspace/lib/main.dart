@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:area_app/overlay.dart';
+
+import 'loader.dart';
 import 'routes/first_screen.dart';
 import 'routes/second_screen.dart';
 import 'routes/third_screen.dart';
@@ -17,13 +20,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: ''),
-    );
+        debugShowCheckedModeBanner: false,
+        home: Stack(
+          children: [
+            MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+              ),
+              home: const MyHomePage(title: ''),
+            ),
+            OverlayView(),
+          ],
+        ));
   }
 }
 
@@ -48,8 +58,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  void _incrementCounter() async {
+    Loader.appLoader.showLoader();
+    Loader.appLoader.setText(errorMessage: 'this is custom error message');
+    await Future.delayed(Duration(seconds: 5));
+    // Loader.appLoader.hideLoader();
+  }
+
   @override
   Widget build(BuildContext context) {
+    _incrementCounter();
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -143,17 +161,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onTap: () => onTabTapped(ScreenType.thirdScreen),
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.account_box_rounded,
-                color: Colors.white,
-              ),
-              title: const Text(
-                'test',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onTap: () => onTabTapped(ScreenType.loginPage),
-            ),
+            // ListTile(
+            //   leading: const Icon(
+            //     Icons.account_box_rounded,
+            //     color: Colors.white,
+            //   ),
+            //   title: const Text(
+            //     'test',
+            //     style: TextStyle(color: Colors.white, fontSize: 20),
+            //   ),
+            //   onTap: () => onTabTapped(ScreenType.loginPage),
+            // ),
           ],
         ),
       ),
