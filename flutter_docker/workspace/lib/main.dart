@@ -44,7 +44,7 @@ enum ScreenType {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ScreenType _screenType = ScreenType.loginPage;
+  ScreenType _screenType = ScreenType.firstScreen;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
