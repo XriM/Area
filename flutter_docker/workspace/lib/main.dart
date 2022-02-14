@@ -6,7 +6,6 @@ import 'loader.dart';
 import 'routes/first_screen.dart';
 import 'routes/second_screen.dart';
 import 'routes/third_screen.dart';
-import 'routes/loginPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -47,7 +46,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 enum ScreenType {
-  loginPage,
   firstScreen,
   secondScreen,
   thirdScreen,
@@ -161,17 +159,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onTap: () => onTabTapped(ScreenType.thirdScreen),
             ),
-            // ListTile(
-            //   leading: const Icon(
-            //     Icons.account_box_rounded,
-            //     color: Colors.white,
-            //   ),
-            //   title: const Text(
-            //     'test',
-            //     style: TextStyle(color: Colors.white, fontSize: 20),
-            //   ),
-            //   onTap: () => onTabTapped(ScreenType.loginPage),
-            // ),
           ],
         ),
       ),
@@ -187,8 +174,6 @@ class _MyHomePageState extends State<MyHomePage> {
         return const SecondScreen();
       case ScreenType.thirdScreen:
         return const ThirdScreen();
-      case ScreenType.loginPage:
-        return const LoginPage();
     }
   }
 
@@ -210,8 +195,6 @@ class _MyHomePageState extends State<MyHomePage> {
         return "AREA | Create";
       case ScreenType.thirdScreen:
         return "AREA | Profile";
-      case ScreenType.loginPage:
-        return "";
     }
   }
 }

@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'loader.dart';
 
 class OverlayView extends StatelessWidget {
@@ -8,6 +12,19 @@ class OverlayView extends StatelessWidget {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final RoundedLoadingButtonController _btnController =
+      RoundedLoadingButtonController();
+
+  void _loginExit() async {
+    Timer(Duration(seconds: 3), () async {
+      _btnController.success();
+      print(nameController.text);
+      print(passwordController.text);
+      await Future.delayed(const Duration(seconds: 2), () {
+        Loader.appLoader.hideLoader();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,15 +95,11 @@ class OverlayView extends StatelessWidget {
                 Container(
                     height: 50,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: ElevatedButton(
-                      child: const Text('Login'),
-                      style: ElevatedButton.styleFrom(
-                          primary: const Color(0xff333333)),
-                      onPressed: () {
-                        print(nameController.text);
-                        print(passwordController.text);
-                        Loader.appLoader.hideLoader();
-                      },
+                    child: RoundedLoadingButton(
+                      child:
+                          Text('Login', style: TextStyle(color: Colors.white)),
+                      controller: _btnController,
+                      onPressed: _loginExit,
                     )),
                 Row(
                   children: <Widget>[
