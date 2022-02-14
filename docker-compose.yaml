@@ -3,17 +3,16 @@ version: '3'
 services:
   app:
     restart: always
-    build: .
+    build: ./backend/
     depends_on:
       - db
     ports:
-      - "8000:8000"
+      - "$PORT:$PORT"
     networks:
       - backend
     environment:
       - PORT=$PORT
       - MODE=$MODE
-      - DB_URL=postgresql://root:dbpass@db:5432/area
   # client:
   #   networks:
   #     - frontend
@@ -30,14 +29,14 @@ services:
     image: postgres:alpine
     restart: always
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=dbpass
-      - POSTGRES_DB=area
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_PASS
+      - POSTGRES_DB=$DB_NAME
     networks:
       - backend
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./schema/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./backend/src/schema/schema.sql:/docker-entrypoint-initdb.d/schema.sql
 
 networks:
   backend:

@@ -2,6 +2,7 @@
     "name": "area",
     "version": "1.0.0",
     "scripts": {
+        "start": "nodemon src/server.js",
         "container": "docker-compose up --build"
     },
     "dependencies": {
