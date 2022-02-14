@@ -9,6 +9,7 @@ const { userDelete } = require('./app/users')
 const { getReactions, getReaction } = require('./app/reactions')
 const { getActions, getAction } = require('./app/actions')
 const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
+const { hookHandler } = require('./app/hook')
 const { ip } = require('./ip')
 //const publicIp = require('public-ip')
 //import publicIp from 'public-ip';
@@ -16,7 +17,7 @@ const express = require('express');
 
 // Constants
 const PORT = 8000
-const HOST = '0.0.0.0'
+const HOST = ip;
 const { pool } = require("./dbConfig")
 const bcrypt = require("bcrypt");
 
@@ -56,7 +57,9 @@ app.get('/users/:username/areas', authenticateToken, getAreas);
 app.get('/users/:username/areas/:area_id', authenticateToken, getArea);
 app.post('/users/:username/areas', authenticateToken, postArea);
 app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea);
-app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea);   
+app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea);
+
+app.post('/hooks', hookHandler);
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
