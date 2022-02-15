@@ -28,12 +28,7 @@ console.log('IP:    ')
 console.log(ip)
 
 app.use(express.urlencoded({ extended: false }))
-app.set('view engine', 'ejs')
 app.use(express.json())
-
-app.get('/users/signup', (req, res) => {
-  res.render('signup')
-})
 
 app.get('/users', authenticateToken, usersGet)
 app.get('/users/:username', authenticateToken, userGet)
