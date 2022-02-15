@@ -11,25 +11,30 @@ const { getActions, getAction } = require('./app/actions')
 const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
 const { hookHandler } = require('./app/hook')
 const { ip } = require('./ip')
+const ngrok = require('ngrok')
 // const publicIp = require('public-ip')
 // import publicIp from 'public-ip';
 const express = require('express')
 
 // Constants
 const PORT = 8000
-const HOST = ip
+//const HOST = ip
 const { pool } = require('./dbConfig')
 const bcrypt = require('bcrypt')
 
 // App
 const app = express()
 
-console.log('IP:    ')
-console.log(ip)
+//console.log('IP:    ')
+//console.log(ip)
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> back-end/feature/authentification
 app.get('/users', authenticateToken, usersGet)
 app.get('/users/:username', authenticateToken, userGet)
 app.patch('/users/:username', authenticateToken, userPatch)
@@ -56,5 +61,16 @@ app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
 app.post('/hooks', hookHandler)
 
+const HOST = '0.0.0.0'
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
+
+ngrok.connect({
+  proto : 'http',
+  addr : PORT,
+}, (err, url) => {
+  if (err) {
+      console.error('Error while connecting Ngrok',err);
+      return new Error('Ngrok Failed');
+  }
+});
