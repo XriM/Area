@@ -26,6 +26,7 @@ import {
   updateArea,
   deleteArea
 } from "../helper/api";
+import { Trello } from "../helper/services/trello";
 
 export {
   NavbarHome,
@@ -55,5 +56,7 @@ export {
   getArea,
   createArea,
   updateArea,
-  deleteArea
+  deleteArea,
+
+  Trello
 };

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { UserResponse, User } from "../../helper/types";
-import { NavbarLogged, deleteAccount, signout, getUser } from "..";
+import { NavbarLogged, deleteAccount, signout, getUser, Trello } from "..";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
@@ -126,23 +126,23 @@ function ProfileServices() {
         <Card.Body>
           <Card.Title style={{ textAlign: 'center' }}>My services</Card.Title>
           <Card.Text>
-            {/* <div className="row__services">
+            <div className="row__services">
             <Row>
               <Col md={10}>
-                <a><Image fluid={true} srcSet="https://logo-marque.com/wp-content/uploads/2020/11/Steam-Embleme.png" style={{width: 50}}></Image>Steam</a>
+                <a><Image fluid={true} srcSet="" style={{width: 50}}></Image>Email</a>
               </Col>
               <Col md={1}>
-                <Button><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
+                <Button className="principal__btn__color"><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
               </Col>
             </Row>
-            </div> */}
+            </div>
             <div className="row__services">
             <Row>
               <Col md={10}>
                 <a><Image fluid={true} srcSet="https://logo-marque.com/wp-content/uploads/2021/02/Trello-Embleme.jpg" style={{width: 50}}></Image>Trello</a>
               </Col>
               <Col md={1}>
-                <Button className="principal__btn__color"><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
+                <Trello/>
               </Col>
             </Row>
             </div>
