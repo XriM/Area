@@ -1,5 +1,9 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:area_app/routes/services/cryptoService.dart';
+import 'package:area_app/routes/services/emailService.dart';
+import 'package:area_app/routes/services/meteoService.dart';
+import 'package:area_app/routes/services/steamService.dart';
 import 'package:flutter/material.dart';
 
 class Services extends StatelessWidget {
@@ -29,9 +33,15 @@ class Services extends StatelessWidget {
             child: Column(children: [
           SizedBox(height: 30),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightBlue,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SteamServiceForm()),
+                  );
                 },
                 child: Container(
                     height: 150.0,
@@ -39,7 +49,186 @@ class Services extends StatelessWidget {
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
-                            color: Colors.lightBlue,
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  Icons.gamepad_outlined,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "STEAM",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightGreen,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EmailServiceForm()),
+                  );
+                },
+                child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  Icons.email_outlined,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "EMAIL",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+          ]),
+          SizedBox(height: 50),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MeteoServiceForm()),
+                  );
+                },
+                child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  Icons.wb_sunny_rounded,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "METEO",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.brown,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CryptoServiceForm()),
+                  );
+                },
+                child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  Icons.euro_rounded,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "CRYPTO",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+          ]),
+          SizedBox(height: 50),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SteamServiceForm()),
+                  );
+                },
+                child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                         child: Container(
@@ -66,165 +255,11 @@ class Services extends StatelessWidget {
                             )),
                           ),
                         )))),
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    height: 150.0,
-                    width: 150.0,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.green,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.file_present,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "Google Sheets",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-          ]),
-          SizedBox(height: 50),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    height: 150.0,
-                    width: 150.0,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.blueGrey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.contact_page,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "Google Contacts",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    height: 150.0,
-                    width: 150.0,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.question_answer,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "Google ...",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-          ]),
-          SizedBox(height: 50),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    height: 150.0,
-                    width: 150.0,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.teal,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.contact_page,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "Google Contacts",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
             Opacity(
                 opacity: 0.0,
                 child: Container(
                     height: 150.0,
-                    width: 150.0,
+                    width: 180.0,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(

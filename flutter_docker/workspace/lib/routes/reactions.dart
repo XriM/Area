@@ -1,5 +1,10 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:area_app/routes/reactions/discordReaction.dart';
+import 'package:area_app/routes/reactions/emailReaction.dart';
+import 'package:area_app/routes/reactions/sheetsReaction.dart';
+import 'package:area_app/routes/reactions/trelloReaction.dart';
+import 'package:area_app/routes/reactions/twilioReaction.dart';
 import 'package:flutter/material.dart';
 
 class Reactions extends StatelessWidget {
@@ -29,9 +34,16 @@ class Reactions extends StatelessWidget {
             child: Column(children: [
           SizedBox(height: 30),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightBlue,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TrelloReactionForm()),
+                  );
                 },
                 child: Container(
                     height: 150.0,
@@ -39,7 +51,7 @@ class Reactions extends StatelessWidget {
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
-                            color: Colors.lightBlue,
+                            color: Colors.transparent,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                         child: Container(
@@ -52,13 +64,13 @@ class Reactions extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.mail,
+                                  Icons.announcement_outlined,
                                   color: Colors.white,
                                   size: 60,
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "Gmail",
+                                  "TRELLO",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )
@@ -66,9 +78,16 @@ class Reactions extends StatelessWidget {
                             )),
                           ),
                         )))),
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightGreen,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SheetsReactionForm()),
+                  );
                 },
                 child: Container(
                     height: 150.0,
@@ -76,7 +95,7 @@ class Reactions extends StatelessWidget {
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
-                            color: Colors.green,
+                            color: Colors.transparent,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                         child: Container(
@@ -89,90 +108,13 @@ class Reactions extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.notification_add,
+                                  Icons.file_present,
                                   color: Colors.white,
                                   size: 60,
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "Discord ping",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-          ]),
-          SizedBox(height: 50),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    height: 150.0,
-                    width: 150.0,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.lightGreen,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.message,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "Message",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    height: 150.0,
-                    width: 150.0,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.question_answer,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "Google ...",
+                                  "Google Sheets",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )
@@ -183,9 +125,16 @@ class Reactions extends StatelessWidget {
           ]),
           SizedBox(height: 50),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DiscordReactionForm()),
+                  );
                 },
                 child: Container(
                     height: 150.0,
@@ -193,7 +142,7 @@ class Reactions extends StatelessWidget {
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
-                            color: Colors.brown,
+                            color: Colors.transparent,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                         child: Container(
@@ -206,13 +155,104 @@ class Reactions extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.radar,
+                                  Icons.circle_notifications_outlined,
                                   color: Colors.white,
                                   size: 60,
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "Aucune idée",
+                                  "DISCORD",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.brown,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EmailReactionForm()),
+                  );
+                },
+                child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  Icons.email_rounded,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "EMAIL",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+          ]),
+          SizedBox(height: 50),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TwilioReactionForm()),
+                  );
+                },
+                child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  Icons.message_rounded,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "TWILIO",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )
@@ -224,7 +264,7 @@ class Reactions extends StatelessWidget {
                 opacity: 0.0,
                 child: Container(
                     height: 150.0,
-                    width: 150.0,
+                    width: 180.0,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(

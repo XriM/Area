@@ -1,7 +1,10 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'reactions.dart';
 import 'services.dart';
@@ -14,19 +17,25 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  String? data;
+  String? _if;
+  String? _then;
 
-  void _loadData() async {
-    final _loadedData = await rootBundle.loadString('lib/routes/abo.txt');
+  final RoundedLoadingButtonController _btnController =
+      RoundedLoadingButtonController();
+
+  void loadData() async {
+    final LoadedIf = await rootBundle.loadString('lib/txt/if.txt');
+    final LoadedThen = await rootBundle.loadString('lib/txt/then.txt');
     setState(() {
-      data = _loadedData;
+      _if = LoadedIf;
+      _then = LoadedThen;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _loadData();
+    loadData();
   }
 
   @override
@@ -36,20 +45,23 @@ class _SecondScreenState extends State<SecondScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        InkWell(
-            onTap: () {
+        ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Services()),
               );
             },
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xff333333),
+            ),
             child: Container(
                 height: 60.0,
                 width: 300.0,
                 color: Colors.transparent,
                 child: Container(
                   decoration: const BoxDecoration(
-                      color: Color(0xff333333),
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   child: Container(
                     margin: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -57,7 +69,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         width: 280,
                         child: Center(
                           child: Text(
-                            data ?? 'IF THIS',
+                            _if ?? 'IF THIS',
                             style: TextStyle(fontSize: 28, color: Colors.white),
                             textAlign: TextAlign.justify,
                           ),
@@ -70,58 +82,54 @@ class _SecondScreenState extends State<SecondScreen> {
           size: 50,
         ),
         SizedBox(height: 30),
-        InkWell(
-            onTap: () {
+        ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Reactions()),
               );
             },
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xff8F8F8F),
+            ),
             child: Container(
                 height: 60.0,
                 width: 300.0,
                 color: Colors.transparent,
                 child: Container(
                     decoration: const BoxDecoration(
-                        color: Color(0xff8F8F8F),
+                        color: Colors.transparent,
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     child: Container(
                       margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                      child: const SizedBox(
+                      child: SizedBox(
                         width: 280,
                         child: Center(
                             child: Text(
-                          "THEN THAT",
+                          _then ?? "THEN THAT",
                           style: TextStyle(fontSize: 28, color: Colors.white),
                           textAlign: TextAlign.justify,
                         )),
                       ),
                     )))),
         SizedBox(height: 60),
-        InkWell(
-            onTap: () {
+        RoundedLoadingButton(
+          child: Text(
+            "ADD",
+            style: TextStyle(fontSize: 28, color: Colors.white),
+            textAlign: TextAlign.justify,
+          ),
+          controller: _btnController,
+          color: Color(0xff333333),
+          height: 60,
+          onPressed: () async {
+            Timer(Duration(seconds: 1), () async {
+              _btnController.success();
               print("ADD");
-            },
-            child: Container(
-                height: 60.0,
-                width: 200.0,
-                color: Colors.transparent,
-                child: Container(
-                    decoration: const BoxDecoration(
-                        color: Color(0xff333333),
-                        borderRadius: BorderRadius.all(Radius.circular(50.0))),
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                      child: const SizedBox(
-                        width: 280,
-                        child: Center(
-                            child: Text(
-                          "ADD",
-                          style: TextStyle(fontSize: 28, color: Colors.white),
-                          textAlign: TextAlign.justify,
-                        )),
-                      ),
-                    )))),
+              await Future.delayed(const Duration(seconds: 1), () {});
+            });
+          },
+        ),
         const SizedBox(height: 30),
       ],
     ));
