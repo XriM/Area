@@ -1,4 +1,4 @@
-# area_app
+# workspace
 
 A new Flutter project.
 

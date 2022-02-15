@@ -16,14 +16,11 @@ function NavbarHome() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-      <Navbar.Brand href="/">AREA</Navbar.Brand>
+      <Navbar.Brand href="/" className="principal__color" style={{fontWeight: "bold"}}>AREA</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
           </Nav>
-          <Faq />
-          <Contact />
-          <ServerTest />
         </Navbar.Collapse>
       </Container>
     </Navbar>

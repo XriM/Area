@@ -1,6 +1,6 @@
 {
-    "name": "area_app",
-    "short_name": "area_app",
+    "name": "workspace",
+    "short_name": "workspace",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

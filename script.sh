@@ -1,0 +1,1 @@
+docker-compose --env-file ./backend/.env down --volumes && docker-compose --env-file ./backend/.env up --build

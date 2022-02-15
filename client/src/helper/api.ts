@@ -145,15 +145,18 @@ export async function getUsers() {
   return users;
 }
 
-export async function getUser(id : string) {
+export async function getUser() {
   let user : UserResponse = { id : "", email : "", password : "", username: "" };
 
   await axios
-    .get(url + "/users/" + id)
+    .get(url + "/users/")
     .then((res) => {
       console.log(res);
       user.email = res.data.email;
-      alert("User " + res.data.email + " has been found.");
+      user.password = res.data.password;
+      user.username = res.data.username;
+      user.id = res.data.id;
+      alert("User " + res.data.username + " has been found.");
     })
     .catch((error) => {
       getError(error);
@@ -316,7 +319,7 @@ export async function getReaction(reactionId : string) {
 // areas
 
 export async function getAreas() {
-  let areas : Array<string> = [];
+  let areas : Array<Area> = [];
 
   await axios
     .get(url + "/users/me/areas")
@@ -334,12 +337,13 @@ export async function getAreas() {
 }
 
 export async function getArea(areaId : string) {
-  let area : Area = { name : "", actionName : "", actionConfig : {}, reactionName : "", reactionConfig : {} };
+  let area : Area = { id: "", name : "", actionName : "", actionConfig : {}, reactionName : [""], reactionConfig : [{}] };
 
   await axios
     .get(url + "/users/me/areas" + areaId)
     .then((res) => {
       console.log(res);
+      area.id = res.data.id;
       area.name = res.data.name;
       area.actionName = res.data.actionName;
       area.actionConfig = res.data.actionConfig;
