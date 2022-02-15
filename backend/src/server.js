@@ -31,10 +31,6 @@ const app = express()
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-<<<<<<< HEAD
-=======
-
->>>>>>> back-end/feature/authentification
 app.get('/users', authenticateToken, usersGet)
 app.get('/users/:username', authenticateToken, userGet)
 app.patch('/users/:username', authenticateToken, userPatch)

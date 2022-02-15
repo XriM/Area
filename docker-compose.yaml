@@ -13,17 +13,17 @@ services:
       - PORT=$PORT
       - MODE=$MODE
 
-  client:
-    networks:
-      - frontend
-    build:
-        context: ./client
-    command: npm start
-    volumes:
-      - ./client/:/usr/app
-      - /usr/app/node_modules
-    ports:
-      - "${CLIENT_PORT}:${CLIENT_PORT}"
+  # client:
+  #   networks:
+  #     - frontend
+  #   build:
+  #       context: ./client
+  #   command: npm start
+  #   volumes:
+  #     - ./client/:/usr/app
+  #     - /usr/app/node_modules
+  #   ports:
+  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
 
   db:
     image: postgres:alpine
