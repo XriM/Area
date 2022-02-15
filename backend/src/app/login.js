@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const token = require('./token')
 const { pool } = require('../dbConfig')
+const Cookies = require('cookies')
 
 exports.login = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
@@ -25,6 +26,9 @@ exports.login = async (req, res) => {
     return res.status(400).send({ message: 'Wrong password!' })
   } else {
     newToken = token.generateAccessToken(username)
+    new Cookies(req, res).set('access_token', newToken, {
+      httpOnly: true
+    })
     return res.status(200).send({ token: newToken, message: 'Successfully logged in!' })
   }
 }
