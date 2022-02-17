@@ -10,17 +10,18 @@ const { getReactions, getReaction } = require('./app/reactions')
 const { getActions, getAction } = require('./app/actions')
 const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
 const { hookHandler } = require('./app/hook')
+const { crontabHandler } = require('./app/crontab')
 const { ip } = require('./ip')
-const ngrok = require('ngrok')
-// const publicIp = require('public-ip')
-// import publicIp from 'public-ip';
-const express = require('express')
+const { ngrok } = require('ngrok')
+const { express } = require('express')
+const { env } = require('dotenv').config()
 
 // Constants
-const PORT = 8000
+const PORT = process.env.PORT
+const HOST = process.env.HOST
 //const HOST = ip
 const { pool } = require('./dbConfig')
-const bcrypt = require('bcrypt')
+const { bcrypt } = require('bcrypt')
 
 // App
 const app = express()
@@ -56,8 +57,8 @@ app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
 app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
 app.post('/hooks', hookHandler)
+app.post('/crontab', crontabHandler)
 
-const HOST = '0.0.0.0'
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
 
