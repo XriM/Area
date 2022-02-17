@@ -50,9 +50,7 @@ export async function signup(email: string, password: string, username: string) 
     .then((res) => {
       console.log(res);
       alert(
-        "Your signup has been taken into account " +
-          res.data.username +
-          ". Please signin now."
+        res.data.message
       );
       signup = true;
     })
@@ -75,7 +73,9 @@ export async function signin(email: string, password: string) {
     .then((res) => {
       console.log(res);
       id = res.data.id;
-      alert("Signed in ! Welcome back " + res.data.username);
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -91,7 +91,9 @@ export async function updateUser(id : string, email : string) {
     .then((res) => {
       console.log(res);
       new_email = res.data.email;
-      alert("User " + email + " has been updated with email " + new_email);
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -104,7 +106,9 @@ export async function signout() {
     .post(url + "/users/me/signout")
     .then((res) => {
       console.log(res);
-      alert("Successfully signed out.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -117,7 +121,9 @@ export async function deleteAccount() {
     .delete(url + "/users/me")
     .then((res) => {
       console.log(res);
-      alert("Your account has been successfully deleted.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -138,6 +144,9 @@ export async function getUsers() {
         const element = res.data[i].username;
         users.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -156,7 +165,9 @@ export async function getUser() {
       user.password = res.data.password;
       user.username = res.data.username;
       user.id = res.data.id;
-      alert("User " + res.data.username + " has been found.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -177,6 +188,9 @@ export async function getServices() {
         const element = res.data[i].name;
         services.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -192,6 +206,9 @@ export async function getService(serviceId : string) {
     .then((res) => {
       console.log(res);
       serviceLog = res.data.isLog;
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -207,7 +224,9 @@ export async function logToService(token: string, serviceId : string) {
     .then((res) => {
       console.log(res);
       serviceLog = res.data.isLog;
-      alert("You successfully logged in to " + res.data.name + ".");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -223,7 +242,9 @@ export async function updateTokenService(token: string, serviceId : string) {
     .then((res) => {
       console.log(res);
       serviceLog = res.data.isLog;
-      alert("You successfully updated your credentials for the service " + res.data.name + ".");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -236,7 +257,9 @@ export async function disconnectService(serviceId : string) {
     .delete(url + "/users/me/services/" + serviceId)
     .then((res) => {
       console.log(res);
-      alert("Your credentials for this service has been successfully deleted.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -257,6 +280,9 @@ export async function getActions() {
         const element = res.data[i].name;
         actions.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -272,7 +298,9 @@ export async function getAction(actionId : string) {
     .then((res) => {
       console.log(res);
       action = res.data.config;
-      alert("The action " + res.data.name + " has been found.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -293,6 +321,9 @@ export async function getReactions() {
         const element = res.data[i].name;
         reactions.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -308,7 +339,9 @@ export async function getReaction(reactionId : string) {
     .then((res) => {
       console.log(res);
       reaction = res.data.config;
-      alert("The reaction " + res.data.name + " has been found.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -329,6 +362,9 @@ export async function getAreas() {
         const element = res.data[i].name;
         areas.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -349,7 +385,9 @@ export async function getArea(areaId : string) {
       area.actionConfig = res.data.actionConfig;
       area.reactionName = res.data.reactionName;
       area.reactionConfig = res.data.reactionConfig;
-      alert("The area " + res.data.name + " has been found.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -363,7 +401,9 @@ export async function createArea(params : Area) {
     .post(url + "/users/me/areas", params)
     .then((res) => {
       console.log(res);
-      alert("Area " + params.name + " has been created.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -376,7 +416,9 @@ export async function updateArea(params: Area, areaId : string) {
     .patch(url + "/users/me/areas" + areaId, params)
     .then((res) => {
       console.log(res);
-      alert("Area " + params.name + " has been updated.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -389,7 +431,9 @@ export async function deleteArea(areaId : string) {
     .delete(url + "/users/me/areas/" + areaId)
     .then((res) => {
       console.log(res);
-      alert("This Area has been deleted.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);

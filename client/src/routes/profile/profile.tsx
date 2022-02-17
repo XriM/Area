@@ -129,7 +129,7 @@ function ProfileServices() {
             <div className="row__services">
             <Row>
               <Col md={10}>
-                <a><Image fluid={true} srcSet="" style={{width: 50}}></Image>Email</a>
+                <a><Image fluid={true} srcSet="" style={{width: 50}}></Image>Gmail</a>
               </Col>
               <Col md={1}>
                 <Button className="principal__btn__color"><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
