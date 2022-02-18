@@ -37,6 +37,10 @@ dependencies:
   rolling_switch: ^0.0.2
   rounded_loading_button: ^2.0.8
   path_provider: ^2.0.9
+  google_sign_in: ^5.2.3
+  flutter_signin_button: ^2.0.0
+  cron: ^0.4.0
+  flutter_login: ^3.1.0
 
 
 dev_dependencies:

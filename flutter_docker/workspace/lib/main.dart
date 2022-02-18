@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:area_app/overlay.dart';
-
 import 'loader.dart';
 import 'routes/first_screen.dart';
 import 'routes/second_screen.dart';
@@ -9,7 +8,38 @@ import 'routes/third_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(RestartWidget(child: const MyApp()));
+}
+
+class RestartWidget extends StatefulWidget {
+  RestartWidget({required this.child});
+
+  final Widget child;
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_RestartWidgetState>()?.restartApp();
+  }
+
+  @override
+  _RestartWidgetState createState() => _RestartWidgetState();
+}
+
+class _RestartWidgetState extends State<RestartWidget> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: key,
+      child: widget.child,
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +63,7 @@ class MyApp extends StatelessWidget {
               ),
               home: const MyHomePage(title: ''),
             ),
-            // OverlayView(),
+            OverlayView(),
           ],
         ));
   }
@@ -176,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case ScreenType.secondScreen:
         return const SecondScreen();
       case ScreenType.thirdScreen:
-        return const ThirdScreen();
+        return ThirdScreen();
     }
   }
 

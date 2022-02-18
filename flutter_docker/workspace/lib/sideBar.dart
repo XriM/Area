@@ -79,6 +79,17 @@ class NavDrawer extends StatelessWidget {
             ),
             onTap: () => {},
           ),
+          ListTile(
+            leading: const Icon(
+              Icons.account_box_rounded,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Sign Out',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onTap: () => {},
+          ),
         ],
       ),
     );
