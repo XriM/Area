@@ -1,13 +1,15 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:area_app/routes/services/cryptoService.dart';
-import 'package:area_app/routes/services/emailService.dart';
-import 'package:area_app/routes/services/meteoService.dart';
-import 'package:area_app/routes/services/steamService.dart';
+import 'package:area_app/Screens/App/AppScreens/reactions/sheetsReaction.dart';
+import 'package:area_app/Screens/App/AppScreens/reactions/discordReaction.dart';
+import 'package:area_app/Screens/App/AppScreens/reactions/emailReaction.dart';
+import 'package:area_app/Screens/App/AppScreens/reactions/sheetsReaction.dart';
+import 'package:area_app/Screens/App/AppScreens/reactions/trelloReaction.dart';
+import 'package:area_app/Screens/App/AppScreens/reactions/twilioReaction.dart';
 import 'package:flutter/material.dart';
 
-class Services extends StatelessWidget {
-  const Services({Key? key}) : super(key: key);
+class Reactions extends StatelessWidget {
+  const Reactions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class Services extends StatelessWidget {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Services",
+            "AREA | Reactions",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
@@ -40,7 +42,8 @@ class Services extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SteamServiceForm()),
+                    MaterialPageRoute(
+                        builder: (context) => TrelloReactionForm()),
                   );
                 },
                 child: Container(
@@ -62,13 +65,13 @@ class Services extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.gamepad_outlined,
+                                  Icons.announcement_outlined,
                                   color: Colors.white,
                                   size: 60,
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "STEAM",
+                                  "TRELLO",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )
@@ -83,7 +86,8 @@ class Services extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EmailServiceForm()),
+                    MaterialPageRoute(
+                        builder: (context) => SheetsReactionForm()),
                   );
                 },
                 child: Container(
@@ -105,7 +109,98 @@ class Services extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.email_outlined,
+                                  Icons.file_present,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "Google Sheets",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+          ]),
+          SizedBox(height: 50),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DiscordReactionForm()),
+                  );
+                },
+                child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  Icons.circle_notifications_outlined,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "DISCORD",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.brown,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EmailReactionForm()),
+                  );
+                },
+                child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  Icons.email_rounded,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -124,102 +219,13 @@ class Services extends StatelessWidget {
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.purple,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MeteoServiceForm()),
-                  );
-                },
-                child: Container(
-                    height: 150.0,
-                    width: 150.0,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.wb_sunny_rounded,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "METEO",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.brown,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CryptoServiceForm()),
-                  );
-                },
-                child: Container(
-                    height: 150.0,
-                    width: 150.0,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.euro_rounded,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "CRYPTO",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-          ]),
-          SizedBox(height: 50),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
                   primary: Colors.red,
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SteamServiceForm()),
+                    MaterialPageRoute(
+                        builder: (context) => TwilioReactionForm()),
                   );
                 },
                 child: Container(
@@ -241,13 +247,13 @@ class Services extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.calendar_today,
+                                  Icons.message_rounded,
                                   color: Colors.white,
                                   size: 60,
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "Google Calendar",
+                                  "TWILIO",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )

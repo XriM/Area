@@ -13,7 +13,7 @@ class Loader {
     loaderShowingNotifier.value = false;
   }
 
-  void setText({String? errorMessage}) {
-    loaderTextNotifier.value = errorMessage!;
-  }
+  // void setText({String errorMessage}) {
+  //   loaderTextNotifier.value = errorMessage;
+  // }
 }
