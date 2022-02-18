@@ -8,6 +8,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { UserResponse, User } from "../../helper/types";
 import { deleteArea, getArea, getAreas, NavbarLogged } from "..";
 
+var reaction : Array<string> = [];
+var action : string = "";
+
 export default function CreateTrigger() {
   return (
     <>
@@ -36,7 +39,7 @@ function Body() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [action, setAction] = useState<string>("Gmail");
+  const [finalAction, setAction] = useState<string>("Gmail");
   const [reactions, setReactions] = useState<Array<string>>(["discord ping", "whatsapp"]);
 
   function GmailAction() {
@@ -64,7 +67,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              setAction("Gmail");
+              action = "Gmail";
               handleClose();
             }}
             >
@@ -128,7 +131,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              setAction("Crypto");
+              action = "Crypto";
               handleClose();
             }}>
               Select Action
@@ -183,7 +186,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              setAction("Steam");
+              action = "Steam";
               handleClose();
             }}>
               Select Action
@@ -249,7 +252,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              setAction("Weather");
+              action = "Weather";
               handleClose();
             }}>
               Select Action
@@ -257,6 +260,435 @@ function Body() {
             <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
               setCity("");
               setTemperature("");
+              handleClose();
+            }}>
+            Cancel
+            </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
+    );
+  }
+
+  function TrelloReaction() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [actualTitle, setTitle] = useState<string>("");
+    const [actualDescription, setDescription] = useState<string>("");
+    const [actualBoard, setBoard] = useState<string>("");
+    const [actualList, setList] = useState<string>("");
+    var title : string = "";
+    var description : string = "";
+    var board : string = "";
+    var list : string = "";
+
+    var boards : Array<string> = [];
+    var lists : Array<string> = [];
+
+    return (
+      <>
+      <Button variant="primary" className="principal__btn__color" onClick= { () => {
+        handleShow();
+      }}>Configure Reaction</Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Trello configuration</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign: 'center'}}>This Reaction will create a card in the board and list you desire.
+          <br/>
+          <br/>
+          <Form>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Board ID" className="mb-3">
+              <Form.Control required type="text" value={actualBoard}
+                onChange={(e) => {
+                  board = e.target.value;
+                  setBoard(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="List ID" className="mb-3">
+              <Form.Control required type="text" value={actualList}
+                onChange={(e) => {
+                  list = e.target.value;
+                  setList(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Title" className="mb-3">
+              <Form.Control required type="text" value={actualTitle}
+                onChange={(e) => {
+                  title = e.target.value;
+                  setTitle(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingTextarea" label="Description" className="mb-3">
+              <Form.Control as="textarea" value={actualDescription}
+                onChange={(e) => {
+                  description = e.target.value;
+                  setDescription(e.target.value);
+                }}/>
+              </FloatingLabel>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" className="principal__btn__color"
+            onClick = { () => {
+              reaction.push("TrelloCard");
+              handleClose();
+            }}>
+              Select Reaction
+            </Button>
+            <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
+              setTitle("");
+              setDescription("");
+              handleClose();
+            }}>
+            Cancel
+            </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
+    );
+  }
+
+  function DiscordWebhookReaction() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [actualWebhook, setWebhook] = useState<string>("");
+    const [actualMessage, setMessage] = useState<string>("");
+    var webhook : string = "";
+    var message : string = "";
+
+    return (
+      <>
+      <Button variant="primary" className="principal__btn__color" onClick= { () => {
+        handleShow();
+      }}>Configure Reaction</Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Discord webhook configuration</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign: 'center'}}>This Reaction will send a <a style={{fontWeight: 'bold'}}>webhook</a> in your server.
+          <br/>
+          <br/>
+          <Form>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Webhook link" className="mb-3">
+              <Form.Control required type="text" value={actualWebhook}
+                onChange={(e) => {
+                  webhook = e.target.value;
+                  setWebhook(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingTextarea" label="Message" className="mb-3">
+              <Form.Control as="textarea" value={actualMessage}
+                onChange={(e) => {
+                  message = e.target.value;
+                  setMessage(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>            
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" className="principal__btn__color"
+            onClick = { () => {
+              reaction.push("DiscordWebhook");
+              handleClose();
+            }}>
+              Select Reaction
+            </Button>
+            <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
+              setWebhook("");
+              setMessage("");
+              handleClose();
+            }}>
+            Cancel
+            </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
+    );
+  }
+
+  function DiscordMessageReaction() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [actualUser, setUser] = useState<string>("");
+    const [actualMessage, setMessage] = useState<string>("");
+    var user : string = "";
+    var message : string = "";
+
+    return (
+      <>
+      <Button variant="primary" className="principal__btn__color" onClick= { () => {
+        handleShow();
+      }}>Configure Reaction</Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Discord message configuration</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign: 'center'}}>This Reaction will send a <a style={{fontWeight: 'bold'}}>message</a> to a user.
+          <br/>
+          <br/>
+          <Form>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="User#0000" className="mb-3">
+              <Form.Control required type="text" value={actualUser}
+                onChange={(e) => {
+                  user = e.target.value;
+                  setUser(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingTextarea" label="Message" className="mb-3">
+              <Form.Control as="textarea" value={actualMessage}
+                onChange={(e) => {
+                  message = e.target.value;
+                  setMessage(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>            
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" className="principal__btn__color"
+            onClick = { () => {
+              reaction.push("DiscordWebhook");
+              handleClose();
+            }}>
+              Select Reaction
+            </Button>
+            <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
+              setUser("");
+              setMessage("");
+              handleClose();
+            }}>
+            Cancel
+            </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
+    );
+  }
+
+  function SheetsReaction() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [actualSheetID, setSheetID] = useState<string>("");
+    const [actualText, setText] = useState<string>("");
+    var sheetID : string = "";
+    var text : string = "";
+
+    return (
+      <>
+      <Button variant="primary" className="principal__btn__color" onClick= { () => {
+        handleShow();
+      }}>Configure Reaction</Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Google sheets configuration</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign: 'center'}}>This Reaction will add a new row to the <a style={{fontWeight: 'bold'}}>spreadsheet</a> you desire.
+          <br/>
+          <br/>
+          <Form>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Spreedsheet ID" className="mb-3">
+              <Form.Control required type="text" value={actualSheetID}
+                onChange={(e) => {
+                  sheetID = e.target.value;
+                  setSheetID(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingTextarea" label="Text" className="mb-3">
+              <Form.Control as="textarea" value={actualText}
+                onChange={(e) => {
+                  text = e.target.value;
+                  setText(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>            
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" className="principal__btn__color"
+            onClick = { () => {
+              reaction.push("Sheets");
+              handleClose();
+            }}>
+              Select Reaction
+            </Button>
+            <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
+              setSheetID("");
+              setText("");
+              handleClose();
+            }}>
+            Cancel
+            </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
+    );
+  }
+
+  function WhatsappReaction() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [actualNumber, setNumber] = useState<string>("");
+    const [actualText, setText] = useState<string>("");
+    var number : string = "";
+    var text : string = "";
+
+    return (
+      <>
+      <Button variant="primary" className="principal__btn__color" onClick= { () => {
+        handleShow();
+      }}>Configure Reaction</Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Whatsapp configuration</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign: 'center'}}>This Reaction will send a <a style={{fontWeight: 'bold'}}>whatsapp message</a> to any number.
+          <br/>
+          <br/>
+          <Form>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Phone number with +XX at the start" className="mb-3">
+              <Form.Control required type="text" value={actualNumber}
+                onChange={(e) => {
+                  number = e.target.value;
+                  setNumber(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingTextarea" label="Text" className="mb-3">
+              <Form.Control as="textarea" value={actualText}
+                onChange={(e) => {
+                  text = e.target.value;
+                  setText(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>            
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" className="principal__btn__color"
+            onClick = { () => {
+              reaction.push("Whatsapp");
+              handleClose();
+            }}>
+              Select Reaction
+            </Button>
+            <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
+              setNumber("");
+              setText("");
+              handleClose();
+            }}>
+            Cancel
+            </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
+    );
+  }
+
+  function GmailReaction() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [actualEmail, setEmail] = useState<string>("");
+    const [actualText, setText] = useState<string>("");
+    var email : string = "";
+    var text : string = "";
+
+    return (
+      <>
+      <Button variant="primary" className="principal__btn__color" onClick= { () => {
+        handleShow();
+      }}>Configure Reaction</Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Email configuration</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign: 'center'}}>This Reaction will send an <a style={{fontWeight: 'bold'}}>email</a> to any adress.
+          <br/>
+          <br/>
+          <Form>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Email receiver" className="mb-3">
+              <Form.Control required type="text" value={actualEmail}
+                onChange={(e) => {
+                  email = e.target.value;
+                  setEmail(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingTextarea" label="Text" className="mb-3">
+              <Form.Control as="textarea" value={actualText}
+                onChange={(e) => {
+                  text = e.target.value;
+                  setText(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>            
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" className="principal__btn__color"
+            onClick = { () => {
+              reaction.push("Gmail");
+              handleClose();
+            }}>
+              Select Reaction
+            </Button>
+            <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
+              setEmail("");
+              setText("");
               handleClose();
             }}>
             Cancel
@@ -328,9 +760,7 @@ function Body() {
                     <Card.Body>
                       <Card.Title>Trello</Card.Title>
                       <Card.Text>Add a Trello card on your board</Card.Text>
-                      <Button variant="primary" className="principal__btn__color" onClick= { () => {
-                        handleShow();
-                      }}>Configure Reaction</Button>
+                        <TrelloReaction/>
                     </Card.Body>
                   </Card>
                   </Col>
@@ -339,10 +769,8 @@ function Body() {
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/b1/3f/3d/b13f3d08-4dc8-f637-348d-9750e7b2c15b/source/512x512bb.jpg" />
                     <Card.Body>
                       <Card.Title>Google sheets</Card.Title>
-                      <Card.Text>Add a line on your spreadsheet</Card.Text>
-                      <Button variant="primary" className="principal__btn__color" onClick= { () => {
-                        handleShow();
-                      }}>Configure Reaction</Button>
+                      <Card.Text>Add a row on your spreadsheet</Card.Text>
+                        <SheetsReaction/>
                     </Card.Body>
                   </Card>
                 </Col> 
@@ -352,9 +780,7 @@ function Body() {
                     <Card.Body>
                       <Card.Title>Discord</Card.Title>
                       <Card.Text>Get ping by private message</Card.Text>
-                      <Button variant="primary" className="principal__btn__color" onClick= { () => {
-                        handleShow();
-                      }}>Configure Reaction</Button>
+                        <DiscordMessageReaction/>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -364,9 +790,7 @@ function Body() {
                     <Card.Body>
                       <Card.Title>Discord</Card.Title>
                       <Card.Text>Receive a webhook in your server</Card.Text>
-                      <Button variant="primary" className="principal__btn__color" onClick= { () => {
-                        handleShow();
-                      }}>Configure Reaction</Button>
+                        <DiscordWebhookReaction/>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -376,11 +800,9 @@ function Body() {
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://gowizyou.com/wp-content/uploads/2020/10/gmail-icon.png" />
                     <Card.Body>
-                      <Card.Title>Gmail</Card.Title>
+                      <Card.Title>Email</Card.Title>
                       <Card.Text>Receive an email</Card.Text>
-                      <Button variant="primary" className="principal__btn__color" onClick= { () => {
-                        handleShow();
-                      }}>Configure Reaction</Button>
+                        <GmailReaction/>
                     </Card.Body>
                   </Card>
                   </Col>
@@ -390,9 +812,7 @@ function Body() {
                     <Card.Body>
                       <Card.Title>Whatsapp</Card.Title>
                       <Card.Text>Receive a whatsapp text</Card.Text>
-                      <Button variant="primary" className="principal__btn__color" onClick= { () => {
-                        handleShow();
-                      }}>Configure Reaction</Button>
+                        <WhatsappReaction/>
                     </Card.Body>
                   </Card>
                 </Col> 
