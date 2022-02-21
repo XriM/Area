@@ -26,9 +26,6 @@ const { bcrypt } = require('bcrypt')
 // App
 const app = express()
 
-//console.log('IP:    ')
-//console.log(ip)
-
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
