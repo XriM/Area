@@ -12,8 +12,8 @@ const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/ar
 const { hookHandler } = require('./app/hook')
 const { crontabHandler } = require('./app/crontab')
 const { ip } = require('./ip')
-const { ngrok } = require('ngrok')
-const { express } = require('express')
+const ngrok = require('ngrok')
+const express = require('express')
 const { env } = require('dotenv').config()
 
 // Constants
@@ -25,9 +25,6 @@ const { bcrypt } = require('bcrypt')
 
 // App
 const app = express()
-
-//console.log('IP:    ')
-//console.log(ip)
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -57,7 +54,7 @@ app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
 app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
 app.post('/hooks', hookHandler)
-app.post('/crontab', crontabHandler)
+//app.post('/crontab', crontabHandler)
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
