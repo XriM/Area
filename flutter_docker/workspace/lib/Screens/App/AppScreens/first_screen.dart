@@ -1,8 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rolling_switch/rolling_switch.dart';
+// import 'package:rolling_switch/rolling_switch.dart';
 
-class FirstScreen extends StatelessWidget {
+class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FirstScreen> createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen> {
+  bool state = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +27,10 @@ class FirstScreen extends StatelessWidget {
                   color: Colors.lightBlue,
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
               child: Container(
-                  margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                  child: Wrap(
-                    direction: Axis.vertical,
+                  margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: Column(
+                    // direction: Axis.vertical,
                     // alignment: WrapAlignment.spaceBetween,
-
                     children: [
                       const Text(" "),
                       const SizedBox(
@@ -38,30 +45,25 @@ class FirstScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 50),
-                      Wrap(
-                        alignment: WrapAlignment.spaceEvenly,
-                        direction: Axis.horizontal,
+                      Row(
+                        // alignment: WrapAlignment.spaceEvenly,
+                        // direction: Axis.horizontal,
                         children: [
-                          RollingSwitch.icon(
-                            onChanged: (bool state) {
-                              print('turned ${(state) ? 'on' : 'off'}');
-                            },
-                            rollingInfoRight: const RollingIconInfo(
-                              icon: Icons.check,
-                              text: Text('ON'),
-                            ),
-                            rollingInfoLeft: const RollingIconInfo(
-                              icon: Icons.clear,
-                              backgroundColor: Color(0xff333333),
-                              text: Text('OFF'),
-                            ),
-                          ),
+                          SizedBox(width: 40),
+                          CupertinoSwitch(
+                              value: state,
+                              onChanged: (value) {
+                                state = value;
+                                setState(() {});
+                              }),
                           const SizedBox(width: 50),
-                          IconButton(
-                            onPressed: () => {},
-                            icon: const Icon(Icons.cancel_rounded),
-                            iconSize: 40,
-                          ),
+                          ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.red,
+                              ),
+                              onPressed: () => {},
+                              icon: Icon(Icons.cancel_presentation_rounded),
+                              label: Text("CANCEL"))
                         ],
                       )
                     ],
