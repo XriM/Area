@@ -61,6 +61,20 @@ async function addServiceToUser (userId, serviceId, token) {
   return result.rows
 }
 
+async function getGmailAddress(userService) {
+  try {
+    response = await axios.get('https://gmail.googleapis.com/gmail/v1/users/me/profile', {
+      headers: {
+        'Authorization': ('Bearer ' + userService.token),
+        'Content-Type': 'application/json'
+      }
+    });
+    return response.data.emailAddress
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 exports.postUserService = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
   if (req.user.username !== req.params.username) {
@@ -80,7 +94,8 @@ exports.postUserService = async (req, res) => {
   const userService = await pool.query(`SELECT * FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, serviceId.rows[0].id]);
   const service = await pool.query(`SELECT * FROM services WHERE id = $1`, [serviceId.rows[0].id]);
   if (service.rows[0].name == 'Gmail') {
-    await pool.query(`UPDATE user_service SET service_config = $1 WHERE user_id = $2 AND service_id = $3`, [{email: getGmailAddress()}, userId.rows[0].id, serviceId.rows[0].id]);
+    await pool.query(`UPDATE user_service SET service_config = $1 WHERE user_id = $2 AND service_id = $3`, [{email: await getGmailAddress(userService.rows[0])}, userId.rows[0].id, serviceId.rows[0].id]);
+
   }
   res.status(200).send({ message: 'Service token successfully loaded' })
 }

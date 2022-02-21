@@ -1,8 +1,12 @@
 const { pool } = require('../dbConfig')
-const axios = require('axios')
+const axios = require('axios');
+//const { json } = require('stream/consumers');
 
-function getUserIdFromEmail(data) {
-  return 1;
+async function getUserIdFromEmail(data) {
+  const json = JSON.parse(data);
+  const userService = await pool.query("SELECT * FROM user_service WHERE service_config ->> 'email' = $1", [json.emailAddress]);
+  console.log(userService.rows[0])
+  return userService.rows[0].user_id
 }
 
 exports.hookHandler = async (req, res) => {
@@ -12,8 +16,9 @@ exports.hookHandler = async (req, res) => {
     console.log(body)
     const data = Buffer.from(body.message.data, 'base64')
     console.log(data);
-    const userId = getUserIdFromEmail(data);
-    const areaReaction = getAreaReactionFromUser(userId)
-    postReaction(areaReaction);
+    const userId = await getUserIdFromEmail(data);
+    console.log(userId)
+    //const areaReaction = getAreaReactionFromUser(userId)
+    //postReaction(areaReaction);
   }
 }
