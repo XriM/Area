@@ -10,7 +10,7 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  bool state = false;
+  bool state = true;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                 primary: Colors.red,
                               ),
                               onPressed: () => {},
-                              icon: Icon(Icons.cancel_presentation_rounded),
+                              icon: Icon(Icons.cancel_rounded),
                               label: Text("CANCEL"))
                         ],
                       )
