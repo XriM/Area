@@ -2,10 +2,12 @@
 
 import 'dart:async';
 
+import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
+import 'package:area_app/globals.dart' as globals;
 
 class SteamServiceForm extends StatelessWidget {
   SteamServiceForm({Key? key}) : super(key: key);
@@ -75,15 +77,30 @@ class SteamServiceForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                Timer(Duration(seconds: 1), () async {
-                  _btnController.success();
-                  print(gameID.text);
-                  await Future.delayed(const Duration(seconds: 1), () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  });
-                });
+                // Timer(Duration(seconds: 1), () async {
+                //   _btnController.success();
+                //   print(gameID.text);
+                //   await Future.delayed(const Duration(seconds: 1), () {
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //   });
+                // });
+                globals.serviceName = "STEAM";
+                globals.serviceColor = Colors.lightBlue;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => IfFilled(
+                      passedColor: Color(0xFF333333),
+                      passedColorName: 'Steam',
+                    ),
+                  ),
+                );
+                // final Directory directory =
+                //     await getApplicationDocumentsDirectory();
+                // print(directory.path);
               },
+              // },
             ),
             SizedBox(height: 500),
           ],

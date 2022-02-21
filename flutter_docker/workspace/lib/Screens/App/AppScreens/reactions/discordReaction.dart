@@ -2,10 +2,12 @@
 
 import 'dart:async';
 
+import 'package:area_app/Screens/App/AppScreens/thenFilled.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
+import 'package:area_app/globals.dart' as globals;
 
 class DiscordReactionForm extends StatelessWidget {
   DiscordReactionForm({Key? key}) : super(key: key);
@@ -75,14 +77,28 @@ class DiscordReactionForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                Timer(Duration(seconds: 1), () async {
-                  _btnController.success();
-                  print(_discordAccount.text);
-                  await Future.delayed(const Duration(seconds: 1), () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  });
-                });
+                // Timer(Duration(seconds: 1), () async {
+                //   _btnController.success();
+                //   print(_email.text);
+                //   await Future.delayed(const Duration(seconds: 1), () {
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+
+                //   });
+                // });
+                globals.reactionName = 'DISCORD';
+                globals.reactionColor = Colors.purple;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ThenFilled(
+                      ifPassedColor: globals.serviceColor,
+                      ifPassedColorName: globals.serviceName,
+                      thenPassedColor: globals.reactionColor,
+                      thenPassedColorName: globals.reactionName,
+                    ),
+                  ),
+                );
               },
             ),
             SizedBox(height: 500),

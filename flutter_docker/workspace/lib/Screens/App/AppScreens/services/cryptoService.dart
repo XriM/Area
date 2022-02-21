@@ -2,10 +2,12 @@
 
 import 'dart:async';
 
+import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
+import 'package:area_app/globals.dart' as globals;
 
 class CryptoServiceForm extends StatelessWidget {
   CryptoServiceForm({Key? key}) : super(key: key);
@@ -83,13 +85,24 @@ class CryptoServiceForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
+                globals.serviceName = "CRYPTO";
+                globals.serviceColor = Colors.brown;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   print(_currency.text);
                   print(_limit.text);
                   await Future.delayed(const Duration(seconds: 1), () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
+                    // Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => IfFilled(
+                          passedColor: globals.serviceColor,
+                          passedColorName: globals.serviceName,
+                        ),
+                      ),
+                    );
                   });
                 });
               },
