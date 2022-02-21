@@ -88,6 +88,7 @@ class EmailReactionForm extends StatelessWidget {
                 // });
                 globals.reactionName = 'EMAIL';
                 globals.reactionColor = Colors.brown;
+                globals.reactionPara = _email.text;
                 Navigator.push(
                   context,
                   MaterialPageRoute(

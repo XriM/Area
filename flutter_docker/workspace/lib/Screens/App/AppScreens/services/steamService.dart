@@ -87,6 +87,7 @@ class SteamServiceForm extends StatelessWidget {
                 // });
                 globals.serviceName = "STEAM";
                 globals.serviceColor = Colors.lightBlue;
+                globals.servicePara = gameID.text;
                 Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -87,6 +87,7 @@ class CryptoServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = "CRYPTO";
                 globals.serviceColor = Colors.brown;
+                globals.servicePara = _currency.text + '|' + _limit.text;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   print(_currency.text);

@@ -87,6 +87,7 @@ class MeteoServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = "METEO";
                 globals.serviceColor = Colors.purple;
+                globals.servicePara = city.text + '|' + degrees.text;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {

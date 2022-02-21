@@ -173,7 +173,9 @@ class _ThenFilledState extends State<ThenFilled> {
               onPressed: () async {
                 Timer(Duration(seconds: 1), () async {
                   print(globals.serviceName);
+                  print(globals.servicePara);
                   print(globals.reactionName);
+                  print(globals.reactionPara);
                   _btnController.success();
                   print("ADD");
                   await Future.delayed(const Duration(seconds: 1), () {

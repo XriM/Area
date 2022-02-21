@@ -88,6 +88,7 @@ class SheetsReactionForm extends StatelessWidget {
                 // });
                 globals.reactionName = 'SHEETS';
                 globals.reactionColor = Colors.lightGreen;
+                globals.reactionPara = _email.text;
                 Navigator.push(
                   context,
                   MaterialPageRoute(

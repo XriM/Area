@@ -88,6 +88,7 @@ class TrelloReactionForm extends StatelessWidget {
                 // });
                 globals.reactionName = 'TRELLO';
                 globals.reactionColor = Colors.lightBlue;
+                globals.reactionPara = _email.text;
                 Navigator.push(
                   context,
                   MaterialPageRoute(

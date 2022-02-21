@@ -79,6 +79,7 @@ class EmailServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = "EMAIL";
                 globals.serviceColor = Colors.lightGreen;
+                globals.servicePara = _email.text;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {
