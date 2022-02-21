@@ -54,7 +54,7 @@ app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
 app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
 app.post('/hooks', hookHandler)
-//app.post('/crontab', crontabHandler)
+app.post('/crontab', crontabHandler)
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)

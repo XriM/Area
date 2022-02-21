@@ -24,7 +24,6 @@ CREATE TABLE areas (
     id SERIAL PRIMARY KEY,
     action_id INT NOT NULL,
     reaction_id INT NOT NULL,
-    area_name VARCHAR NOT NULL,
     FOREIGN KEY (action_id) REFERENCES actions(id),
     FOREIGN KEY (reaction_id) REFERENCES reactions(id)
 );
@@ -63,14 +62,28 @@ CREATE TABLE service_action (
     FOREIGN KEY (action_id) REFERENCES actions(id)
 );
 
+INSERT INTO users (password, email, username) VALUES (('pass1'), ('email1'), ('username1'));
+INSERT INTO users (password, email, username) VALUES (('pass2'), ('email2'), ('username2'));
+INSERT INTO users (password, email, username) VALUES (('pass3'), ('email3'), ('username3'));
+
 INSERT INTO services (name) VALUES ('Google Calendar');
 INSERT INTO services (name) VALUES ('Gmail');
 INSERT INTO services (name) VALUES ('Discord');
+INSERT INTO services (name) VALUES ('Weather');
 
 INSERT INTO reactions (name) VALUES ('Send email');
 INSERT INTO reactions (name) VALUES ('Reaction added');
 INSERT INTO actions (name) VALUES ('Received email');
 INSERT INTO actions (name) VALUES ('Event added');
+INSERT INTO actions (name) VALUES ('Weather changed');
+
+INSERT INTO areas (action_id, reaction_id) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'));
+INSERT INTO areas (action_id, reaction_id) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'));
+INSERT INTO areas (action_id, reaction_id) VALUES ((SELECT id FROM actions WHERE name = 'Event added'), (SELECT id FROM reactions WHERE name = 'Send email'));
+
+INSERT INTO user_area (user_id, area_id) VALUES ((SELECT id FROM users WHERE id = '1'), (SELECT id FROM areas WHERE id = '1'));
+INSERT INTO user_area (user_id, area_id) VALUES ((SELECT id FROM users WHERE id = '2'), (SELECT id FROM areas WHERE id = '2'));
+INSERT INTO user_area (user_id, area_id) VALUES ((SELECT id FROM users WHERE id = '3'), (SELECT id FROM areas WHERE id = '3'));
 
 INSERT INTO service_reaction (service_id, reaction_id) VALUES ((SELECT id FROM services WHERE name = 'Gmail'), (SELECT id FROM reactions WHERE name = 'Send email'));
 INSERT INTO service_reaction (service_id, reaction_id) VALUES ((SELECT id FROM services WHERE name = 'Discord'), (SELECT id FROM reactions WHERE name = 'Reaction added'));
