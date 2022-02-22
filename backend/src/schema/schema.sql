@@ -24,6 +24,7 @@ CREATE TABLE areas (
     id SERIAL PRIMARY KEY,
     action_id INT NOT NULL,
     reaction_id INT NOT NULL,
+    name VARCHAR NOT NULL,
     FOREIGN KEY (action_id) REFERENCES actions(id),
     FOREIGN KEY (reaction_id) REFERENCES reactions(id)
 );
@@ -70,16 +71,22 @@ INSERT INTO services (name) VALUES ('Google Calendar');
 INSERT INTO services (name) VALUES ('Gmail');
 INSERT INTO services (name) VALUES ('Discord');
 INSERT INTO services (name) VALUES ('Weather');
+INSERT INTO services (name) VALUES ('Crypto');
+INSERT INTO services (name) VALUES ('Whatsapp');
 
 INSERT INTO reactions (name) VALUES ('Send email');
+INSERT INTO reactions (name) VALUES ('Send whatsapp');
 INSERT INTO reactions (name) VALUES ('Reaction added');
 INSERT INTO actions (name) VALUES ('Received email');
+INSERT INTO actions (name) VALUES ('Received whatsapp');
 INSERT INTO actions (name) VALUES ('Event added');
 INSERT INTO actions (name) VALUES ('Weather changed');
+INSERT INTO actions (name) VALUES ('CryptoCurrency price changed');
 
-INSERT INTO areas (action_id, reaction_id) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'));
-INSERT INTO areas (action_id, reaction_id) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'));
-INSERT INTO areas (action_id, reaction_id) VALUES ((SELECT id FROM actions WHERE name = 'Event added'), (SELECT id FROM reactions WHERE name = 'Send email'));
+INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test1');
+INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test2');
+INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Event added'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test3');
+INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'CryptoCurrency price changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test4');
 
 INSERT INTO user_area (user_id, area_id) VALUES ((SELECT id FROM users WHERE id = '1'), (SELECT id FROM areas WHERE id = '1'));
 INSERT INTO user_area (user_id, area_id) VALUES ((SELECT id FROM users WHERE id = '2'), (SELECT id FROM areas WHERE id = '2'));
