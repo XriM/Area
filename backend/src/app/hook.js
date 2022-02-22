@@ -11,13 +11,14 @@ async function getUserIdFromEmail(data) {
 
 exports.hookHandler = async (req, res) => {
   const body = req.body;
+  console.log('Received hook')
   if ('message' in  body) {
     console.log('Gmail push notification: ');
     console.log(body)
-    const data = Buffer.from(body.message.data, 'base64')
-    console.log(data);
-    const userId = await getUserIdFromEmail(data);
-    console.log(userId)
+    //const data = Buffer.from(body.message.data, 'base64')
+    //console.log(data);
+    //const userId = await getUserIdFromEmail(data);
+    //console.log(userId)
     //const areaReaction = getAreaReactionFromUser(userId)
     //postReaction(areaReaction);
   }

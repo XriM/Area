@@ -26,7 +26,7 @@ exports.getArea = async (req, res) => {
     return res.status(400).send({ message: 'Failed to retreive area' })
   }
   areaId = areaId.rows[0].area_id
-  const result = await pool.query('SELECT area_name FROM areas WHERE id = $1', [areaId])
+  const result = await pool.query('SELECT name FROM areas WHERE id = $1', [areaId])
   res.status(200).send(result.rows)
 }
 
@@ -39,17 +39,51 @@ exports.postArea = async (req, res) => {
   const actionId = parseInt(req.body.action_id)
   const reactionId = parseInt(req.body.reaction_id)
   const areaName = req.body.name
-  const result = await pool.query('INSERT INTO areas (action_id, reaction_id, area_name) VALUES ($1, $2, $3) RETURNING *', [actionId, reactionId, areaName])
+  const result = await pool.query('INSERT INTO areas (action_id, reaction_id, name) VALUES ($1, $2, $3) RETURNING *', [actionId, reactionId, areaName])
   await pool.query('INSERT INTO user_area (area_id, user_id) VALUES ($1, $2)', [result.rows[0].id, userId.rows[0].id])
-  const action = pool.query(`SELECT * FROM actions WHERE id = $1`, [actionId]);
-  const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId]);
-  if (action.name == 'Received email') {
-    await axios.post(`https://www.googleapis.com/gmail/v1/users/me/watch`, {
-      headers: {
-        'Authorization': serviceToken.rows[0].token,
-        'Content-Type': 'application/json',
-      }
-    });
+  let actionRes = await pool.query(`SELECT * FROM actions WHERE id = $1`, [actionId]);
+  console.log('Posting area: ')
+  //console.log(actionRes);
+  actionRes = actionRes.rows[0];
+  //console.log(actionRes);
+  const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
+  if (actionRes.name == 'Received email') {
+    console.log('Im in the right place')
+    try {
+      await axios.post(`https://www.googleapis.com/gmail/v1/users/me/stop`,
+        {
+          'topicName': 'projects/area-gmail-341510/topics/area-gmail',
+          'labelFilterAction': 'include',
+          'labelIds': ["INBOX"],
+        },
+        {
+          headers: {
+            'Authorization': serviceToken.rows[0].token,
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      await axios.post(`https://www.googleapis.com/gmail/v1/users/me/watch`,
+        {
+          'topicName': 'projects/area-gmail-341510/topics/area-gmail',
+          'labelFilterAction': 'include',
+          'labelIds': ["INBOX"],
+        },
+        {
+          headers: {
+            'Authorization': serviceToken.rows[0].token,
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+    } catch (err) {
+      console.log(err);
+
+    }
   }
   console.log(result.rows)
   res.status(200).send({ message: 'Area successfully created' })
