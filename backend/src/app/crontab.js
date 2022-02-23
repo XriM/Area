@@ -1,5 +1,5 @@
 var cron = require('node-cron')
-var weather = require('weather-js')
+var weather = require('openweather-apis')
 var ccxt = require('ccxt')
 const { pool } = require('../dbConfig')
 const { sendWhatsApp } = require('./reactions')
@@ -32,18 +32,23 @@ getIdsFromActionAndData = async (actionName, data) => {
 
 checkIfWeather = async (body, res) => {
 
+    const city = "Paris" // Buffer.from(body.city.data, 'base64')
+    weather.setLang('fr')
+    weather.setCity(city)
+    weather.setUnits('metric')
+    weather.setAPPID('c523ccc73b4dd1970acf0dc08262821b')
+
     //if ('weather' in  body) {
-        cron.schedule('*/2 * * * *', () => {
-            const city = "Paris, FR" // Buffer.from(body.city.data, 'base64')
-            weather.find({search: city, degreeType: 'C'}, function(err, result) {
-                if(err) console.log(err);
-                //console.log(JSON.stringify(result, null, 2));
-                //if (res.current.temperature.parseInt() < 10 || res.current.temperature.parseInt > 20) {
-                    var notifier = getIdsFromActionAndData("Weather changed", city)
-                //}
+        cron.schedule('*/5 * * * * *', () => {
+            weather.getSmartJSON(function(err, smart) {
+                console.log(smart) //debug
+                if (smart.temp.parseInt() < 10 || smart.temp.parseInt > 20) {
+                    //var notifier = getIdsFromActionAndData("Weather changed", city)
+                    }
+                })
             console.log("CRONED Weather") //debug
             })
-        })
+        //})
     //})
 }
 
@@ -74,11 +79,8 @@ exports.crontabsHandler = async (req, res) => {
     console.log("welcome in crontabs handler")
     const body = req.body;
 
-    //checkIfWeather(body, res)  // working
+    checkIfWeather(body, res)  // working
     //checkIfCrypto(body, res) // working
-    //checkIf
-    console.log("juste avant")
-    sendWhatsApp("+33699429473", "Test")
 
     return res.status(200).send({ message: "crontabs ended well"}) //debug
 }
