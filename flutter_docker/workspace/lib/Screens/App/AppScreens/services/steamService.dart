@@ -92,7 +92,7 @@ class SteamServiceForm extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) => IfFilled(
-                      passedColor: Color(0xFF333333),
+                      passedColor: Colors.lightBlue,
                       passedColorName: 'Steam',
                     ),
                   ),

@@ -114,23 +114,23 @@ class _SecondScreenState extends State<SecondScreen> {
                       ),
                     )))),
         SizedBox(height: 60),
-        RoundedLoadingButton(
-          child: Text(
-            "ADD",
-            style: TextStyle(fontSize: 28, color: Colors.white),
-            textAlign: TextAlign.justify,
-          ),
-          controller: _btnController,
-          color: Color(0xff333333),
-          height: 60,
-          onPressed: () async {
-            Timer(Duration(seconds: 1), () async {
-              _btnController.success();
-              print("ADD");
-              await Future.delayed(const Duration(seconds: 1), () {});
-            });
-          },
-        ),
+        // RoundedLoadingButton(
+        //   child: Text(
+        //     "ADD",
+        //     style: TextStyle(fontSize: 28, color: Colors.white),
+        //     textAlign: TextAlign.justify,
+        //   ),
+        //   controller: _btnController,
+        //   color: Color(0xff333333),
+        //   height: 60,
+        //   onPressed: () async {
+        //     Timer(Duration(seconds: 1), () async {
+        //       _btnController.success();
+        //       print("ADD");
+        //       await Future.delayed(const Duration(seconds: 1), () {});
+        //     });
+        //   },
+        // ),
         const SizedBox(height: 30),
       ],
     ));

@@ -79,7 +79,7 @@ class _ThenFilledState extends State<ThenFilled> {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Steam",
+            "AREA | Create",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),

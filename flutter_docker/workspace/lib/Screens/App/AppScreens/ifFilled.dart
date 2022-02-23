@@ -62,7 +62,7 @@ class _IfFilledState extends State<IfFilled> {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Steam",
+            "AREA | Create",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),

@@ -12,3 +12,5 @@ Color serviceColor = Color(0xFF333333);
 String reactionName = 'THEN THAT';
 String reactionPara = '';
 Color reactionColor = Color(0xff8F8F8F);
+
+String token = "";
