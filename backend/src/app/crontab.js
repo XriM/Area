@@ -3,6 +3,12 @@ var weather = require('openweather-apis')
 var ccxt = require('ccxt')
 const { pool } = require('../dbConfig')
 const { sendWhatsApp } = require('./reactions')
+const { env } = require('dotenv').config()
+const fetch = require('node-fetch')
+const PATH = '/'
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
+import axios from 'axios'
 
 
 ////////////////////////////////////////////
@@ -29,6 +35,41 @@ getIdsFromActionAndData = async (actionName, data) => {
 /////   No Generic Functions for the file
 /////
 /////////////////////////////////////////////
+
+checkIfGitHub = async (body, res) => {
+    //if ('github' in body) {
+        const CODE = body.CODE
+        const githubtoken = await axios.get('https://github.com/login/oauth/access_token?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&code=${CODE}').then((res) => res.data).catch((error) => {
+            throw error
+        })
+
+        const decoded = querystring.parse(githubToken)
+        const accessToken = decoded.access_token
+
+        axios.get("https://api.github.com/user", {
+            headers: { Authorization: 'Bearer ${accessToken}' },
+            }).then((res) => res.data).catch((error) => {
+                console.error('Error getting user from GitHub')
+                throw error
+            })
+
+            var result = await fetch("https://api.github.com/repos/XriM/BSQ/hooks", { method: 'POST', body: JSON.stringify({
+                "name": "web",
+                "active": true,
+                "events": [
+                    "star"
+                ],
+                "config": {
+                    "url": "https://github.com",
+                    "content_type": "json",
+                    "insecure_ssl": "0"
+                }
+            }), headers: { Authorization: "Token " + accessToken}})
+            result = await result.json()
+            console.log(result)
+    //}
+}
+
 
 checkIfWeather = async (body, res) => {
 
