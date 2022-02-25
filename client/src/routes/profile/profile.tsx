@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { UserResponse, User } from "../../helper/types";
-import { NavbarLogged, deleteAccount, signout, getUser, Trello } from "..";
+import { NavbarLogged, deleteAccount, signout, getUser, Trello, Github } from "..";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
@@ -153,6 +153,16 @@ function ProfileServices() {
               </Col>
               <Col md={1}>
                 <Button className="principal__btn__color"><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
+              </Col>
+            </Row>
+            </div>
+            <div className="row__services">
+            <Row>
+              <Col md={10}>
+                <a><Image fluid={true} srcSet="" style={{width: 50}}></Image>Github</a>
+              </Col>
+              <Col md={1}>
+                <Github/>
               </Col>
             </Row>
             </div>

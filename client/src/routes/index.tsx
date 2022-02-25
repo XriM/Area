@@ -1,5 +1,5 @@
 import { NavbarHome, Body } from "./home/homepage";
-import { ShowLogin } from "./home/login";
+import { ShowSignin } from "./home/signin";
 import { ShowSignup } from "./home/signup";
 import NavbarLogged from "../components/navbar_logged";
 import {
@@ -27,11 +27,12 @@ import {
   deleteArea
 } from "../helper/api";
 import { Trello } from "../helper/services/trello";
+import { Github } from "../helper/services/github";
 
 export {
   NavbarHome,
   Body,
-  ShowLogin,
+  ShowSignin,
   ShowSignup,
   NavbarLogged,
 
@@ -58,5 +59,6 @@ export {
   updateArea,
   deleteArea,
 
-  Trello
+  Trello,
+  Github
 };

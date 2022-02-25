@@ -1,4 +1,3 @@
-import { useState }  from 'react';
 import "../../App.css";
 import {
   Container,
@@ -8,11 +7,9 @@ import {
 } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
-import { ShowLogin, ShowSignup, ping } from "..";
+import { ShowSignin, ShowSignup, ping } from "..";
 
 function NavbarHome() {
-  const [id, setId] = useState<string>("");
-
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -39,7 +36,7 @@ function Body() {
     <div className="buttons__home">
       <ShowSignup />
       <a style={{marginRight: 15}}/>
-      <ShowLogin />
+      <ShowSignin />
     </div>
     </>
   );
