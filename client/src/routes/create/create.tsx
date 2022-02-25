@@ -270,6 +270,60 @@ function Body() {
     );
   }
 
+  function GithubAction() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [actualRepo, setRepo] = useState<string>("");
+    var repoUrl : string = "";
+
+    return (
+      <>
+      <Button variant="primary" className="principal__btn__color" onClick= { () => {
+        handleShow();
+      }}>Configure Action</Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Github configuration</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign: 'center'}}>This action triggers when something happens on a specific <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>link</a> of the repository you want to monitor.
+          <br/>
+          <br/>
+          <Form>
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Repository link" className="mb-3">
+              <Form.Control required type="text" value={actualRepo}
+                onChange={(e) => {
+                  repoUrl = e.target.value;
+                  setRepo(e.target.value);
+                }}
+              />
+              </FloatingLabel>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" className="principal__btn__color"
+            onClick = { () => {
+              action = "Github";
+              handleClose();
+            }}>
+              Select Action
+            </Button>
+            <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
+              setRepo("");
+              handleClose();
+            }}>
+              Cancel
+            </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
+    );
+  }
+
   function TrelloReaction() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -710,42 +764,54 @@ function Body() {
             <Accordion.Header><a style={{color: '#2C8DF1', fontWeight: 'bold'}}>Select an action to trigger <a style={{fontStyle: 'italic', color: 'lightgrey'}}>Selected : {action}</a></a></Accordion.Header>
             <Accordion.Body>
               <Row>
-              <Col md={3}>
-                <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
-                  <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://gowizyou.com/wp-content/uploads/2020/10/gmail-icon.png" />
-                  <Card.Body>
-                    <Card.Title>Gmail</Card.Title>
-                    <GmailAction/>
-                  </Card.Body>
-                </Card>
+                <Col md={3}>
+                  <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
+                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://gowizyou.com/wp-content/uploads/2020/10/gmail-icon.png" />
+                    <Card.Body>
+                      <Card.Title>Gmail</Card.Title>
+                      <GmailAction/>
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                <Col md={3}>
+                  <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
+                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="http://pngimg.com/uploads/bitcoin/bitcoin_PNG48.png" />
+                    <Card.Body>
+                      <Card.Title>Crypto-currencies</Card.Title>
+                      <CryptoAction/>
+                    </Card.Body>
+                  </Card>
+                </Col> 
+                <Col md={3}>
+                  <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
+                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://www.isnotdown.com/assets/pics/steam.png" />
+                    <Card.Body>
+                      <Card.Title>Steam</Card.Title>
+                      <SteamAction/>
+                    </Card.Body>
+                  </Card>
                 </Col>
-              <Col md={3}>
-                <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
-                  <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="http://pngimg.com/uploads/bitcoin/bitcoin_PNG48.png" />
-                  <Card.Body>
-                    <Card.Title>Crypto-currencies</Card.Title>
-                    <CryptoAction/>
-                  </Card.Body>
-                </Card>
-              </Col> 
-              <Col md={3}>
-                <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
-                  <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://www.isnotdown.com/assets/pics/steam.png" />
-                  <Card.Body>
-                    <Card.Title>Steam</Card.Title>
-                    <SteamAction/>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col md={3}>
-                <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
-                  <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://icones.pro/wp-content/uploads/2021/07/icone-meteo-bleue.png" />
-                  <Card.Body>
-                    <Card.Title>Weather</Card.Title>
-                    <WeatherAction/>
-                  </Card.Body>
-                </Card>
-              </Col>
+              
+                <Col md={3}>
+                  <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
+                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://icones.pro/wp-content/uploads/2021/07/icone-meteo-bleue.png" />
+                    <Card.Body>
+                      <Card.Title>Weather</Card.Title>
+                      <WeatherAction/>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={1} style={{marginTop: 5}}>
+                  <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
+                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" />
+                    <Card.Body>
+                      <Card.Title>Github</Card.Title>
+                      <GithubAction/>
+                    </Card.Body>
+                  </Card>
+                </Col> 
               </Row>
             </Accordion.Body>
           </Accordion.Item>
@@ -828,18 +894,6 @@ function Body() {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col md={3}>
-                  <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
-                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="" />
-                    <Card.Body>
-                      <Card.Title>Other</Card.Title>
-                      <Card.Text>Add a line on your spreadsheet</Card.Text>
-                      <Button variant="primary" className="principal__btn__color" onClick= { () => {
-                        handleShow();
-                      }}>Configure Reaction</Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
               </Row>
             </Accordion.Body>
           </Accordion.Item>
@@ -855,7 +909,7 @@ function Body() {
         }}>Add an AREA</Button>
       </Col>
     </Row>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>

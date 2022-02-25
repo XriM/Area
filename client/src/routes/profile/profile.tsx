@@ -129,7 +129,7 @@ function ProfileServices() {
             <div className="row__services">
             <Row>
               <Col md={10}>
-                <a><Image fluid={true} srcSet="" style={{width: 50}}></Image>Gmail</a>
+                <a><Image fluid={true} srcSet="https://lh3.googleusercontent.com/8v_oGMOj9bgohn50RgLhJ8XGZ2kIUdr0RG4zCkIYnfjK24ORS0WFaTWmnzxXzagUg2fwAmDy1W_Y4oTtIacT2dhQzAqOy5H9Vg23Rq1oVnhUGtOynjY"  style={{width: 50, height: '1rem', objectFit: 'cover'}}></Image>Gmail</a>
               </Col>
               <Col md={1}>
                 <Button className="principal__btn__color"><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
@@ -159,7 +159,7 @@ function ProfileServices() {
             <div className="row__services">
             <Row>
               <Col md={10}>
-                <a><Image fluid={true} srcSet="" style={{width: 50}}></Image>Github</a>
+                <a><Image fluid={true} srcSet="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" style={{width: 50, height: '1rem', objectFit: 'cover'}}></Image>Github</a>
               </Col>
               <Col md={1}>
                 <Github/>
