@@ -16,6 +16,6 @@ export interface Area {
   name : string;
   actionName : string;
   actionConfig : any;
-  reactionName : Array<string>;
-  reactionConfig : Array<any>;
+  reactionName : string;
+  reactionConfig : any;
 }

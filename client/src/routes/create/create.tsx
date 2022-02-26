@@ -8,7 +8,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { UserResponse, User } from "../../helper/types";
 import { deleteArea, getArea, getAreas, NavbarLogged } from "..";
 
-var reaction : Array<string> = [];
+var reaction : string = "";
 var action : string = "";
 
 export default function CreateTrigger() {
@@ -39,10 +39,10 @@ function Body() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [finalAction, setAction] = useState<string>("Gmail");
-  const [reactions, setReactions] = useState<Array<string>>(["discord ping", "whatsapp"]);
+  const [finalAction, setAction] = useState<string>("Outlook");
+  const [finalReaction, setReaction] = useState<string>("discord ping");
 
-  function GmailAction() {
+  function OutlookAction() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -88,9 +88,11 @@ function Body() {
     const handleShow = () => setShow(true);
 
     const [actualCurrency, setCurrency] = useState<string>("");
-    const [actualPrice, setPrice] = useState<string>("");
+    const [actualMaxValue, setMaxValue] = useState<string>("");
+    const [actualMinValue, setMinValue] = useState<string>("");
     var currency : string = "";
-    var price : string = "";
+    var maxValue : string = "";
+    var minValue : string = "";
 
     return (
       <>
@@ -118,11 +120,21 @@ function Body() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <FloatingLabel controlId="floatingInput" label="Price" className="mb-3">
-              <Form.Control required type="text" value={actualPrice}
+              <FloatingLabel controlId="floatingInput" label="Price Max" className="mb-3">
+              <Form.Control required type="text" value={actualMaxValue}
                 onChange={(e) => {
-                  price = e.target.value;
-                  setPrice(e.target.value);
+                  maxValue = e.target.value;
+                  setMaxValue(e.target.value);
+                }}/>
+              </FloatingLabel>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Price Min" className="mb-3">
+              <Form.Control required type="text" value={actualMinValue}
+                onChange={(e) => {
+                  minValue = e.target.value;
+                  setMinValue(e.target.value);
                 }}/>
               </FloatingLabel>
             </Form.Group>
@@ -138,7 +150,8 @@ function Body() {
             </Button>
             <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
               setCurrency("");
-              setPrice("");
+              setMaxValue("");
+              setMinValue("");
               handleClose();
             }}>
             Cancel
@@ -209,9 +222,11 @@ function Body() {
     const handleShow = () => setShow(true);
 
     const [actualCity, setCity] = useState<string>("");
-    const [actualTemperature, setTemperature] = useState<string>("");
-    var currency : string = "";
-    var price : string = "";
+    const [actualTemperatureMin, setTemperatureMin] = useState<string>("");
+    const [actualTemperatureMax, setTemperatureMax] = useState<string>("");
+    var city : string = "";
+    var temperatureMin : string = "";
+    var temperatureMax : string = "";
 
     return (
       <>
@@ -231,7 +246,7 @@ function Body() {
               <FloatingLabel controlId="floatingInput" label="City" className="mb-3">
               <Form.Control required type="text" value={actualCity}
                 onChange={(e) => {
-                  currency = e.target.value;
+                  city = e.target.value;
                   setCity(e.target.value);
                 }}
               />
@@ -239,11 +254,21 @@ function Body() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <FloatingLabel controlId="floatingInput" label="Temperature" className="mb-3">
-              <Form.Control required type="text" value={actualTemperature}
+              <FloatingLabel controlId="floatingInput" label="Temperature Max" className="mb-3">
+              <Form.Control required type="text" value={actualTemperatureMax}
                 onChange={(e) => {
-                  price = e.target.value;
-                  setTemperature(e.target.value);
+                  temperatureMax = e.target.value;
+                  setTemperatureMax(e.target.value);
+                }}/>
+              </FloatingLabel>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Temperature Min" className="mb-3">
+              <Form.Control required type="text" value={actualTemperatureMin}
+                onChange={(e) => {
+                  temperatureMin = e.target.value;
+                  setTemperatureMin(e.target.value);
                 }}/>
               </FloatingLabel>
             </Form.Group>
@@ -259,7 +284,8 @@ function Body() {
             </Button>
             <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
               setCity("");
-              setTemperature("");
+              setTemperatureMin("");
+              setTemperatureMax("");
               handleClose();
             }}>
             Cancel
@@ -400,7 +426,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              reaction.push("TrelloCard");
+              reaction = "TrelloCard";
               handleClose();
             }}>
               Select Reaction
@@ -467,7 +493,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              reaction.push("DiscordWebhook");
+              reaction = "DiscordWebhook";
               handleClose();
             }}>
               Select Reaction
@@ -534,7 +560,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              reaction.push("DiscordWebhook");
+              reaction = "DiscordWebhook";
               handleClose();
             }}>
               Select Reaction
@@ -601,7 +627,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              reaction.push("Sheets");
+              reaction = "Sheets";
               handleClose();
             }}>
               Select Reaction
@@ -668,7 +694,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              reaction.push("Whatsapp");
+              reaction = "Whatsapp";
               handleClose();
             }}>
               Select Reaction
@@ -735,7 +761,7 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              reaction.push("Gmail");
+              reaction = "Gmail";
               handleClose();
             }}>
               Select Reaction
@@ -766,10 +792,10 @@ function Body() {
               <Row>
                 <Col md={3}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
-                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://gowizyou.com/wp-content/uploads/2020/10/gmail-icon.png" />
+                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="data:image/png;base64,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" />
                     <Card.Body>
-                      <Card.Title>Gmail</Card.Title>
-                      <GmailAction/>
+                      <Card.Title>Outlook</Card.Title>
+                      <OutlookAction/>
                     </Card.Body>
                   </Card>
                   </Col>
@@ -817,7 +843,7 @@ function Body() {
           </Accordion.Item>
           {/* Reactions */}
           <Accordion.Item eventKey="1">
-            <Accordion.Header><a style={{color: '#FE9455', fontWeight: 'bold'}}>Add reaction(s) <a style={{fontStyle: 'italic', color: 'lightgrey'}}>Selected : {reactions.join(' / ')}</a></a></Accordion.Header>
+            <Accordion.Header><a style={{color: '#FE9455', fontWeight: 'bold'}}>Add reaction(s) <a style={{fontStyle: 'italic', color: 'lightgrey'}}>Selected : {reaction}</a></a></Accordion.Header>
             <Accordion.Body>
               <Row>
                 <Col md={3}>
@@ -864,7 +890,7 @@ function Body() {
               <Row style={{marginTop: 5}}>
                 <Col md={3}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
-                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://gowizyou.com/wp-content/uploads/2020/10/gmail-icon.png" />
+                    <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="data:image/png;base64,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" />
                     <Card.Body>
                       <Card.Title>Email</Card.Title>
                       <Card.Text>Receive an email</Card.Text>

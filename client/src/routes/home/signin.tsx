@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 
 import { UserResponse } from "../../helper/types";
 import { signin } from "..";
+import { GoogleSignin } from "../../helper/services/google";
 
 function ShowSignin() {
   const navigate = useNavigate();
@@ -92,6 +93,7 @@ function ShowSignin() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <GoogleSignin/>
           <a style={{ opacity: 0.8 }}>Area Enterprise</a>
         </Modal.Footer>
       </Modal>
