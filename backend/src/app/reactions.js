@@ -1,16 +1,7 @@
 const { pool } = require('../dbConfig')
-//const { Client } = require ('whatsapp-web.js')
 
-exports.sendWhatsApp = async (number, message) => {
-  const client = new Client()
-  client.on('qr', (qr)=> {
-    console.log('QR RECEIVED', qr)
-  })
-  client.on('ready', () => {
-    console.log('Client is ready!')
-  })
+exports.sendWhatsApp = (number, message) => {
 
-  client.initialize()
 }
 
 exports.getReactions = async (req, res) => {
