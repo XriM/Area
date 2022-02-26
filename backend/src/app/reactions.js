@@ -1,5 +1,5 @@
 const { pool } = require('../dbConfig')
-const { Client } = require ('whatsapp-web.js')
+//const { Client } = require ('whatsapp-web.js')
 
 exports.sendWhatsApp = async (number, message) => {
   const client = new Client()

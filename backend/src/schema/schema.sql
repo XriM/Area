@@ -73,6 +73,7 @@ INSERT INTO services (name) VALUES ('Discord');
 INSERT INTO services (name) VALUES ('Weather');
 INSERT INTO services (name) VALUES ('Crypto');
 INSERT INTO services (name) VALUES ('Whatsapp');
+INSERT INTO services (name) VALUES ('Outlook');
 
 INSERT INTO reactions (name) VALUES ('Send email');
 INSERT INTO reactions (name) VALUES ('Send whatsapp');
