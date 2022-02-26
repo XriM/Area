@@ -1,6 +1,7 @@
 const { user } = require('pg/lib/defaults')
 const { pool } = require('../dbConfig')
 const axios = require('axios')
+const fetch = require('node-fetch')
 const { response } = require('express')
 
 exports.getAreas = async (req, res) => {
@@ -42,51 +43,34 @@ exports.postArea = async (req, res) => {
   const result = await pool.query('INSERT INTO areas (action_id, reaction_id, name) VALUES ($1, $2, $3) RETURNING *', [actionId, reactionId, areaName])
   await pool.query('INSERT INTO user_area (area_id, user_id) VALUES ($1, $2)', [result.rows[0].id, userId.rows[0].id])
   let actionRes = await pool.query(`SELECT * FROM actions WHERE id = $1`, [actionId]);
-  console.log('Posting area: ')
-  //console.log(actionRes);
   actionRes = actionRes.rows[0];
-  //console.log(actionRes);
   const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
   if (actionRes.name == 'Received email') {
-    console.log('Im in the right place')
+    const days = 2;
+    const expirationDateTime = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+    const expirationDateTimeString = expirationDateTime.toISOString();
+    console.log(expirationDateTimeString)
+    console.log(serviceToken.rows[0].token);
     try {
-      await axios.post(`https://www.googleapis.com/gmail/v1/users/me/stop`,
-        {
-          'topicName': 'projects/area-gmail-341510/topics/area-gmail',
-          'labelFilterAction': 'include',
-          'labelIds': ["INBOX"],
-        },
-        {
-          headers: {
-            'Authorization': serviceToken.rows[0].token,
-            'Content-Type': 'application/json',
-          }
+      result = await axios.post('https://graph.microsoft.com/v1.0/subscriptions', {
+        'changeType': 'created,updated',
+        'notificationUrl': 'https://925d-79-80-212-40.ngrok.io/hooks',
+        'resource': "/me/mailfolders('inbox')/messages",
+        'expirationDateTime': expirationDateTimeString,
+        'clientState': 'area-outlook-state',
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + serviceToken.rows[0].token,
+          'Content-Type': 'application/json',
         }
-      );
+      })
+      console.log(result)
     } catch (err) {
-      console.log(err);
+      console.log('Error:')
+      console.log(err.response.data.error)
     }
-    try {
-      await axios.post(`https://www.googleapis.com/gmail/v1/users/me/watch`,
-        {
-          'topicName': 'projects/area-gmail-341510/topics/area-gmail',
-          'labelFilterAction': 'include',
-          'labelIds': ["INBOX"],
-        },
-        {
-          headers: {
-            'Authorization': serviceToken.rows[0].token,
-            'Content-Type': 'application/json',
-          }
-        }
-      );
-    } catch (err) {
-      console.log(err);
-
-    }
+    res.status(200).send({ message: 'Area successfully created' })
   }
-  console.log(result.rows)
-  res.status(200).send({ message: 'Area successfully created' })
 }
 
 exports.patchArea = async (req, res) => {
