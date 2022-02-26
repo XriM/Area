@@ -166,7 +166,8 @@ class _ThenFilledState extends State<ThenFilled> {
                   print(globals.servicePara);
                   print(globals.reactionName);
                   print(globals.reactionPara);
-                  print(globals.code);
+                  print(globals.githCode);
+                  print(globals.ootCode);
                   _btnController.success();
                   print("ADD");
                   await Future.delayed(const Duration(seconds: 1), () {

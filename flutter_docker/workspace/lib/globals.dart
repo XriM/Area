@@ -16,4 +16,5 @@ var userName = null;
 var userMail = null;
 
 String token = "";
-var code;
+var githCode;
+var ootCode;
