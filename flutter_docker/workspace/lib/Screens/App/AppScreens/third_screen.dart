@@ -1,10 +1,28 @@
+import 'dart:async';
+
+import 'package:area_app/Screens/Signup/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:area_app/globals.dart' as globals;
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class ThirdScreen extends StatelessWidget {
-  const ThirdScreen({Key? key}) : super(key: key);
-
+  ThirdScreen({Key? key}) : super(key: key);
+  final RoundedLoadingButtonController _btnController =
+      RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
+    void signOut() {
+      Timer(Duration(seconds: 3), () async {
+        _btnController.success();
+        await Future.delayed(const Duration(seconds: 2), () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SignUpScreen()),
+          );
+        });
+      });
+    }
+
     return Column(
       children: [
         const SizedBox(
@@ -37,13 +55,13 @@ class ThirdScreen extends StatelessWidget {
                   width: 200.0,
                   color: Colors.transparent,
                   child: Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           color: Color(0xff333333),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          "USERNAME",
+                          globals.userName,
                           style: TextStyle(fontSize: 22, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
@@ -74,13 +92,13 @@ class ThirdScreen extends StatelessWidget {
                   width: 390.0,
                   color: Colors.transparent,
                   child: Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           color: Color(0xff333333),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          "monmail@gmail.com",
+                          globals.userMail,
                           style: TextStyle(fontSize: 22, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
@@ -90,43 +108,19 @@ class ThirdScreen extends StatelessWidget {
             ),
           ],
         ),
-        Wrap(
-          direction: Axis.horizontal,
-          children: [
-            Wrap(
-              direction: Axis.vertical,
-              spacing: 0,
-              runSpacing: 0,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "     Password",
-                  style: TextStyle(fontSize: 20),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                  height: 50.0,
-                  width: 390.0,
-                  color: Colors.transparent,
-                  child: Container(
-                      decoration: const BoxDecoration(
-                          color: Color(0xff333333),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0))),
-                      child: const Center(
-                        child: Text(
-                          "monmotdepasse",
-                          style: TextStyle(fontSize: 22, color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
-                ),
-              ],
-            ),
-          ],
+        SizedBox(
+          height: 50,
         ),
+        Container(
+            height: 50,
+            width: 700,
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: RoundedLoadingButton(
+              color: Color(0xFF333333),
+              child: Text('SIGNUP', style: TextStyle(color: Colors.white)),
+              controller: _btnController,
+              onPressed: signOut,
+            )),
       ],
     );
   }

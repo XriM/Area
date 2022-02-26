@@ -48,19 +48,9 @@ class _ThenFilledState extends State<ThenFilled> {
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
-  void loadData() async {
-    final LoadedIf = await rootBundle.loadString('lib/txt/if.txt');
-    final LoadedThen = await rootBundle.loadString('lib/txt/then.txt');
-    setState(() {
-      _if = LoadedIf;
-      _then = LoadedThen;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    loadData();
   }
 
   @override
@@ -176,6 +166,7 @@ class _ThenFilledState extends State<ThenFilled> {
                   print(globals.servicePara);
                   print(globals.reactionName);
                   print(globals.reactionPara);
+                  print(globals.code);
                   _btnController.success();
                   print("ADD");
                   await Future.delayed(const Duration(seconds: 1), () {

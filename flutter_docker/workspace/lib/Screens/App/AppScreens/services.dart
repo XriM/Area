@@ -2,9 +2,9 @@
 
 import 'package:area_app/Screens/App/AppScreens/services/steamService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/cryptoService.dart';
-import 'package:area_app/Screens/App/AppScreens/services/emailService.dart';
+import 'package:area_app/Screens/App/AppScreens/services/githubService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/meteoService.dart';
-import 'package:area_app/Screens/App/AppScreens/services/steamService.dart';
+
 import 'package:flutter/material.dart';
 
 class Services extends StatelessWidget {
@@ -84,7 +84,8 @@ class Services extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EmailServiceForm()),
+                    MaterialPageRoute(
+                        builder: (context) => GithubServiceForm()),
                   );
                 },
                 child: Container(
@@ -112,7 +113,7 @@ class Services extends StatelessWidget {
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "EMAIL",
+                                  "GITHUB",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )

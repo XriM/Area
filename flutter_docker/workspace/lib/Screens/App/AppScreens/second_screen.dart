@@ -24,19 +24,9 @@ class _SecondScreenState extends State<SecondScreen> {
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
-  void loadData() async {
-    final LoadedIf = await rootBundle.loadString('lib/txt/if.txt');
-    final LoadedThen = await rootBundle.loadString('lib/txt/then.txt');
-    setState(() {
-      _if = LoadedIf;
-      _then = LoadedThen;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    loadData();
   }
 
   @override

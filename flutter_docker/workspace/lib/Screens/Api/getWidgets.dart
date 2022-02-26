@@ -10,7 +10,7 @@ Future<Map<String, dynamic>> getWidgets(String _email, String _password) async {
   };
   final Uri url = Uri.https(
     '',
-    '', // à remplir
+    '/users/:id/areas/:id', // id ??
   );
   final http.Response response = await http.get(url, headers: header);
   if (response.statusCode == 200) {

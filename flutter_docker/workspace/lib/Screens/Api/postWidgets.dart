@@ -6,16 +6,21 @@ Future<Map<String, dynamic>> getLogin(String _email, String _password) async {
   // String token = globals.token;
 
   final Map<String, String> header = {
-    'email': _email,
-    'password': _password,
+    'acces_token': globals.token,
+  };
+  final Map<String, String> body = {
+    'nom de l area': globals.serviceName + ' + ' + globals.reactionName,
+    'action et config': globals.serviceName + ' | ' + globals.servicePara,
+    'reaction et config': globals.reactionName + ' | ' + globals.reactionPara,
   };
   final Uri url = Uri.https(
     '',
-    '',
+    '/users/:id/areas/', // id ??
   );
-  final http.Response response = await http.get(
+  final http.Response response = await http.post(
     url,
     headers: header,
+    body: body,
   );
   if (response.statusCode == 200) {
     final Map<String, dynamic> json =

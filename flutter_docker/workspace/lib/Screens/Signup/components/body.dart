@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:area_app/Screens/Api/googleSignInApi.dart';
 import 'package:area_app/Screens/App/app.dart';
 import 'package:flutter/material.dart';
 import 'package:area_app/Screens/Login/login_screen.dart';
@@ -17,20 +18,21 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:area_app/globals.dart' as globals;
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-
 class Body extends StatelessWidget {
-  GoogleSignInAccount? _currentUser;
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
   TextEditingController mailController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     void signUpExit() async {
       print(mailController.text);
+      print(userNameController.text);
       print(passwordController.text);
+      globals.userName = userNameController.text;
+      globals.userMail = passwordController.text;
       Timer(Duration(seconds: 3), () async {
         _btnController.success();
         await Future.delayed(const Duration(seconds: 2), () {
@@ -38,7 +40,7 @@ class Body extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return Application();
+                return LoginScreen();
               },
             ),
           );
@@ -48,12 +50,12 @@ class Body extends StatelessWidget {
 
     Future<void> signIn() async {
       try {
-        await _googleSignIn.signIn();
-        globals.user = _currentUser;
-        print("--------------------------------------------------");
-        print(globals.user?.displayName);
-        print(globals.user?.email);
-        print("--------------------------------------------------");
+        final user = await GoogleSignInApi.login();
+        print(user?.displayName);
+        print(user?.email);
+        globals.user = user;
+        globals.userName = user?.displayName;
+        globals.userMail = user?.email;
         Timer(Duration(seconds: 3), () async {
           _btnController.success();
           await Future.delayed(const Duration(seconds: 2), () {
@@ -90,12 +92,25 @@ class Body extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   fontSize: 120),
             ),
+            RoundedUserNameInputField(
+              hintText: "Your Username",
+              onChanged: (value) {
+                userNameController.text = value;
+              },
+            ),
             RoundedInputField(
               hintText: "Your Email",
-              onChanged: (value) {},
+              onChanged: (value) {
+                mailController.text = value;
+              },
             ),
             RoundedPasswordField(
-              onChanged: (value) {},
+              onChanged: (value) {
+                passwordController.text = value;
+              },
+            ),
+            SizedBox(
+              height: 20,
             ),
             Container(
                 height: 50,
@@ -103,7 +118,7 @@ class Body extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: RoundedLoadingButton(
                   color: Color(0xFF333333),
-                  child: Text('LOGIN', style: TextStyle(color: Colors.white)),
+                  child: Text('SIGNUP', style: TextStyle(color: Colors.white)),
                   controller: _btnController,
                   onPressed: signUpExit,
                 )),

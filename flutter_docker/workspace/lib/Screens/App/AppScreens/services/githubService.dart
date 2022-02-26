@@ -3,14 +3,16 @@
 import 'dart:async';
 
 import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
+import 'package:area_app/Screens/App/AppScreens/services/githubWebview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
 import 'package:area_app/globals.dart' as globals;
 
-class EmailServiceForm extends StatelessWidget {
-  EmailServiceForm({Key? key}) : super(key: key);
+class GithubServiceForm extends StatelessWidget {
+  GithubServiceForm({Key? key}) : super(key: key);
 
   TextEditingController _email = TextEditingController();
 
@@ -19,6 +21,15 @@ class EmailServiceForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _test() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => GithubWebview(),
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -33,20 +44,19 @@ class EmailServiceForm extends StatelessWidget {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Email",
+            "AREA | Github",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
         body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Email',
+                  'Github',
                   style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w500,
@@ -56,7 +66,7 @@ class EmailServiceForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Email from which we listen',
+                  'Github repo that we will listen to',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(
@@ -65,9 +75,16 @@ class EmailServiceForm extends StatelessWidget {
                 controller: _email,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Email',
+                  labelText: 'Repo Name',
                 ),
               ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SignInButton(
+              Buttons.GitHub,
+              onPressed: _test,
             ),
             SizedBox(
               height: 20,
@@ -77,14 +94,12 @@ class EmailServiceForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.serviceName = "EMAIL";
+                globals.serviceName = "GITHUB";
                 globals.serviceColor = Colors.lightGreen;
                 globals.servicePara = _email.text;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {
-                    // Navigator.pop(context);
-                    // Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
