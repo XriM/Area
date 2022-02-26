@@ -15,6 +15,11 @@ const { ip } = require('./ip')
 const ngrok = require('ngrok')
 const express = require('express')
 const { env } = require('dotenv').config()
+const { getGitHubHook } = require('./app/hook')
+const { deleteGitHubHook } = require('./app/hook')
+const { createGitHubHook } = require('./app/hook')
+const { accessTokensHandler } = require('./app/accessToken')
+
 
 // Constants
 const PORT = process.env.PORT
@@ -51,10 +56,14 @@ app.get('/users/:username/areas', authenticateToken, getAreas)
 app.get('/users/:username/areas/:area_id', authenticateToken, getArea)
 app.post('/users/:username/areas', authenticateToken, postArea)
 app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
-app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
+//app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
 app.post('/hooks', hookHandler)
 app.post('/crontabs', crontabsHandler)
+app.post('/createGitHook', createGitHubHook)
+app.get('/listGitHooks', getGitHubHook)
+app.delete('/deleteGitHook/:hookId', deleteGitHubHook)
+app.post('/accessTokensHandler', accessTokensHandler)
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)

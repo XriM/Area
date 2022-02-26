@@ -96,7 +96,6 @@ exports.postUserService = async (req, res) => {
   const service = await pool.query(`SELECT * FROM services WHERE id = $1`, [serviceId.rows[0].id]);
   if (service.rows[0].name == 'Gmail') {
     await pool.query(`UPDATE user_service SET service_config = $1 WHERE user_id = $2 AND service_id = $3`, [{email: await getGmailAddress(userService.rows[0])}, userId.rows[0].id, serviceId.rows[0].id]);
-
   }
   res.status(200).send({ message: 'Service token successfully loaded' })
 }
