@@ -45,6 +45,7 @@ class _OotlookWebviewState extends State<OotlookWebview> {
       if (response.statusCode == 200) {
         final Map<String, dynamic> json =
             await jsonDecode(response.body) as Map<String, dynamic>;
+        print(json['access_token'].toString());
         globals.ootCode = json['access_token'].toString();
         return json;
       } else {
@@ -80,14 +81,14 @@ class _OotlookWebviewState extends State<OotlookWebview> {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Github",
+            "AREA | Outlook",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
         body: WebView(
           javascriptMode: JavascriptMode.unrestricted,
           initialUrl:
-              'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=dee479f7-7be3-49a8-a238-71bf50de2175response_type=code&redirect_uri=http://localhost:3000/profile&response_mode=query&scope=openid%20email%20offline_access%20https%3A%2F%2Foutlook.office.com%2FIMAP.AccessAsUser.All&state=12345',
+              'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=dee479f7-7be3-49a8-a238-71bf50de2175&response_type=code&redirect_uri=https://localhost/callback&response_mode=query&scope=openid%20email%20offline_access%20https%3A%2F%2Foutlook.office.com%2FIMAP.AccessAsUser.All&state=12345',
           onWebViewCreated: (controller) {
             this.controller = controller;
           },

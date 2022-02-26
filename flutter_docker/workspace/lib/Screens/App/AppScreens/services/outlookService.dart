@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
-import 'package:area_app/Screens/App/AppScreens/services/OotlookWebview.dart';
+import 'package:area_app/Screens/App/AppScreens/services/OutlookWebview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,8 +11,8 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
 import 'package:area_app/globals.dart' as globals;
 
-class OotlookServiceForm extends StatelessWidget {
-  OotlookServiceForm({Key? key}) : super(key: key);
+class OutlookServiceForm extends StatelessWidget {
+  OutlookServiceForm({Key? key}) : super(key: key);
 
   TextEditingController _email = TextEditingController();
 
@@ -94,7 +94,7 @@ class OotlookServiceForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.serviceName = "Ootlook";
+                globals.serviceName = "Outlook";
                 globals.serviceColor = Colors.lightBlue;
                 globals.servicePara = _email.text;
                 Timer(Duration(seconds: 1), () async {

@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:area_app/Screens/App/AppScreens/services/ootlookService.dart';
+import 'package:area_app/Screens/App/AppScreens/services/outlookService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/steamService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/cryptoService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/githubService.dart';
@@ -223,7 +223,7 @@ class Services extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => OotlookServiceForm()),
+                        builder: (context) => OutlookServiceForm()),
                   );
                 },
                 child: Container(
@@ -251,7 +251,7 @@ class Services extends StatelessWidget {
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "OOTLOOK",
+                                  "OUTLOOK",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )
