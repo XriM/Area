@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:area_app/Screens/Api/googleSignInApi.dart';
 import 'package:area_app/Screens/Signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:area_app/globals.dart' as globals;
@@ -11,7 +12,8 @@ class ThirdScreen extends StatelessWidget {
       RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
-    void signOut() {
+    void signOut() async {
+      await GoogleSignInApi.logout();
       Timer(Duration(seconds: 3), () async {
         _btnController.success();
         await Future.delayed(const Duration(seconds: 2), () {
@@ -117,7 +119,7 @@ class ThirdScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: RoundedLoadingButton(
               color: Color(0xFF333333),
-              child: Text('SIGNUP', style: TextStyle(color: Colors.white)),
+              child: Text('SIGN OUT', style: TextStyle(color: Colors.white)),
               controller: _btnController,
               onPressed: signOut,
             )),
