@@ -43,6 +43,7 @@ CREATE TABLE user_area (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     area_id INT NOT NULL,
+    config jsonb,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (area_id) REFERENCES areas(id)
 );
@@ -73,6 +74,7 @@ INSERT INTO services (name) VALUES ('Discord');
 INSERT INTO services (name) VALUES ('Weather');
 INSERT INTO services (name) VALUES ('Crypto');
 INSERT INTO services (name) VALUES ('GitHub');
+INSERT INTO services (name) VALUES ('Outlook');
 
 INSERT INTO reactions (name) VALUES ('Send email');
 INSERT INTO reactions (name) VALUES ('Send whatsapp');
@@ -92,8 +94,8 @@ INSERT INTO user_area (user_id, area_id) VALUES ((SELECT id FROM users WHERE id 
 INSERT INTO user_area (user_id, area_id) VALUES ((SELECT id FROM users WHERE id = '2'), (SELECT id FROM areas WHERE id = '2'));
 INSERT INTO user_area (user_id, area_id) VALUES ((SELECT id FROM users WHERE id = '3'), (SELECT id FROM areas WHERE id = '3'));
 
-INSERT INTO service_reaction (service_id, reaction_id) VALUES ((SELECT id FROM services WHERE name = 'Gmail'), (SELECT id FROM reactions WHERE name = 'Send email'));
+INSERT INTO service_reaction (service_id, reaction_id) VALUES ((SELECT id FROM services WHERE name = 'Outlook'), (SELECT id FROM reactions WHERE name = 'Send email'));
 INSERT INTO service_reaction (service_id, reaction_id) VALUES ((SELECT id FROM services WHERE name = 'Discord'), (SELECT id FROM reactions WHERE name = 'Reaction added'));
 
 INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Google Calendar'), (SELECT id FROM actions WHERE name = 'Event added'));
-INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Gmail'), (SELECT id FROM actions WHERE name = 'Received email'));
+INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Outlook'), (SELECT id FROM actions WHERE name = 'Received email'));

@@ -1,6 +1,7 @@
 const { pool } = require('../dbConfig')
 const axios = require('axios');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+const { TokenExpiredError } = require('jsonwebtoken');
 //const { json } = require('stream/consumers');
 
 exports.getGitHubHook = async (req, res) => {
@@ -78,8 +79,12 @@ async function getUserIdFromEmail(data) {
 }
 
 exports.hookHandler = async (req, res) => {
+  if (req.query.validationToken) {
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(req.query.validationToken);
+  }
   const body = req.body
-  console.log('Received hook')
+  //console.log('Received hook')
   console.log(body)
   if ('message' in  body) {
     console.log('Gmail push notification: ')
@@ -91,5 +96,17 @@ exports.hookHandler = async (req, res) => {
     //console.log(userId)
     //const areaReaction = getAreaReactionFromUser(userId)
     //postReaction(areaReaction);
+  }
+  if ('value' in body) {
+    console.log(body.value[0].resourceData)
+    user = await pool.query(`SELECT * FROM user_area WHERE config ->> 'subscriptionId' = $1`, [body.value[0].subscriptionId])
+    token = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [user.rows[0].user_id])
+    messageRes = await axios.get(`https://graph.microsoft.com/v1.0/me/messages/${body.value[0].resourceData.id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + token.rows[0].token,
+        'content-type': 'application/json'
+      }
+    })
+
   }
 }

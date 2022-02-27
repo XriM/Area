@@ -52,9 +52,9 @@ exports.postArea = async (req, res) => {
     console.log(expirationDateTimeString)
     console.log(serviceToken.rows[0].token);
     try {
-      result = await axios.post('https://graph.microsoft.com/v1.0/subscriptions', {
-        'changeType': 'created,updated',
-        'notificationUrl': 'https://925d-79-80-212-40.ngrok.io/hooks',
+      resSub = await axios.post('https://graph.microsoft.com/v1.0/subscriptions', {
+        'changeType': 'updated',
+        'notificationUrl': 'https://332f-79-80-212-40.ngrok.io/hooks',
         'resource': "/me/mailfolders('inbox')/messages",
         'expirationDateTime': expirationDateTimeString,
         'clientState': 'area-outlook-state',
@@ -64,10 +64,11 @@ exports.postArea = async (req, res) => {
           'Content-Type': 'application/json',
         }
       })
-      console.log(result)
+      //await pool.query(`UPDATE user_area SET config ->> `, [resSub.data.id])
+      console.log(resSub)
     } catch (err) {
-      console.log('Error:')
-      console.log(err.response.data.error)
+      console.log(err)
+      //console.log(err.response.data.error)
     }
     res.status(200).send({ message: 'Area successfully created' })
   }

@@ -84,6 +84,8 @@ exports.postUserService = async (req, res) => {
   }
   const userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.user.username])
   const serviceId = await pool.query('SELECT id FROM services WHERE id = $1', [parseInt(req.params.service_id)])
+  console.log(req.params.service_id)
+  console.log(serviceId.rows)
   if (serviceId === []) {
     return res.status(400).send({ message: 'No service with this id' })
   }

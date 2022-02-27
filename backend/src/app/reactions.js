@@ -1,7 +1,29 @@
 const { pool } = require('../dbConfig')
+const axios = require('axios')
+const { TokenExpiredError } = require('jsonwebtoken')
 
 exports.sendWhatsApp = (number, message) => {
 
+}
+
+exports.sendEmailOutlook = async (token, message, to, cc) => {
+  result = await axios.post('https://graph.microsoft.com/v1.0/me/sendMail', {
+    "message": {
+      "subject": message.subject,
+      "body": {
+        "contentType": "Text",
+        "content": message.body,
+      },
+      "toRecipients": to,
+      "ccRecipients": cc,
+    }
+  }, {
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'content-type': 'applicarion/json'
+    }
+  })
+  console.log(result)
 }
 
 exports.getReactions = async (req, res) => {
