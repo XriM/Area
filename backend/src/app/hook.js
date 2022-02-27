@@ -2,6 +2,7 @@ const { pool } = require('../dbConfig')
 const axios = require('axios');
 const fetch = require('node-fetch');
 const { TokenExpiredError } = require('jsonwebtoken');
+const { env } = require('dotenv').config()
 //const { json } = require('stream/consumers');
 
 exports.getGitHubHook = async (req, res) => {
@@ -47,26 +48,23 @@ exports.deleteGitHubHook = async (req, res) => {
       })
 }
 
-exports.createGitHubHook = async (req, res) => {
+exports.createGitHubHook = async (req, token, res) => {
 
-  const userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.user.username])
-  const accessToken = await pool.query('SELECT token FROM user_service WHERE user_id = $1', [userId])
-
-  var result = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.repo}/hooks`, { method: 'POST', body: JSON.stringify({     // CREATE HOOK
+  var result = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/hooks`, { method: 'POST', body: JSON.stringify({     // CREATE HOOK
       "name": "web",
       "active": true,
       "events": [
           "star"
       ],
       "config": {
-          "url": "https://417f-86-252-22-42.ngrok.io/hooks",
+          "url": `${process.env.NGROK_ADDRESS}/hooks`,
           "content_type": "json",
           "insecure_ssl": "0"
       }
-  }), headers: { Authorization: "Token " + accessToken}}).then(() => {
-  res.status(200).send({ message: "Hook have been well created for " + req.body.repo + "." })})
+  }), headers: { Authorization: "Token " + token}}).then(() => {
+  res.status(200).send({ message: "Hook have been well created for " + req.body.github + "." })})
   .catch((error) => {
-    console.error('Error deleting hook from GitHub')
+    console.error('Error creating hook from GitHub')
     throw error
   })
 }

@@ -77,11 +77,11 @@ INSERT INTO services (name) VALUES ('GitHub');
 INSERT INTO services (name) VALUES ('Outlook');
 
 INSERT INTO reactions (name) VALUES ('Send email');
-INSERT INTO reactions (name) VALUES ('Send whatsapp');
 INSERT INTO reactions (name) VALUES ('Reaction added');
 INSERT INTO actions (name) VALUES ('Received email');
 INSERT INTO actions (name) VALUES ('Received whatsapp');
 INSERT INTO actions (name) VALUES ('Event added');
+INSERT INTO actions (name) VALUES ('GitHub repo stared');
 INSERT INTO actions (name) VALUES ('Weather changed');
 INSERT INTO actions (name) VALUES ('CryptoCurrency price changed');
 

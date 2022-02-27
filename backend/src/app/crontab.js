@@ -37,47 +37,46 @@ getIdsFromActionAndData = async (actionName, data) => {
 /////////////////////////////////////////////
 
 
-checkIfWeather = async (body, res) => {
+exports.checkIfWeather = async (body, res) => {
 
-    const city = "Paris" // Buffer.from(body.city.data, 'base64')
+    const city = Buffer.from(Cbody.city.data, 'base64')
     weather.setLang('fr')
     weather.setCity(city)
     weather.setUnits('metric')
     weather.setAPPID(process.env.WEATHER_APPID)
 
-    //if ('weather' in  body) {
+    if ('weather' in  body) {
         cron.schedule('*/2 * * * *', () => {
             weather.getSmartJSON(function(err, smart) {
                 console.log(smart) //debug
                 if (smart.temp.parseInt() < 10 || smart.temp.parseInt > 20) {
-                    //var notifier = getIdsFromActionAndData("Weather changed", city)
+                        var notifier = getIdsFromActionAndData("Weather changed", city)
                     }
                 })
-            console.log("CRONED Weather") //debug
+            //console.log("CRONED Weather") //debug
             })
-        //})
-    //})
+    }
 }
 
-checkIfCrypto = async (body, res) => {
+exports.checkIfCrypto = async (body, res) => {
     // ici c'est le bitcoigne
 
     let kraken = new ccxt.kraken()
 
-    //if ('crypto' in  body) {
+    if ('crypto' in  body) {
         cron.schedule('*/2* * * *', () => {
             kraken.fetchTicker('BTC/USDT').then(data  => {
                 pair = data.symbol
                 pourcent = data.percentage
                 vwap = data.vwap
-                //if (pourcent > 5 || pourcent < 0) {
+                if (pourcent > 5 || pourcent < 0) {
                     getIdsFromActionAndData("CryptoCurrency price changed", pair)
-                //}
+                }
                 console.log(data)
             })
             //console.log("CRONED Crypto") //debug
         })
-    //})
+    }
 }
 
 

@@ -1,8 +1,11 @@
 const { user } = require('pg/lib/defaults')
 const { pool } = require('../dbConfig')
 const axios = require('axios')
+const { checkIfWeather } = require('./crontab')
 const fetch = require('node-fetch')
 const { response } = require('express')
+const { env } = require('dotenv').config()
+const { createGitHubHook } = require('./hook')
 
 exports.getAreas = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
@@ -54,7 +57,7 @@ exports.postArea = async (req, res) => {
     try {
       resSub = await axios.post('https://graph.microsoft.com/v1.0/subscriptions', {
         'changeType': 'updated',
-        'notificationUrl': 'https://332f-79-80-212-40.ngrok.io/hooks',
+        'notificationUrl': `${process.env.NGROK_ADRESS}/hooks`,
         'resource': "/me/mailfolders('inbox')/messages",
         'expirationDateTime': expirationDateTimeString,
         'clientState': 'area-outlook-state',
@@ -71,6 +74,12 @@ exports.postArea = async (req, res) => {
       //console.log(err.response.data.error)
     }
     res.status(200).send({ message: 'Area successfully created' })
+  } else if (actionRes.name == 'GitHub repo stared') {
+    createGitHubHook(req, serviceToken.rows[0].token, res)
+  } else if (actionRes.name == 'Weather changed') {
+    checkIfWeather(req.body, res)
+  } else if (actionRes.name == 'CryptoCurrency price changed') {
+    checkIfCrypto(req.body, res)
   }
 }
 
