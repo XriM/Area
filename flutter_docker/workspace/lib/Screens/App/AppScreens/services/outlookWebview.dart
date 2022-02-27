@@ -169,5 +169,6 @@ class _OotlookWebviewState extends State<OotlookWebview> {
   void logout() async {
     await oauth.logout();
     showMessage('Logged out');
+    globals.ootCode = null;
   }
 }
