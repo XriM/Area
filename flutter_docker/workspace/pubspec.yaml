@@ -33,6 +33,7 @@ dependencies:
   flutter_svg: ^1.0.3
   http: ^0.13.4
   webview_flutter: ^3.0.1
+  aad_oauth: ^0.3.0
   
 
 dev_dependencies:
