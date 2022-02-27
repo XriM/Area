@@ -37,52 +37,6 @@ class _OotlookWebviewState extends State<OotlookWebview> {
   @override
   Widget build(BuildContext context) {
     oauth.setWebViewScreenSizeFromMedia(MediaQuery.of(context));
-    // Future<Map<String, dynamic>> getAccesToken(var _code) async {
-    //   final Map<String, String> body = {
-    //     'nom de l area': globals.serviceName + ' + ' + globals.reactionName,
-    //     'client_id': 'dee479f7-7be3-49a8-a238-71bf50de2175',
-    //     'scope':
-    //         'openid email offline_access https://outlook.office.com/IMAP.AccessAsUser.All',
-    //     'redirect_uri': 'http://localhost:3000/profile',
-    //     'grant_type': 'authorization_code',
-    //     'client_secret': '2e88322a-c579-45ce-95b9-5788c7f7072c',
-    //     'code': _code,
-    //   };
-
-    //   final Uri url = Uri.https(
-    //     'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-    //     '',
-    //   );
-    //   final http.Response response = await http.post(url, body: body);
-    //   if (response.statusCode == 200) {
-    //     final Map<String, dynamic> json =
-    //         await jsonDecode(response.body) as Map<String, dynamic>;
-    //     print(json['access_token'].toString());
-    //     globals.ootCode = json['access_token'].toString();
-    //     return json;
-    //   } else {
-    //     throw Exception('Failed to get login');
-    //   }
-    // }
-
-    // // var uri = https://sts.epitech.eu/adfs/ls/?client-request-id=ffbf306b-7914-4784-ab02-234b3b0f2f29&wa=wsignin1.0&wtrealm=urn%3Afederation%3AMicrosoftOnline&wctx=LoginOptions%3D3%26estsredirect%3D2%26estsrequest%3DrQIIAdNiNtIzsFJJSU01MbdMM9c1T0o11jWxTLTQTTQyttA1N0xKMzVISTUyNDctEuISyDbY_1-kssV9NZOytzW_vuYqRqmMkpKCYit9_Zz85MScjPziEn0gnZOUmJy9g5HxAiPjLSZ-f8fSkgwjEJFflFmV-omJtbA0tahyFjOroZGxiekqZrgh-aUlOfn52Xr5aWmZyal6yfm5m5jZgGRuft4pZp_8gtS8zBSF1NzEzBwFoJKczLzU-MTk5NTiYgXcJuh7-joG6DmClTkWhxanFuk55uTcYGZ8xCyRkliWmaKXl5mdn5OZ7JBakFmSmpyhl1p6gYXxFQuPAZMVBwe_AJMEgwLDDxbGRazAEFC_mGp8KOCM67SCJyIfJoYynGLVD_UJcnYJCgg2DtZP065Iz0oOLkvz0Q9K8XQsC43wTbYILylILws3cKuqSLY1sTKcwMb4gY2xg51hFyeewDvAy_CDr6m5ff2ZA__eeAAA0&cbcxt=&username=david.nikolic%40epitech.eu&mkt=&lc=[VERBOSE-2:ui_dart_state.cc(209)]
-
-    // urlParser(String _url) {
-    //   print("la");
-    //   var uri = Uri.parse(_url);
-    //   print(uri);
-    //   uri.queryParameters.forEach((key, value) async {
-    //     if (key == "code") {
-    //       print("-------------");
-    //       print(value);
-    //       globals.ootCode = value;
-    //       print("-------------");
-    //       await getAccesToken(value);
-    //     }
-    //   });
-    //   // xNavigator.pop(context);
-    // }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -126,18 +80,6 @@ class _OotlookWebviewState extends State<OotlookWebview> {
         ],
       ),
     );
-    // WebView(
-    //   javascriptMode: JavascriptMode.unrestricted,
-    //   initialUrl:
-    //       'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=dee479f7-7be3-49a8-a238-71bf50de2175&response_type=code&redirect_uri=https://localhost/callback&response_mode=query&scope=https://graph.microsoft.com/.default&state=12345',
-    //   onWebViewCreated: (controller) {
-    //     this.controller = controller;
-    //   },
-    //   onPageStarted: (url) {
-    //     // urlParser(url);
-    //   },
-    // )
-    // );
   }
 
   void showError(dynamic ex) {
