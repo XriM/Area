@@ -14,9 +14,6 @@ const { ip } = require('./ip')
 const ngrok = require('ngrok')
 const express = require('express')
 const { env } = require('dotenv').config()
-const { getGitHubHook } = require('./app/hook')
-const { deleteGitHubHook } = require('./app/hook')
-const { createGitHubHook } = require('./app/hook')
 const { accessTokensHandler } = require('./app/accessToken')
 
 
@@ -58,9 +55,6 @@ app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
 //app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
 app.post('/hooks', hookHandler)
-app.post('/createGitHook', createGitHubHook)
-app.get('/listGitHooks', getGitHubHook)
-app.delete('/deleteGitHook/:hookId', deleteGitHubHook)
 app.post('/accessTokensHandler', accessTokensHandler)
 
 app.listen(PORT, HOST)
