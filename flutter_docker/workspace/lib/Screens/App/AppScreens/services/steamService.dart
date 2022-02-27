@@ -37,10 +37,8 @@ class SteamServiceForm extends StatelessWidget {
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
                 alignment: Alignment.center,
@@ -103,8 +101,7 @@ class SteamServiceForm extends StatelessWidget {
               },
               // },
             ),
-            SizedBox(height: 500),
           ],
-        )));
+        ));
   }
 }

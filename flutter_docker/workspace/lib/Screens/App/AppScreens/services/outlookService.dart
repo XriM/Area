@@ -48,9 +48,8 @@ class OutlookServiceForm extends StatelessWidget {
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
                 alignment: Alignment.center,
@@ -113,8 +112,8 @@ class OutlookServiceForm extends StatelessWidget {
                 });
               },
             ),
-            SizedBox(height: 500),
+            // SizedBox(height: 500),
           ],
-        )));
+        ));
   }
 }

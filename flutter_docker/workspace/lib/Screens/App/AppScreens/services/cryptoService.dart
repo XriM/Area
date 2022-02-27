@@ -38,9 +38,8 @@ class CryptoServiceForm extends StatelessWidget {
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
@@ -108,8 +107,7 @@ class CryptoServiceForm extends StatelessWidget {
                 });
               },
             ),
-            SizedBox(height: 500),
           ],
-        )));
+        ));
   }
 }
