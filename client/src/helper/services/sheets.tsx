@@ -27,7 +27,7 @@ export function SheetsSignin() {
       onSuccess={onSuccess}
       onFailure={onFailure}
       cookiePolicy={'single_host_origin'}
-      scope={'https://www.googleapis.com/auth/spreadsheets'}
+      scope={'https://www.googleapis.com/auth/youtube.force-ssl'}
       render={renderProps => (
         <Button className="principal__btn__color" onClick={renderProps.onClick} ><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
       )}
