@@ -12,6 +12,8 @@ class ThirdScreen extends StatelessWidget {
       RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width / 1.2;
+    double height = MediaQuery.of(context).size.height / 12;
     void signOut() async {
       await GoogleSignInApi.logout();
       Timer(Duration(seconds: 3), () async {
@@ -28,16 +30,12 @@ class ThirdScreen extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(
-          height: 80,
+          height: 20,
         ),
         Wrap(
           children: [
             SizedBox(
               width: 50,
-            ),
-            const Icon(
-              Icons.account_circle_rounded,
-              size: 100,
             ),
             Wrap(
               direction: Axis.vertical,
@@ -53,8 +51,8 @@ class ThirdScreen extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                  height: 50.0,
-                  width: 200.0,
+                  height: height,
+                  width: width,
                   color: Colors.transparent,
                   child: Container(
                       decoration: BoxDecoration(
@@ -90,8 +88,8 @@ class ThirdScreen extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                  height: 50.0,
-                  width: 390.0,
+                  height: height,
+                  width: width,
                   color: Colors.transparent,
                   child: Container(
                       decoration: BoxDecoration(

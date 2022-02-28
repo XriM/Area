@@ -8,11 +8,18 @@ import 'package:area_app/Screens/App/AppScreens/services/meteoService.dart';
 
 import 'package:flutter/material.dart';
 
-class Services extends StatelessWidget {
+class Services extends StatefulWidget {
   const Services({Key? key}) : super(key: key);
 
   @override
+  State<Services> createState() => _ServicesState();
+}
+
+class _ServicesState extends State<Services> {
+  @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width / 3;
+    double height = MediaQuery.of(context).size.height / 5;
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -31,9 +38,10 @@ class Services extends StatelessWidget {
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
-        body: Center(
-            child: Column(children: [
-          SizedBox(height: 30),
+        body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          SizedBox(
+            height: 20,
+          ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -46,8 +54,8 @@ class Services extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -90,8 +98,8 @@ class Services extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -136,8 +144,8 @@ class Services extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -180,8 +188,8 @@ class Services extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -227,8 +235,8 @@ class Services extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -262,8 +270,8 @@ class Services extends StatelessWidget {
             Opacity(
                 opacity: 0.0,
                 child: Container(
-                    height: 150.0,
-                    width: 180.0,
+                    height: height,
+                    width: width + 30,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -295,6 +303,6 @@ class Services extends StatelessWidget {
                           ),
                         )))),
           ]),
-        ])));
+        ]));
   }
 }

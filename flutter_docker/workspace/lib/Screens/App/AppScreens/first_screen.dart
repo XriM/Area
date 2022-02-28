@@ -49,14 +49,14 @@ class _FirstScreenState extends State<FirstScreen> {
                         // alignment: WrapAlignment.spaceEvenly,
                         // direction: Axis.horizontal,
                         children: [
-                          SizedBox(width: 40),
-                          CupertinoSwitch(
-                              value: state,
-                              onChanged: (value) {
-                                state = value;
-                                setState(() {});
-                              }),
-                          const SizedBox(width: 50),
+                          // SizedBox(width: 40),
+                          // CupertinoSwitch(
+                          //     value: state,
+                          //     onChanged: (value) {
+                          //       state = value;
+                          //       setState(() {});
+                          //     }),
+                          // const SizedBox(width: 50),
                           ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.red,

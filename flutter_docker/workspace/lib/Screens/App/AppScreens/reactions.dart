@@ -13,6 +13,8 @@ class Reactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width / 3;
+    double height = MediaQuery.of(context).size.height / 5;
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -47,8 +49,8 @@ class Reactions extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -91,8 +93,8 @@ class Reactions extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -115,7 +117,7 @@ class Reactions extends StatelessWidget {
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "Google Sheets",
+                                  "SHEETS",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )
@@ -138,8 +140,8 @@ class Reactions extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -182,8 +184,8 @@ class Reactions extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -229,8 +231,8 @@ class Reactions extends StatelessWidget {
                   );
                 },
                 child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: height,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
@@ -264,8 +266,8 @@ class Reactions extends StatelessWidget {
             Opacity(
                 opacity: 0.0,
                 child: Container(
-                    height: 150.0,
-                    width: 180.0,
+                    height: height,
+                    width: width + 30,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
