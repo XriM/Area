@@ -39,55 +39,43 @@ getIdsFromActionAndData = async (actionName, data) => {
 
 exports.checkIfWeather = async (body, res) => {
 
-    const city = Buffer.from(Cbody.city.data, 'base64')
+    const city = Buffer.from(body.city.data, 'base64')
+    const temp_min = parseInt(Buffer.from(body.temp_min.data, 'base64'))
+    const temp_max = parseInt(Buffer.from(body.temp_max.data, 'base64'))
+
     weather.setLang('fr')
     weather.setCity(city)
     weather.setUnits('metric')
     weather.setAPPID(process.env.WEATHER_APPID)
 
-    if ('weather' in  body) {
-        cron.schedule('*/2 * * * *', () => {
-            weather.getSmartJSON(function(err, smart) {
-                console.log(smart) //debug
-                if (smart.temp.parseInt() < 10 || smart.temp.parseInt > 20) {
-                        var notifier = getIdsFromActionAndData("Weather changed", city)
-                    }
-                })
-            //console.log("CRONED Weather") //debug
+    cron.schedule('*/2 * * * *', () => {
+        weather.getSmartJSON(function(err, smart) {
+            console.log(smart) //debug
+            if (smart.temp.parseInt() < temp_min || smart.temp.parseInt > temp_max) {
+                    var notifier = getIdsFromActionAndData("Weather changed", city)
+                }
             })
-    }
+        //console.log("CRONED Weather") //debug
+        })
 }
 
 exports.checkIfCrypto = async (body, res) => {
     // ici c'est le bitcoigne
 
+    const pair = Buffer.from(body.crypto.data, 'base64')
+    const value_min = parseInt(Buffer.from(body.value_min.data, 'base64'))
+    const value_max = parseInt(Buffer.from(body.value_max.data, 'base64'))
+
     let kraken = new ccxt.kraken()
 
-    if ('crypto' in  body) {
-        cron.schedule('*/2* * * *', () => {
-            kraken.fetchTicker('BTC/USDT').then(data  => {
-                pair = data.symbol
-                pourcent = data.percentage
-                vwap = data.vwap
-                if (pourcent > 5 || pourcent < 0) {
-                    getIdsFromActionAndData("CryptoCurrency price changed", pair)
-                }
-                console.log(data)
-            })
-            //console.log("CRONED Crypto") //debug
+    cron.schedule('*/2 * * * *', () => {
+        kraken.fetchOHLCV(pair, '1m').then(data  => {
+            res = parseInt(Buffer.from(data[0][1]), 'base64')
+            if (value_min > res || value_max < res) {
+                getIdsFromActionAndData("CryptoCurrency price changed", pair)
+            }
+            console.log(data)
         })
-    }
-}
-
-
-exports.crontabsHandler = async (req, res) => {
-    // commentary means it's waiting for the front json
-    console.log("welcome in crontabs handler")
-    const body = req.body;
-
-    //checkIfWeather(body, res)  // working
-    //checkIfCrypto(body, res) // working
-    getHookGitHub(body, res)
-
-    return res.status(200).send({ message: "crontabs ended well"}) //debug
+        //console.log("CRONED Crypto") //debug
+    })
 }

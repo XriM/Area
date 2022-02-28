@@ -1,5 +1,6 @@
 const { pool } = require('../dbConfig')
 const axios = require('axios')
+const { accessTokenGitHub } = require('./accessToken')
 
 exports.getUserServices = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
@@ -101,6 +102,10 @@ exports.postUserService = async (req, res) => {
   }
   if (service.rows[0].name == 'Outlook') {
     //await pool.query(`UPDATE user_service SET service_config = $1 WHERE user_id = $2 AND service_id = $3`, [])
+  }
+  if (service.rows[0].name == 'GitHub') {
+    var githubToken = accessTokenGitHub(req.body.token)
+    await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2`, [githubToken, userId.rows[0].id])
   }
   res.status(200).send({ message: 'Service token successfully loaded' })
 }
