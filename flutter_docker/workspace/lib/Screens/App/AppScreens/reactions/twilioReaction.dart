@@ -85,7 +85,7 @@ class TwilioReactionForm extends StatelessWidget {
 
                 //   });
                 // });
-                globals.reactionName = 'TWILIO';
+                globals.serviceName = globals.twilioValues[0] as String;
                 globals.reactionColor = Colors.red;
                 globals.reactionPara = _number.text;
                 Navigator.push(

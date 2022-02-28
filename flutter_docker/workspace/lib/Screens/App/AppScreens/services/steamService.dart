@@ -83,7 +83,7 @@ class SteamServiceForm extends StatelessWidget {
                 //     Navigator.pop(context);
                 //   });
                 // });
-                globals.serviceName = "STEAM";
+                globals.serviceName = globals.steamValues[0] as String;
                 globals.serviceColor = Colors.lightBlue;
                 globals.servicePara = gameID.text;
                 Navigator.push(

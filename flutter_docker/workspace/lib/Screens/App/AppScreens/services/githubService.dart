@@ -14,7 +14,8 @@ import 'package:area_app/globals.dart' as globals;
 class GithubServiceForm extends StatelessWidget {
   GithubServiceForm({Key? key}) : super(key: key);
 
-  TextEditingController _email = TextEditingController();
+  TextEditingController _repo = TextEditingController();
+  TextEditingController _owner = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
@@ -71,10 +72,20 @@ class GithubServiceForm extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: _email,
+                controller: _repo,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Repo Name',
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: _owner,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Owner',
                 ),
               ),
             ),
@@ -93,9 +104,12 @@ class GithubServiceForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.serviceName = "GITHUB";
+                globals.serviceName = globals.githubValues[0] as String;
+                globals.githubPara = {
+                  "github": _repo.text,
+                  "owner": _owner.text,
+                };
                 globals.serviceColor = Colors.lightGreen;
-                globals.servicePara = _email.text;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {

@@ -3,24 +3,37 @@
 import 'dart:async';
 
 import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
+import 'package:area_app/Screens/App/AppScreens/services/githubWebview.dart';
+import 'package:area_app/Screens/App/AppScreens/thenFilled.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
 import 'package:area_app/globals.dart' as globals;
 
-class MeteoServiceForm extends StatelessWidget {
-  MeteoServiceForm({Key? key}) : super(key: key);
+class GithubReactionForm extends StatelessWidget {
+  GithubReactionForm({Key? key}) : super(key: key);
 
-  TextEditingController city = TextEditingController();
-  TextEditingController degreesMin = TextEditingController();
-  TextEditingController degreesMax = TextEditingController();
+  TextEditingController _repo = TextEditingController();
+  TextEditingController _owner = TextEditingController();
+  TextEditingController _title = TextEditingController();
+  TextEditingController _msg = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
+    _test() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => GithubWebview(),
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -35,19 +48,18 @@ class MeteoServiceForm extends StatelessWidget {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Meteo",
+            "AREA | Github",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Meteo',
+                  'Github',
                   style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w500,
@@ -57,67 +69,83 @@ class MeteoServiceForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'City and degrees Celcius',
+                  'Github repo that we will listen to',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: city,
+                controller: _repo,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'City',
+                  labelText: 'Repo Name',
                 ),
               ),
             ),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: degreesMin,
+                controller: _owner,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Degrees Celcius',
+                  labelText: 'Owner',
                 ),
               ),
             ),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: degreesMax,
+                controller: _title,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Degrees Celcius',
+                  labelText: 'Title',
                 ),
               ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: _msg,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Message',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SignInButton(
+              Buttons.GitHub,
+              onPressed: _test,
+            ),
+            SizedBox(
+              height: 20,
             ),
             RoundedLoadingButton(
               child: Text('ADD', style: TextStyle(color: Colors.white)),
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.serviceName = globals.weatherValues[0] as String;
-                globals.weatherPara = {
-                  "city": city.text,
-                  "temp_min": degreesMin.text,
-                  "temp_max": degreesMax.text,
+                globals.reactionName = globals.githubValues[0] as String;
+                globals.githubParaR = {
+                  "github": _repo.text,
+                  "owner": _owner.text,
+                  "title": _title.text,
+                  "message": _msg.text,
                 };
-                print("-------------");
-                print(globals.weatherPara);
-                print("-------------");
-                globals.serviceColor = Colors.purple;
-                globals.servicePara =
-                    city.text + '|' + degreesMin.text + '|' + degreesMax.text;
+                globals.serviceColor = Colors.lightGreen;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {
-                    // Navigator.pop(context);
-                    // Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => IfFilled(
-                          passedColor: globals.serviceColor,
-                          passedColorName: globals.serviceName,
+                        builder: (_) => ThenFilled(
+                          ifPassedColor: globals.serviceColor,
+                          ifPassedColorName: globals.serviceName,
+                          thenPassedColor: globals.reactionColor,
+                          thenPassedColorName: globals.reactionName,
                         ),
                       ),
                     );

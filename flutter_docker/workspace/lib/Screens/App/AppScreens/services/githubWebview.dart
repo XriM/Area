@@ -32,6 +32,7 @@ class _GithubWebviewState extends State<GithubWebview> {
           print("-------------");
           print(value);
           globals.githCode = value;
+          globals.githubToken = {"token": value};
           print("-------------");
         }
       });

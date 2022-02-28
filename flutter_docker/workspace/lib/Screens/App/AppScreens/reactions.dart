@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:area_app/Screens/App/AppScreens/reactions/githubReaction.dart';
 import 'package:area_app/Screens/App/AppScreens/reactions/sheetsReaction.dart';
 import 'package:area_app/Screens/App/AppScreens/reactions/discordReaction.dart';
 import 'package:area_app/Screens/App/AppScreens/reactions/emailReaction.dart';
@@ -208,7 +209,7 @@ class Reactions extends StatelessWidget {
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "EMAIL",
+                                  "Outlook",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )
@@ -263,15 +264,24 @@ class Reactions extends StatelessWidget {
                             )),
                           ),
                         )))),
-            Opacity(
-                opacity: 0.0,
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightGreen,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => GithubReactionForm()),
+                  );
+                },
                 child: Container(
                     height: height,
-                    width: width + 30,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
-                            color: Colors.green,
+                            color: Colors.transparent,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                         child: Container(
@@ -284,13 +294,13 @@ class Reactions extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.question_answer,
+                                  Icons.email_outlined,
                                   color: Colors.white,
                                   size: 60,
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "Google ...",
+                                  "GITHUB",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )
@@ -298,6 +308,41 @@ class Reactions extends StatelessWidget {
                             )),
                           ),
                         )))),
+            // Opacity(
+            //     opacity: 0.0,
+            //     child: Container(
+            //         height: height,
+            //         width: width + 30,
+            //         color: Colors.transparent,
+            //         child: Container(
+            //             decoration: const BoxDecoration(
+            //                 color: Colors.green,
+            //                 borderRadius:
+            //                     BorderRadius.all(Radius.circular(10.0))),
+            //             child: Container(
+            //               margin:
+            //                   const EdgeInsets.only(left: 30.0, right: 30.0),
+            //               child: SizedBox(
+            //                 width: 280,
+            //                 child: Center(
+            //                     child: Column(
+            //                   children: [
+            //                     SizedBox(height: 20),
+            //                     Icon(
+            //                       Icons.question_answer,
+            //                       color: Colors.white,
+            //                       size: 60,
+            //                     ),
+            //                     SizedBox(height: 20),
+            //                     Text(
+            //                       "Google ...",
+            //                       style: TextStyle(
+            //                           fontSize: 11, color: Colors.white),
+            //                     )
+            //                   ],
+            //                 )),
+            //               ),
+            //             )))),
           ]),
         ])));
   }

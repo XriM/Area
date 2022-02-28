@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:area_app/Screens/Api/postWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -171,6 +172,7 @@ class _ThenFilledState extends State<ThenFilled> {
                   _btnController.success();
                   print("ADD");
                   await Future.delayed(const Duration(seconds: 1), () {
+                    createArea();
                     Navigator.pop(context);
                     Navigator.pop(context);
                     Navigator.pop(context);

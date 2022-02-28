@@ -85,7 +85,7 @@ class SheetsReactionForm extends StatelessWidget {
 
                 //   });
                 // });
-                globals.reactionName = 'SHEETS';
+                globals.serviceName = globals.sheetsValues[0] as String;
                 globals.reactionColor = Colors.lightGreen;
                 globals.reactionPara = _email.text;
                 Navigator.push(

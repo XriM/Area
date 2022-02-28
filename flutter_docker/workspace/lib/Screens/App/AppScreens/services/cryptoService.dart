@@ -13,7 +13,8 @@ class CryptoServiceForm extends StatelessWidget {
   CryptoServiceForm({Key? key}) : super(key: key);
 
   TextEditingController _currency = TextEditingController();
-  TextEditingController _limit = TextEditingController();
+  TextEditingController _limitMin = TextEditingController();
+  TextEditingController _limitMax = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
@@ -72,7 +73,17 @@ class CryptoServiceForm extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: _limit,
+                controller: _limitMin,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Limit',
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: _limitMax,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Limit',
@@ -84,13 +95,24 @@ class CryptoServiceForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.serviceName = "CRYPTO";
+                globals.serviceName = globals.cryptoValues[0] as String;
+                globals.cryptoPara = {
+                  "crypto": _currency.text,
+                  "value_min": _limitMin.text,
+                  "value_max": _limitMax.text,
+                };
+                print("-------------");
+                print(globals.cryptoPara);
+                print("-------------");
                 globals.serviceColor = Colors.brown;
-                globals.servicePara = _currency.text + '|' + _limit.text;
+                globals.servicePara = _currency.text +
+                    '|' +
+                    _limitMax.text +
+                    '|' +
+                    _limitMin.text;
+                ;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
-                  print(_currency.text);
-                  print(_limit.text);
                   await Future.delayed(const Duration(seconds: 1), () {
                     // Navigator.pop(context);
                     // Navigator.pop(context);

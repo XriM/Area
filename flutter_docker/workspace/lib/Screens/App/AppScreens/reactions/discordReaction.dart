@@ -85,7 +85,7 @@ class DiscordReactionForm extends StatelessWidget {
 
                 //   });
                 // });
-                globals.reactionName = 'DISCORD';
+                globals.serviceName = globals.discordValues[0] as String;
                 globals.reactionColor = Colors.purple;
                 globals.reactionPara = _discordAccount.text;
                 Navigator.push(

@@ -18,3 +18,28 @@ var userMail = null;
 String token = "";
 var githCode;
 var ootCode;
+
+var steamValues = ['Steam', 2];
+Map<String, dynamic> steamPara = {};
+var githubValues = ['Github', 2];
+Map<String, dynamic> githubPara = {};
+Map<String, dynamic> githubToken = {};
+var weatherValues = ['Weather', 2];
+Map<String, dynamic> weatherPara = {};
+var cryptoValues = ['Crypto', 2];
+Map<String, dynamic> cryptoPara = {};
+var outlookValues = ['Outlook', 2];
+Map<String, dynamic> outlookPara = {};
+
+var trelloValues = ['Trello', 2];
+Map<String, dynamic> trelloPara = {};
+var sheetsValues = ['Sheets', 2];
+Map<String, dynamic> sheetsPara = {};
+var discordValues = ['Discord', 2];
+Map<String, dynamic> discordPara = {};
+var emailValues = ['Outlook', 2];
+Map<String, dynamic> emailPara = {};
+var twilioValues = ['Twilio', 2];
+Map<String, dynamic> twilioPara = {};
+var githubValuesR = ['Github', 2];
+Map<String, dynamic> githubParaR = {};
