@@ -44,7 +44,6 @@ exports.postArea = async (req, res) => {
   const reactionId = parseInt(req.body.reaction_id)
   const areaName = req.body.name
   const result = await pool.query('INSERT INTO areas (action_id, reaction_id, name) VALUES ($1, $2, $3) RETURNING *', [actionId, reactionId, areaName])
-  await pool.query('INSERT INTO user_area (area_id, user_id) VALUES ($1, $2)', [result.rows[0].id, userId.rows[0].id])
   let actionRes = await pool.query(`SELECT * FROM actions WHERE id = $1`, [actionId]);
   actionRes = actionRes.rows[0];
   const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
@@ -57,7 +56,7 @@ exports.postArea = async (req, res) => {
     try {
       resSub = await axios.post('https://graph.microsoft.com/v1.0/subscriptions', {
         'changeType': 'updated',
-        'notificationUrl': `${process.env.NGROK_ADRESS}/hooks`,
+        'notificationUrl': `${process.env.NGROK_ADDRESS}/hooks`,
         'resource': "/me/mailfolders('inbox')/messages",
         'expirationDateTime': expirationDateTimeString,
         'clientState': 'area-outlook-state',
@@ -67,8 +66,13 @@ exports.postArea = async (req, res) => {
           'Content-Type': 'application/json',
         }
       })
-      //await pool.query(`UPDATE user_area SET config ->> `, [resSub.data.id])
       console.log(resSub)
+      const data = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, `{"subscriptionId": "${resSub.data.id}"}`])
+      //const query = `UPDATE user_area SET config = config || $1`
+      //const query = `UPDATE user_area SET config = jsonconfig, '{subscriptionId}', '${resSub.data.id}', false) WHERE user_id = ${userId.rows[0].id} RETURNING *`
+      //const data = await pool.query('UPDATE user_area SET config = config || ($1) WHERE user_id = $2 RETURNING *', [`{"subscriptionId": "${resSub.data.id}"}`, userId.rows[0].id])
+      console.log(data.rows)
+      //await pool.query(`UPDATE user_area SET config ->> `, [resSub.data.id])
     } catch (err) {
       console.log(err)
       //console.log(err.response.data.error)

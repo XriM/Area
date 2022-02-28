@@ -2,6 +2,7 @@ const { pool } = require('../dbConfig')
 const axios = require('axios');
 const fetch = require('node-fetch');
 const { TokenExpiredError } = require('jsonwebtoken');
+const { user } = require('pg/lib/defaults');
 const { env } = require('dotenv').config()
 //const { json } = require('stream/consumers');
 
@@ -97,9 +98,14 @@ exports.hookHandler = async (req, res) => {
   }
   if ('value' in body) {
     console.log(body.value[0].resourceData)
-    user = await pool.query(`SELECT * FROM user_area WHERE config ->> 'subscriptionId' = $1`, [body.value[0].subscriptionId])
-    token = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [user.rows[0].user_id])
-    messageRes = await axios.get(`https://graph.microsoft.com/v1.0/me/messages/${body.value[0].resourceData.id}`, {
+    console.log(body.value[0].subscriptionId)
+    const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.value[0].subscriptionId}'`
+    const user = await pool.query(query)
+    console.log(user.rows)
+    const token = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [user.rows[0].user_id])
+    console.log(token.rows)
+    console.log(body.value[0].resourceData.id)
+    const messageRes = await axios.get(`https://graph.microsoft.com/v1.0/me/messages/${body.value[0].resourceData.id}`, {
       headers: {
         'Authorization': 'Bearer ' + token.rows[0].token,
         'content-type': 'application/json'
