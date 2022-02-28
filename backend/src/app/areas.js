@@ -5,7 +5,8 @@ const { checkIfWeather } = require('./crontab')
 const fetch = require('node-fetch')
 const { response } = require('express')
 const { env } = require('dotenv').config()
-const { createGitHubHook } = require('./hook')
+const { createGitHubHook, createOutlookHook } = require('./hook')
+const { sendGitIssue } = require('./reactions')
 
 exports.getAreas = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
@@ -46,44 +47,42 @@ exports.postArea = async (req, res) => {
   const result = await pool.query('INSERT INTO areas (action_id, reaction_id, name) VALUES ($1, $2, $3) RETURNING *', [actionId, reactionId, areaName])
   let actionRes = await pool.query(`SELECT * FROM actions WHERE id = $1`, [actionId]);
   actionRes = actionRes.rows[0];
+  let reactionRes = await pool.query(`SELECT * FROM reactions WHERE id = $1`, [reactionId]);
+  reactionRes = reactionRes.rows[0];
   const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
-  if (actionRes.name == 'Received email') {
-    const days = 2;
-    const expirationDateTime = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
-    const expirationDateTimeString = expirationDateTime.toISOString();
-    console.log(expirationDateTimeString)
-    console.log(serviceToken.rows[0].token);
-    try {
-      resSub = await axios.post('https://graph.microsoft.com/v1.0/subscriptions', {
-        'changeType': 'updated',
-        'notificationUrl': `${process.env.NGROK_ADDRESS}/hooks`,
-        'resource': "/me/mailfolders('inbox')/messages",
-        'expirationDateTime': expirationDateTimeString,
-        'clientState': 'area-outlook-state',
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + serviceToken.rows[0].token,
-          'Content-Type': 'application/json',
-        }
-      })
-      console.log(resSub)
-      const data = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, `{"subscriptionId": "${resSub.data.id}"}`])
-      //const query = `UPDATE user_area SET config = config || $1`
-      //const query = `UPDATE user_area SET config = jsonconfig, '{subscriptionId}', '${resSub.data.id}', false) WHERE user_id = ${userId.rows[0].id} RETURNING *`
-      //const data = await pool.query('UPDATE user_area SET config = config || ($1) WHERE user_id = $2 RETURNING *', [`{"subscriptionId": "${resSub.data.id}"}`, userId.rows[0].id])
-      console.log(data.rows)
-      //await pool.query(`UPDATE user_area SET config ->> `, [resSub.data.id])
-    } catch (err) {
-      console.log(err)
-      //console.log(err.response.data.error)
-    }
-    res.status(200).send({ message: 'Area successfully created' })
-  } else if (actionRes.name == 'GitHub repo stared') {
-    createGitHubHook(req, serviceToken.rows[0].token, res)
-  } else if (actionRes.name == 'Weather changed') {
-    checkIfWeather(req.body, res)
-  } else if (actionRes.name == 'CryptoCurrency price changed') {
-    checkIfCrypto(req.body, res)
+  switch (actionRes.name) {
+    case 'Received email':
+      createOutlookHook(req, serviceToken, result, userId, res)
+      break;
+
+    case 'Area successfully created':
+      createGitHubHook(req, serviceToken.rows[0].token, res)
+      break;
+
+    case 'Weather changed':
+      checkIfWeather(req.body, res)
+      break;
+
+    case 'CryptoCurrency price changed':
+      checkIfCrypto(req.body, res)
+      break;
+
+    default:
+      res.status(404).send({ message: "Error parsing user's Ares"})
+  }
+  switch (reactionRes.name) {
+    case 'Send Git Issue':
+      sendGitIssue(req, serviceToken, res)
+      break;
+
+    case 'Send email':
+      break;
+
+    case 'Reaction added':
+      break;
+
+    default:
+      res.status(404).send({ message: "Error parsing user's Ares"})
   }
 }
 

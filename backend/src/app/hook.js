@@ -6,6 +6,39 @@ const { user } = require('pg/lib/defaults');
 const { env } = require('dotenv').config()
 //const { json } = require('stream/consumers');
 
+exports.createOutlookHook = async (req, serviceToken, result, userId, res) => {
+  const days = 2;
+    const expirationDateTime = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+    const expirationDateTimeString = expirationDateTime.toISOString();
+    console.log(expirationDateTimeString)
+    console.log(serviceToken.rows[0].token);
+    try {
+      resSub = await axios.post('https://graph.microsoft.com/v1.0/subscriptions', {
+        'changeType': 'updated',
+        'notificationUrl': `${process.env.NGROK_ADDRESS}/hooks`,
+        'resource': "/me/mailfolders('inbox')/messages",
+        'expirationDateTime': expirationDateTimeString,
+        'clientState': 'area-outlook-state',
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + serviceToken.rows[0].token,
+          'Content-Type': 'application/json',
+        }
+      })
+      console.log(resSub)
+      const data = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, `{"subscriptionId": "${resSub.data.id}"}`])
+      //const query = `UPDATE user_area SET config = config || $1`
+      //const query = `UPDATE user_area SET config = jsonconfig, '{subscriptionId}', '${resSub.data.id}', false) WHERE user_id = ${userId.rows[0].id} RETURNING *`
+      //const data = await pool.query('UPDATE user_area SET config = config || ($1) WHERE user_id = $2 RETURNING *', [`{"subscriptionId": "${resSub.data.id}"}`, userId.rows[0].id])
+      console.log(data.rows)
+      //await pool.query(`UPDATE user_area SET config ->> `, [resSub.data.id])
+    } catch (err) {
+      console.log(err)
+      //console.log(err.response.data.error)
+    }
+    res.status(200).send({ message: 'Area successfully created' })
+}
+
 exports.getGitHubHook = async (req, res) => {
 
   const userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.body.username])

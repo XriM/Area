@@ -1,9 +1,18 @@
 const { pool } = require('../dbConfig')
 const axios = require('axios')
 const { TokenExpiredError } = require('jsonwebtoken')
+const { default: fetch } = require('node-fetch')
 
-exports.sendWhatsApp = (number, message) => {
-
+exports.sendGitIssue = async(req, token, title, message, res) => {
+  var result = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/issues`, { method: 'POST', body: JSON.stringify({
+    "title": req.body.title,
+    "body": req.body.message
+  }), headers: { Authorization: "Token " + token}}).then(() => {
+    res.status(200).send({ message: "Issue posted well" })
+  }).catch((error) => {
+    console.error('Error posting the issue')
+    throw error
+  })
 }
 
 exports.sendEmailOutlook = async (token, message, to, cc) => {
