@@ -1,7 +1,7 @@
 const { user } = require('pg/lib/defaults')
 const { pool } = require('../dbConfig')
 const axios = require('axios')
-const { checkIfWeather } = require('./crontab')
+const { checkIfWeather, checkIfSubscribe } = require('./crontab')
 const fetch = require('node-fetch')
 const { response } = require('express')
 const { env } = require('dotenv').config()
@@ -65,6 +65,10 @@ exports.postArea = async (req, res) => {
 
     case 'CryptoCurrency price changed':
       checkIfCrypto(req.body, res)
+      break;
+
+    case 'Youtube subscribers changed':
+      checkIfSubscribe(userId, res)
       break;
 
     default:

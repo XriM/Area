@@ -79,3 +79,24 @@ exports.checkIfCrypto = async (body, res) => {
         //console.log("CRONED Crypto") //debug
     })
 }
+
+exports.checkIfSubscribe = async (userId, res) => {
+    cron.schedule('*/2 * * * *', () => {
+        let subscribers = "";
+        const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
+
+        axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
+            headers: {
+              Authorization: "Bearer " + key,
+            },
+          }).then((result) => {
+            subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
+            if (subscribers !== subscriberCount) {
+                getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
+            }
+          }).catch(error => {
+            console.log('Error to fetch userdata\n' + error);
+          });
+        res.status(200).send({message: 'Crontabs youtube done.'})
+    });
+}
