@@ -16,24 +16,41 @@ exports.sendGitIssue = async(req, token, title, message, res) => {
 }
 
 exports.sendEmailOutlook = async (token, config) => {
-  console.log('Triggered')
-  //result = await axios.post('https://graph.microsoft.com/v1.0/me/sendMail', {
-  //  "message": {
-  //    "subject": config.subject,
-  //    "body": {
-  //      "contentType": "Text",
-  //      "content": config.message,
-  //    },
-  //    "toRecipients": config.to,
-  //    "ccRecipients": config.cc,
-  //  }
-  //}, {
-  //  headers: {
-  //    'Authorization': 'Bearer ' + token,
-  //    'content-type': 'applicarion/json'
-  //  }
-  //})
-  //console.log(result)
+  let to = []
+  config.to.forEach(element => {
+    const data = {
+      "emailAddress": {
+        "address": element
+      }
+    }
+    to.push(data)
+  })
+  let cc = []
+  config.cc.forEach(element => {
+    const data = {
+      "emailAddress": {
+        "address": element
+      }
+    }
+    cc.push(data)
+  })
+  result = await axios.post('https://graph.microsoft.com/v1.0/me/sendMail', {
+    "message": {
+      "subject": config.subject,
+      "body": {
+        "contentType": "Text",
+        "content": config.message,
+      },
+      "toRecipients": to,
+      "ccRecipients": cc,
+    }
+  }, {
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'content-type': 'application/json'
+    }
+  })
+  console.log(result)
 }
 
 exports.getReactions = async (req, res) => {

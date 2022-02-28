@@ -36,7 +36,7 @@ exports.getArea = async (req, res) => {
 }
 
 exports.postArea = async (req, res) => {
-  req.body = JSON.parse(JSON.stringify(req.body))
+  //req.body = JSON.parse(JSON.stringify(req.body))
   if (req.user.username !== req.params.username) {
     return res.status(498).send({ message: 'Invalid token!' })
   }

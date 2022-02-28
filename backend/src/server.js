@@ -13,6 +13,7 @@ const { hookHandler } = require('./app/hook')
 const { ip } = require('./ip')
 const ngrok = require('ngrok')
 const express = require('express')
+const bodyParser = require('body-parser');
 const { env } = require('dotenv').config()
 
 // Constants
@@ -24,6 +25,9 @@ const { bcrypt } = require('bcrypt')
 
 // App
 const app = express()
+
+app.use(bodyParser.json());
+
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
