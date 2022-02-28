@@ -3,6 +3,7 @@ const axios = require('axios');
 const fetch = require('node-fetch');
 const { TokenExpiredError } = require('jsonwebtoken');
 const { user } = require('pg/lib/defaults');
+const { sendEmailOutlook } = require('./reactions');
 const { env } = require('dotenv').config()
 //const { json } = require('stream/consumers');
 
@@ -83,34 +84,38 @@ exports.hookHandler = async (req, res) => {
     res.status(200).send(req.query.validationToken);
   }
   const body = req.body
-  //console.log('Received hook')
-  console.log(body)
+  let triggered = false
+  let reaction_id
+  let config
+  let token
   if ('message' in  body) {
     console.log('Gmail push notification: ')
     console.log(body)
     console.log(Buffer.from(body.message.data, 'base64').toString('ascii'))
-    //const data = Buffer.from(body.message.data, 'base64')
-    //console.log(data);
-    //const userId = await getUserIdFromEmail(data);
-    //console.log(userId)
-    //const areaReaction = getAreaReactionFromUser(userId)
-    //postReaction(areaReaction);
   }
   if ('value' in body) {
-    console.log(body.value[0].resourceData)
     console.log(body.value[0].subscriptionId)
     const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.value[0].subscriptionId}'`
     const user = await pool.query(query)
-    console.log(user.rows)
-    const token = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [user.rows[0].user_id])
-    console.log(token.rows)
-    console.log(body.value[0].resourceData.id)
+    config = user.rows[0].config
+    const tokenRes = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [user.rows[0].user_id])
+    token = tokenRes.rows[0].token
     const messageRes = await axios.get(`https://graph.microsoft.com/v1.0/me/messages/${body.value[0].resourceData.id}`, {
       headers: {
-        'Authorization': 'Bearer ' + token.rows[0].token,
+        'Authorization': 'Bearer ' + token,
         'content-type': 'application/json'
       }
     })
-
+    const area = await pool.query('SELECT * FROM areas WHERE id = $1', [user.rows[0].user_id])
+    reaction_id = area.rows[0].reaction_id
+    if (messageRes.data.from.emailAddress.address == config.email)
+      triggered = true
+  }
+  if (!triggered)
+    return
+  switch (reaction_id) {
+    case 1:
+      sendEmailOutlook(token, config)
+      break;
   }
 }
