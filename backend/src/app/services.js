@@ -1,6 +1,6 @@
 const { pool } = require('../dbConfig')
 const axios = require('axios')
-const { accessTokenGitHub } = require('./accessToken')
+const { accessTokenGitHub } = require('./token')
 
 exports.getUserServices = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
