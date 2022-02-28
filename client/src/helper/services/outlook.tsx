@@ -11,7 +11,7 @@ export function OutlookOauth() {
     auth: {
       authority: 'https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86',
       clientId: clientId,
-      redirectUri: 'http://localhost:3000',
+      redirectUri: 'https://localhost/callback', // faut que ca match le reply url de briann
       navigateToLoginRequestUrl: true
     },
     cache: {
