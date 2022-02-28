@@ -14,8 +14,6 @@ const { ip } = require('./ip')
 const ngrok = require('ngrok')
 const express = require('express')
 const { env } = require('dotenv').config()
-const { accessTokensHandler } = require('./app/accessToken')
-
 
 // Constants
 const PORT = process.env.PORT
@@ -55,7 +53,6 @@ app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
 //app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
 app.post('/hooks', hookHandler)
-app.post('/accessTokensHandler', accessTokensHandler)
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
