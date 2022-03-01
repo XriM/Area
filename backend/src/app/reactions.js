@@ -2,9 +2,31 @@ const { pool } = require('../dbConfig')
 const axios = require('axios')
 const { TokenExpiredError } = require('jsonwebtoken')
 const { default: fetch } = require('node-fetch')
+const {MessageEmbed, WebhookClient} = require('discord.js')
 
-exports.sendGitIssue = async(req, token, title, message, res) => {
-  var result = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/issues`, { method: 'POST', body: JSON.stringify({
+
+exports.sendDiscordMessage = async(req, res) => {
+  const webhookClient = new WebhookClient({ id: req.body.discord, token: req.body.url_token });
+  const embed = new MessageEmbed()
+	.setTitle('Area-Notification')
+	.setColor('#0099ff')
+
+  try {
+    webhookClient.send({
+      content: 'Reaction triggered',
+      username: 'Area-Bot',
+      avatarURL: 'https://i.imgur.com/Vxwd6sN.png',
+      embeds: [embed],
+    });
+  } catch (err) {
+    res.status(404).send({message: "Error with discord webhook"})
+    throw err
+  }
+  res.status(200).send({message: "Discord webhook done well"})
+}
+
+exports.sendGitIssue = async(req, token, res) => {
+  var result = fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/issues`, { method: 'POST', body: JSON.stringify({
     "title": req.body.title,
     "body": req.body.message
   }), headers: { Authorization: "Token " + token}}).then(() => {

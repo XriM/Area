@@ -1,12 +1,12 @@
 const { user } = require('pg/lib/defaults')
 const { pool } = require('../dbConfig')
 const axios = require('axios')
-const { checkIfWeather } = require('./crontab')
+const { checkIfWeather, checkIfSubscribe, checkIfSteam, checkIfCrypto } = require('./crontab')
 const fetch = require('node-fetch')
 const { response } = require('express')
 const { env } = require('dotenv').config()
 const { createGitHubHook, createOutlookHook, createOneDriveHook } = require('./hook')
-const { sendGitIssue } = require('./reactions')
+const { sendGitIssue, sendDiscordMessage } = require('./reactions')
 
 exports.getAreas = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
@@ -55,6 +55,10 @@ exports.postArea = async (req, res) => {
       createOutlookHook(req, serviceToken, result, userId, res)
       break;
 
+    case 'Steam players changed':
+      checkIfSteam(req, res)
+      break;
+
     case 'Area successfully created':
       createGitHubHook(req, serviceToken.rows[0].token, res)
       break;
@@ -71,12 +75,24 @@ exports.postArea = async (req, res) => {
       createOneDriveHook(req, serviceToken, result, userId, res)
       break
 
+    case 'Youtube subscribers changed':
+      checkIfSubscribe(userId, res)
+      break;
+
+    case 'Subreddit subscribers changed':
+      checkIfReddit(userId, res)
+      break;
+
     default:
       res.status(404).send({ message: "Error parsing user's Ares"})
   }
   switch (reactionRes.name) {
     case 'Send Git Issue':
       sendGitIssue(req, serviceToken, res)
+      break;
+
+    case 'Send Discord message':
+      sendDiscordMessage(req, serviceToken, res)
       break;
 
     case 'Send email':
