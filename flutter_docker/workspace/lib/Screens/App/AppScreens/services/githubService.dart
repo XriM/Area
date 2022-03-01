@@ -109,7 +109,7 @@ class GithubServiceForm extends StatelessWidget {
                   "github": _repo.text,
                   "owner": _owner.text,
                 };
-                globals.serviceColor = Colors.lightGreen;
+                globals.serviceColor = globals.githubColor;
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {

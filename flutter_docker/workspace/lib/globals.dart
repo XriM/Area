@@ -43,3 +43,13 @@ var twilioValues = ['Twilio', 2];
 Map<String, dynamic> twilioPara = {};
 var githubValuesR = ['Github', 2];
 Map<String, dynamic> githubParaR = {};
+
+Color steamColor = Color(0xFF171a21);
+Color githubColor = Color(0xFF424242);
+Color cryptoColor = Color(0xFFff9900);
+Color outlookColor = Color(0xFF044484);
+Color youtubeColor = Color(0xFFff0000);
+Color redditColor = Color(0xFFff5700);
+Color oneDriveColor = Color(0xFF00a4ef);
+Color trelloColor = Color(0xFF8bbdd9);
+Color discordColor = Color(0xFF7289da);

@@ -76,8 +76,8 @@ class TrelloReactionForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.serviceName = globals.trelloValues[0] as String;
-                globals.reactionColor = Colors.lightBlue;
+                globals.reactionName = globals.trelloValues[0] as String;
+                globals.reactionColor = globals.trelloColor;
                 globals.reactionPara = _email.text;
                 globals.trelloPara = {};
                 Navigator.push(

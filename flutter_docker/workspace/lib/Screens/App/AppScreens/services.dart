@@ -5,8 +5,9 @@ import 'package:area_app/Screens/App/AppScreens/services/steamService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/cryptoService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/githubService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/meteoService.dart';
-
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:area_app/globals.dart' as globals;
 
 class Services extends StatefulWidget {
   const Services({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _ServicesState extends State<Services> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 3;
-    double height = MediaQuery.of(context).size.height / 5;
+    double height = MediaQuery.of(context).size.height / 6;
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -38,14 +39,14 @@ class _ServicesState extends State<Services> {
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
-        body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        body: ListView(children: [
           SizedBox(
             height: 20,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightBlue,
+                  primary: globals.steamColor,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -72,7 +73,7 @@ class _ServicesState extends State<Services> {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.gamepad_outlined,
+                                  MdiIcons.steam,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -88,7 +89,7 @@ class _ServicesState extends State<Services> {
                         )))),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen,
+                  primary: globals.githubColor,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -116,7 +117,7 @@ class _ServicesState extends State<Services> {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.email_outlined,
+                                  MdiIcons.github,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -135,7 +136,7 @@ class _ServicesState extends State<Services> {
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.purple,
+                  primary: Colors.lightBlue,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -178,7 +179,7 @@ class _ServicesState extends State<Services> {
                         )))),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.brown,
+                  primary: globals.cryptoColor,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -206,7 +207,7 @@ class _ServicesState extends State<Services> {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.euro_rounded,
+                                  MdiIcons.bitcoin,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -225,7 +226,7 @@ class _ServicesState extends State<Services> {
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightBlue,
+                  primary: globals.outlookColor,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -253,7 +254,7 @@ class _ServicesState extends State<Services> {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.calendar_today,
+                                  MdiIcons.microsoftOutlook,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -267,15 +268,24 @@ class _ServicesState extends State<Services> {
                             )),
                           ),
                         )))),
-            Opacity(
-                opacity: 0.0,
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: globals.youtubeColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OutlookServiceForm()),
+                  );
+                },
                 child: Container(
                     height: height,
-                    width: width + 30,
+                    width: width,
                     color: Colors.transparent,
                     child: Container(
                         decoration: const BoxDecoration(
-                            color: Colors.green,
+                            color: Colors.transparent,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
                         child: Container(
@@ -288,13 +298,104 @@ class _ServicesState extends State<Services> {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.question_answer,
+                                  MdiIcons.youtube,
                                   color: Colors.white,
                                   size: 60,
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "Google ...",
+                                  "YOUTUBE",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+          ]),
+          SizedBox(height: 50),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: globals.redditColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OutlookServiceForm()),
+                  );
+                },
+                child: Container(
+                    height: height,
+                    width: width,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  MdiIcons.reddit,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "REDDIT",
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white),
+                                )
+                              ],
+                            )),
+                          ),
+                        )))),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: globals.oneDriveColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OutlookServiceForm()),
+                  );
+                },
+                child: Container(
+                    height: height,
+                    width: width,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 30.0, right: 30.0),
+                          child: SizedBox(
+                            width: 280,
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Icon(
+                                  MdiIcons.microsoftOnedrive,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  "ONEDRIVE",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )

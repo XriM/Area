@@ -84,13 +84,13 @@ class SteamServiceForm extends StatelessWidget {
                 //   });
                 // });
                 globals.serviceName = globals.steamValues[0] as String;
-                globals.serviceColor = Colors.lightBlue;
+                globals.serviceColor = globals.steamColor;
                 globals.servicePara = gameID.text;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => IfFilled(
-                      passedColor: Colors.lightBlue,
+                      passedColor: globals.serviceColor,
                       passedColorName: 'Steam',
                     ),
                   ),

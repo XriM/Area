@@ -7,6 +7,9 @@ import 'package:area_app/Screens/App/AppScreens/reactions/emailReaction.dart';
 import 'package:area_app/Screens/App/AppScreens/reactions/sheetsReaction.dart';
 import 'package:area_app/Screens/App/AppScreens/reactions/trelloReaction.dart';
 import 'package:area_app/Screens/App/AppScreens/reactions/twilioReaction.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:area_app/globals.dart' as globals;
+
 import 'package:flutter/material.dart';
 
 class Reactions extends StatelessWidget {
@@ -15,7 +18,7 @@ class Reactions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 3;
-    double height = MediaQuery.of(context).size.height / 5;
+    double height = MediaQuery.of(context).size.height / 6;
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -39,9 +42,7 @@ class Reactions extends StatelessWidget {
           SizedBox(height: 30),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.lightBlue,
-                ),
+                style: ElevatedButton.styleFrom(primary: globals.trelloColor),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -68,7 +69,7 @@ class Reactions extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.announcement_outlined,
+                                  MdiIcons.trello,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -84,54 +85,7 @@ class Reactions extends StatelessWidget {
                         )))),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SheetsReactionForm()),
-                  );
-                },
-                child: Container(
-                    height: height,
-                    width: width,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.file_present,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "SHEETS",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-          ]),
-          SizedBox(height: 50),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.purple,
+                  primary: globals.discordColor,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -159,7 +113,7 @@ class Reactions extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.circle_notifications_outlined,
+                                  MdiIcons.discord,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -173,9 +127,12 @@ class Reactions extends StatelessWidget {
                             )),
                           ),
                         )))),
+          ]),
+          SizedBox(height: 50),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.brown,
+                  primary: globals.outlookColor,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -203,7 +160,7 @@ class Reactions extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.email_rounded,
+                                  MdiIcons.microsoftOutlook,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -217,56 +174,9 @@ class Reactions extends StatelessWidget {
                             )),
                           ),
                         )))),
-          ]),
-          SizedBox(height: 50),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TwilioReactionForm()),
-                  );
-                },
-                child: Container(
-                    height: height,
-                    width: width,
-                    color: Colors.transparent,
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: SizedBox(
-                            width: 280,
-                            child: Center(
-                                child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                Icon(
-                                  Icons.message_rounded,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "TWILIO",
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                )
-                              ],
-                            )),
-                          ),
-                        )))),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen,
+                  primary: globals.githubColor,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -294,7 +204,7 @@ class Reactions extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.email_outlined,
+                                  MdiIcons.github,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -308,41 +218,6 @@ class Reactions extends StatelessWidget {
                             )),
                           ),
                         )))),
-            // Opacity(
-            //     opacity: 0.0,
-            //     child: Container(
-            //         height: height,
-            //         width: width + 30,
-            //         color: Colors.transparent,
-            //         child: Container(
-            //             decoration: const BoxDecoration(
-            //                 color: Colors.green,
-            //                 borderRadius:
-            //                     BorderRadius.all(Radius.circular(10.0))),
-            //             child: Container(
-            //               margin:
-            //                   const EdgeInsets.only(left: 30.0, right: 30.0),
-            //               child: SizedBox(
-            //                 width: 280,
-            //                 child: Center(
-            //                     child: Column(
-            //                   children: [
-            //                     SizedBox(height: 20),
-            //                     Icon(
-            //                       Icons.question_answer,
-            //                       color: Colors.white,
-            //                       size: 60,
-            //                     ),
-            //                     SizedBox(height: 20),
-            //                     Text(
-            //                       "Google ...",
-            //                       style: TextStyle(
-            //                           fontSize: 11, color: Colors.white),
-            //                     )
-            //                   ],
-            //                 )),
-            //               ),
-            //             )))),
           ]),
         ])));
   }

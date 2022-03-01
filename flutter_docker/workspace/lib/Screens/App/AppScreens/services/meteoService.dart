@@ -104,7 +104,7 @@ class MeteoServiceForm extends StatelessWidget {
                 print("-------------");
                 print(globals.weatherPara);
                 print("-------------");
-                globals.serviceColor = Colors.purple;
+                globals.serviceColor = Colors.lightBlue;
                 globals.servicePara =
                     city.text + '|' + degreesMin.text + '|' + degreesMax.text;
                 Timer(Duration(seconds: 1), () async {

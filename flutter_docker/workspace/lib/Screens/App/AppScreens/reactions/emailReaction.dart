@@ -126,7 +126,7 @@ class EmailReactionForm extends StatelessWidget {
               onPressed: () async {
                 globals.reactionName = globals.outlookValues[0] as String;
                 print(globals.emailValues[0]);
-                globals.reactionColor = Colors.green;
+                globals.reactionColor = globals.outlookColor;
                 globals.reactionPara = _email.text;
                 globals.emailPara = {
                   "to": [

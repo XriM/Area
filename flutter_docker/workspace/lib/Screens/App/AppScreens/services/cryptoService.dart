@@ -104,7 +104,7 @@ class CryptoServiceForm extends StatelessWidget {
                 print("-------------");
                 print(globals.cryptoPara);
                 print("-------------");
-                globals.serviceColor = Colors.brown;
+                globals.serviceColor = globals.cryptoColor;
                 globals.servicePara = _currency.text +
                     '|' +
                     _limitMax.text +
