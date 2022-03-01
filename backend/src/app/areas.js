@@ -56,7 +56,7 @@ exports.postArea = async (req, res) => {
       break;
 
     case 'Steam players changed':
-      checkIfSteam(req, res)
+      checkIfSteam(req, res, reactionRes)
       break;
 
     case 'Area successfully created':
@@ -64,11 +64,11 @@ exports.postArea = async (req, res) => {
       break;
 
     case 'Weather changed':
-      checkIfWeather(req.body, res)
+      checkIfWeather(req, res, reactionRes)
       break;
 
     case 'CryptoCurrency price changed':
-      checkIfCrypto(req.body, res)
+      checkIfCrypto(req, res, reactionRes)
       break;
     
     case 'File added':
@@ -76,11 +76,11 @@ exports.postArea = async (req, res) => {
       break
 
     case 'Youtube subscribers changed':
-      checkIfSubscribe(userId, res)
+      checkIfSubscribe(userId, res, reactionRes)
       break;
 
     case 'Subreddit subscribers changed':
-      checkIfReddit(userId, res)
+      checkIfReddit(userId, res, reactionRes)
       break;
 
     default:

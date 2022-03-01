@@ -9,6 +9,7 @@ const axios = require('axios')
 const fetch = require('node-fetch')
 const querystring = require('query-string')
 const { getHookGitHub } =require('./hook')
+const { sendEmailOutlook, sendDiscordMessage, sendGitIssue } = require('./reactions')
 
 
 ////////////////////////////////////////////
@@ -36,8 +37,34 @@ getIdsFromActionAndData = async (actionName, data) => {
 /////
 /////////////////////////////////////////////
 
+async function triggerReaction(reactionId)
+{
+    switch (reactionId) {
+        case 1:
+            await sendEmailOutlook(token, config);
+            return true
+            break;
+        
+        case 2:
+            return true
+            break;
+        
+        case 3:
+            return true
+            await sendGitIssue(req, token, );
+            break;
+        
+        case 4:
+            await sendDiscordMessage();
+            return true
+            break;
+        default:
+            return false
+            break;
+    }
+}
 
-exports.checkIfWeather = async (body, res) => {
+exports.checkIfWeather = async (body, res, reactionRes) => {
 
     const city = Buffer.from(body.city.data, 'base64')
     const temp_min = parseInt(Buffer.from(body.temp_min.data, 'base64'))
@@ -60,7 +87,7 @@ exports.checkIfWeather = async (body, res) => {
         })
 }
 
-exports.checkIfCrypto = async (body, res) => {
+exports.checkIfCrypto = async (body, res, reactionRes) => {
     // ici c'est le bitcoigne
 
     const pair = Buffer.from(body.crypto.data, 'base64')
@@ -82,7 +109,7 @@ exports.checkIfCrypto = async (body, res) => {
     })
 }
 
-exports.checkIfSteam = async (req, res) => {
+exports.checkIfSteam = async (req, res, reactionRes) => {
 
     cron.schedule('*/2 * * * *', async () => {
         var result = fetch(`https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/`, { method: 'GET', body: JSON.stringify({
@@ -101,7 +128,7 @@ exports.checkIfSteam = async (req, res) => {
     })
 }
 
-exports.checkIfSubscribe = async (userId, res) => {
+exports.checkIfSubscribe = async (userId, res, reactionRes) => {
     const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
     let subscribers = "";
 
@@ -132,7 +159,7 @@ exports.checkIfSubscribe = async (userId, res) => {
     });
 }
 
-exports.checkIfReddit = async (userId, res) => {
+exports.checkIfReddit = async (userId, res, reactionRes) => {
     const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED REDDIT SERVICE ID', [userId])
     const subreddit = await pool.query('SELECT config FROM user_area WHERE user_id = $1', [userId])
     let subscribers = "";
@@ -150,7 +177,7 @@ exports.checkIfReddit = async (userId, res) => {
         .then(function (response) {
             subscriberCount = response.data["data"]["subscribers"];
             if (subscribers === "") {
-                subscribers = subscriberCount;
+                subscribers = subscriberCount
             }
             console.log(subscriberCount + " is now")
             console.log(subscribers + " was before")
