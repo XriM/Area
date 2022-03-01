@@ -38,8 +38,9 @@ exports.accessTokenReddit = async (code) => {
     console.log(res.data["access_token"]);
     access_token = res.data["access_token"];
   }).catch(error => {
-    console.log('Error to fetch data\n' + error);
+    throw error;
   });
+  return access_token;
 } 
 
 exports.generateAccessToken = (username) => {
