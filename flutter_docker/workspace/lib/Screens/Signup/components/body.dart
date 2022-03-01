@@ -28,24 +28,35 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void signUpExit() async {
-      print(mailController.text);
-      print(userNameController.text);
-      print(passwordController.text);
-      globals.userName = userNameController.text;
-      globals.userMail = passwordController.text;
-      Timer(Duration(seconds: 3), () async {
-        _btnController.success();
-        await Future.delayed(const Duration(seconds: 2), () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return LoginScreen();
-              },
-            ),
-          );
+      if (mailController.text == "" ||
+          passwordController.text == "" ||
+          userNameController.text == "") {
+        Timer(Duration(seconds: 1), () async {
+          _btnController.error();
         });
-      });
+        Timer(Duration(seconds: 3), () async {
+          _btnController.reset();
+        });
+      } else {
+        print(mailController.text);
+        print(userNameController.text);
+        print(passwordController.text);
+        globals.userName = userNameController.text;
+        globals.userMail = passwordController.text;
+        Timer(Duration(seconds: 3), () async {
+          _btnController.success();
+          await Future.delayed(const Duration(seconds: 2), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return LoginScreen();
+                },
+              ),
+            );
+          });
+        });
+      }
     }
 
     Future<void> signIn() async {
@@ -56,19 +67,29 @@ class Body extends StatelessWidget {
         globals.user = user;
         globals.userName = user?.displayName;
         globals.userMail = user?.email;
-        Timer(Duration(seconds: 3), () async {
-          _btnController.success();
-          await Future.delayed(const Duration(seconds: 2), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return Application();
-                },
-              ),
-            );
+
+        if (globals.userName == null || globals.userMail == null) {
+          Timer(Duration(seconds: 1), () async {
+            _btnController.error();
           });
-        });
+          Timer(Duration(seconds: 3), () async {
+            _btnController.reset();
+          });
+        } else {
+          Timer(Duration(seconds: 3), () async {
+            _btnController.success();
+            await Future.delayed(const Duration(seconds: 2), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Application();
+                  },
+                ),
+              );
+            });
+          });
+        }
       } catch (e) {
         print('Error signing in $e');
       }

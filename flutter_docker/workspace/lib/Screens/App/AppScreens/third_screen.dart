@@ -13,7 +13,7 @@ class ThirdScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 1.2;
-    double height = MediaQuery.of(context).size.height / 12;
+    double height = MediaQuery.of(context).size.height / 18;
     void signOut() async {
       await GoogleSignInApi.logout();
       Timer(Duration(seconds: 3), () async {

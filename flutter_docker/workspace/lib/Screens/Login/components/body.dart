@@ -10,6 +10,7 @@ import 'package:area_app/components/rounded_input_field.dart';
 import 'package:area_app/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:area_app/globals.dart' as globals;
 
 class Body extends StatelessWidget {
   Body({
@@ -18,6 +19,7 @@ class Body extends StatelessWidget {
 
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
@@ -26,19 +28,34 @@ class Body extends StatelessWidget {
     void loginExit() async {
       print(mailController.text);
       print(passwordController.text);
-      Timer(Duration(seconds: 3), () async {
-        _btnController.success();
-        await Future.delayed(const Duration(seconds: 2), () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return Application();
-              },
-            ),
-          );
+      print(userNameController.text);
+
+      if (mailController.text == "" ||
+          passwordController.text == "" ||
+          userNameController.text == "") {
+        Timer(Duration(seconds: 1), () async {
+          _btnController.error();
         });
-      });
+        Timer(Duration(seconds: 3), () async {
+          _btnController.reset();
+        });
+      } else {
+        globals.userName = userNameController.text;
+        globals.userMail = passwordController.text;
+        Timer(Duration(seconds: 3), () async {
+          _btnController.success();
+          await Future.delayed(const Duration(seconds: 2), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return Application();
+                },
+              ),
+            );
+          });
+        });
+      }
     }
 
     Size size = MediaQuery.of(context).size;
@@ -59,11 +76,13 @@ class Body extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   fontSize: 120),
             ),
-            // SvgPicture.asset(
-            //   "assets/icons/login.svg",
-            //   height: size.height * 0.35,
-            // ),
             SizedBox(height: size.height * 0.03),
+            RoundedUserNameInputField(
+              hintText: "Your Username",
+              onChanged: (value) {
+                userNameController.text = value;
+              },
+            ),
             RoundedInputField(
               hintText: "Your Email",
               onChanged: (value) {
