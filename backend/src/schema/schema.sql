@@ -84,6 +84,7 @@ INSERT INTO actions (name) VALUES ('Event added');
 INSERT INTO actions (name) VALUES ('GitHub repo stared');
 INSERT INTO actions (name) VALUES ('Weather changed');
 INSERT INTO actions (name) VALUES ('CryptoCurrency price changed');
+INSERT INTO actions (name) VALUES ('File added');
 
 INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test1');
 INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test2');
@@ -99,3 +100,4 @@ INSERT INTO service_reaction (service_id, reaction_id) VALUES ((SELECT id FROM s
 
 INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Google Calendar'), (SELECT id FROM actions WHERE name = 'Event added'));
 INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Outlook'), (SELECT id FROM actions WHERE name = 'Received email'));
+INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Outlook'), (SELECT id FROM actions WHERE name = 'File added'));

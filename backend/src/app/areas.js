@@ -5,7 +5,7 @@ const { checkIfWeather } = require('./crontab')
 const fetch = require('node-fetch')
 const { response } = require('express')
 const { env } = require('dotenv').config()
-const { createGitHubHook, createOutlookHook } = require('./hook')
+const { createGitHubHook, createOutlookHook, createOneDriveHook } = require('./hook')
 const { sendGitIssue } = require('./reactions')
 
 exports.getAreas = async (req, res) => {
@@ -66,6 +66,10 @@ exports.postArea = async (req, res) => {
     case 'CryptoCurrency price changed':
       checkIfCrypto(req.body, res)
       break;
+    
+    case 'File added':
+      createOneDriveHook(req, serviceToken, result, userId, res)
+      break
 
     default:
       res.status(404).send({ message: "Error parsing user's Ares"})
