@@ -82,9 +82,10 @@ exports.checkIfCrypto = async (body, res) => {
 
 exports.checkIfSubscribe = async (userId, res) => {
     const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
+    let subscribers = "";
 
     cron.schedule('*/2 * * * *', () => {
-        let subscribers = "";
+        
 
         axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
             headers: {
@@ -101,9 +102,46 @@ exports.checkIfSubscribe = async (userId, res) => {
                 console.log("more subs" + subscriberCount);
                 //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
             }
+            subscribers = subscriberCount;
           }).catch(error => {
             console.log('Error to fetch userdata\n' + error);
           });
         res.status(200).send({message: 'Crontabs youtube done.'})
+    });
+}
+
+exports.checkIfReddit = async (userId, res) => {
+    const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED REDDIT SERVICE ID', [userId])
+    const subreddit = await pool.query('SELECT config FROM user_area WHERE user_id = $1', [userId])
+    let subscribers = "";
+
+    cron.schedule('*/5 * * * * *', () => {
+        var config = {
+            method: 'get',
+            url: 'https://oauth.reddit.com/r/' + subreddit + '/about',
+            headers: { 
+            'Authorization': 'Bearer 1338945927878-tgVt8-CnkZyaP56IMRwkmSunqwrrtg', 
+            'Cookie': 'csv=2; edgebucket=Rrj5qKBVvZR9WLV81T; loid=0000000000h33pu212.2.1638290353602.Z0FBQUFBQmlIZ0gtLUZuTUxWemRzRUk0RC1VQldVT2tMeEJxX284V3RvRWp0b19xcnZOLUhwWG1fdkRMaTM4RWNyX3h4NkgzWVgxd0V6ZWczQkZ1ckYyX3JfV1hQdWJoMVNqcFNfak1IeXM3RWtwWklWbVRBN0ZWbndYLURlc0VobEs1YnhacHE1cGs; session_tracker=eQOPDGM4H4xAelKZsv.0.1646134152954.Z0FBQUFBQmlIZ09KajVERm81NnppRG1vZEhMei1ZUjZyV2F5MHo1U2hBQjZveGF0c3JYelk2WkpERl9VbTVvcnhfUkItclkyT2FoUEdmYnpwek9Oai1YYjdVWGZKaDRqOGlydngzcWszSkRXVXZnQzVZTV9DNjlmNnRNdVdmWGNGNldVVVVMYmJqSGI'
+            }
+        };
+        
+        axios(config)
+        .then(function (response) {
+            subscriberCount = response.data["data"]["subscribers"];
+            if (subscribers === "") {
+                subscribers = subscriberCount;
+            }
+            console.log(subscriberCount + " is now")
+            console.log(subscribers + " was before")
+            if (subscribers !== subscriberCount) {
+                console.log("more subs" + subscriberCount);
+                //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
+            }
+            subscribers = subscriberCount;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        res.status(200).send({message: "Done"})
     });
 }
