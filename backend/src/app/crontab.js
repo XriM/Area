@@ -81,7 +81,7 @@ exports.checkIfCrypto = async (body, res) => {
 }
 
 exports.checkIfSubscribe = async (userId, res) => {
-    cron.schedule('*/2 * * * *', () => {
+    cron.schedule('*/5 * * * * *', () => {
         let subscribers = "";
         const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
 
@@ -91,8 +91,14 @@ exports.checkIfSubscribe = async (userId, res) => {
             },
           }).then((result) => {
             subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
+            if (subscribers === "") {
+                subscribers = subscriberCount;
+            }
+            console.log(subscriberCount + " is now")
+            console.log(subscribers + " was before")
             if (subscribers !== subscriberCount) {
-                getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
+                console.log("more subs" + subscriberCount);
+                //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
             }
           }).catch(error => {
             console.log('Error to fetch userdata\n' + error);

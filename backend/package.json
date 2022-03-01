@@ -22,13 +22,11 @@
         "ip": "^1.1.5",
         "jsonwebtoken": "^8.5.1",
         "ngrok": "^4.3.0",
-        "node-binance-api": "^0.13.1",
         "node-cron": "^3.0.0",
         "node-fetch": "^2.6.7",
         "openweather-apis": "^4.4.2",
         "pg": "^8.0.0",
         "public-ip": "^3.1.0",
-        "puppeteer": "^13.4.0",
         "query-string": "^7.1.1",
         "typescript": "^4.5.5",
         "weather-js": "^2.0.0"
