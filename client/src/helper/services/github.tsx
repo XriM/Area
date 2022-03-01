@@ -48,7 +48,7 @@ async function GithubOauth() {
 }
 
 async function sendCode(code : string) {
-  const response = await logToService(code, '2');
+  const response = await logToService(code, '6');
 
   if (response === true) {
     success = true;

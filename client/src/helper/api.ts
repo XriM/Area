@@ -399,9 +399,18 @@ export async function getArea(areaId : string) {
 }
 
 
-export async function createArea(params : Area) {
+export async function createArea(params : any, name : string, actionId : string, reactionId : string) {
+  const config = {
+    action_id: actionId,
+    reaction_id: reactionId,
+    name: name,
+    config:{
+      params
+	  }
+  }
+
   await axios
-    .post(url + "/users/" + usernameLogged + "/areas", params)
+    .post(url + "/users/" + usernameLogged + "/areas", config)
     .then((res) => {
       console.log(res);
       alert(

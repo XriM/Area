@@ -182,10 +182,10 @@ function ProfileServices() {
             <div className="row__services">
             <Row>
               <Col md={10}>
-                <a><Image fluid={true} srcSet="https://ih1.redbubble.net/image.1121504414.0314/pp,840x830-pad,1000x1000,f8f8f8.jpg" style={{width: 50, height: '1rem', objectFit: 'cover'}}></Image>One drive</a>
+                <a><Image fluid={true} srcSet="https://ih1.redbubble.net/image.1121504414.0314/pp,840x830-pad,1000x1000,f8f8f8.jpg" style={{width: 50, height: '1rem', objectFit: 'cover'}}></Image>OneDrive</a>
               </Col>
               <Col md={1}>
-                <RedditSignin/>
+                <Button className="principal__btn__color" onClick={ () => { navigate("/onedrive") }}><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
               </Col>
             </Row>
             </div>
