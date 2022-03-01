@@ -74,6 +74,10 @@ exports.postArea = async (req, res) => {
     case 'Youtube subscribers changed':
       checkIfSubscribe(userId, res)
       break;
+    
+    case 'Subreddit subscribers changed':
+      checkIfReddit(userId, res)
+      break;
 
     default:
       res.status(404).send({ message: "Error parsing user's Ares"})
