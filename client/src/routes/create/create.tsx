@@ -7,7 +7,7 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 import { UserResponse, User } from "../../helper/types";
 import { NavbarLogged, TrelloSignin, GithubSignin,
-  RedditSignin, YoutubeSignin, OutlookSignin, OneDriveSignin, createArea } from "..";
+  RedditSignin, YoutubeSignin, OutlookSignin, createArea } from "..";
 
 var name : string = "";
 var reaction : string = "";
@@ -73,6 +73,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Received email";
+              actionId = "1";
               handleClose();
             }}
             >
@@ -149,6 +150,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "CryptoCurrency price changed";
+              actionId = "5";
               config['crypto'] = actualCurrency;
               config['value_min'] = actualMinValue;
               config['value_max'] = actualMaxValue;
@@ -232,6 +234,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Steam players changed";
+              actionId = "7";
               config['steam'] = actualGame;
               config['players_min'] = actualMinValue;
               config['players_max'] = actualMaxValue;
@@ -315,6 +318,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Weather changed";
+              actionId = "6";
               config['city'] = actualCity;
               config['temp_min'] = actualTemperatureMin;
               config['temp_max'] = actualTemperatureMax;
@@ -389,6 +393,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Github repo starred";
+              actionId = "5";
               config['github'] = actualRepo;
               config['owner'] = actualOwner;
               handleClose();
@@ -434,6 +439,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Youtube subscribers changed";
+              actionId = "2";
               handleClose();
             }}
             >
@@ -489,6 +495,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Reddit";
+              actionId = "";
               config['subreddit'] = actualSubreddit;
               handleClose();
             }}>
@@ -547,6 +554,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "File added";
+              actionId = "9";
               config['drive'] = actualDrive;
               handleClose();
             }}>
@@ -641,6 +649,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               reaction = "TrelloCard";
+              reactionId = "";
               config['idBoard'] = actualBoard;
               config['idList'] = actualList;
               config['name'] = actualTitle;
@@ -712,6 +721,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               reaction = "Send Discord message";
+              reactionId = "4";
               config['discord'] = actualWebhookId;
               config['url_token'] = actualWebhookToken;
               handleClose();
@@ -808,6 +818,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               reaction = "Send email";
+              reactionId = "1";
               config['to'] = actualReceiver;
               config['cc'] = actualCopy;
               config['subject'] = actualSubject;
@@ -911,6 +922,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Send Git issue";
+              reactionId = "3";
               config['github'] = actualRepo;
               config['owner'] = actualOwner;
               config['title'] = actualTitle;

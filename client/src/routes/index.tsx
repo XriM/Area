@@ -30,8 +30,7 @@ import { TrelloSignin } from "../helper/services/trello";
 import { GithubSignin } from "../helper/services/github";
 import { RedditSignin } from "../helper/services/reddit";
 import { YoutubeSignin } from "../helper/services/youtube";
-import { OutlookSignin } from "../helper/services/outlook";
-import { OneDriveSignin } from "../helper/services/onedrive";
+import { OutlookSignin } from "../helper/services/outlook_onedrive";
 
 export {
   NavbarHome,
@@ -67,6 +66,5 @@ export {
   GithubSignin,
   RedditSignin,
   YoutubeSignin,
-  OutlookSignin,
-  OneDriveSignin
+  OutlookSignin
 };
