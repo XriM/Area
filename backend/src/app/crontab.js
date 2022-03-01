@@ -81,9 +81,10 @@ exports.checkIfCrypto = async (body, res) => {
 }
 
 exports.checkIfSubscribe = async (userId, res) => {
+    const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
+
     cron.schedule('*/2 * * * *', () => {
         let subscribers = "";
-        const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
 
         axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
             headers: {
