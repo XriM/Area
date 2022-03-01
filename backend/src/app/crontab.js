@@ -81,7 +81,7 @@ exports.checkIfCrypto = async (body, res) => {
 }
 
 exports.checkIfSubscribe = async (userId, res) => {
-    cron.schedule('*/5 * * * * *', () => {
+    cron.schedule('*/2 * * * *', () => {
         let subscribers = "";
         const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
 
