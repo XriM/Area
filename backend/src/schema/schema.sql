@@ -78,7 +78,10 @@ INSERT INTO services (name) VALUES ('Outlook');
 
 INSERT INTO reactions (name) VALUES ('Send email');
 INSERT INTO reactions (name) VALUES ('Reaction added');
+INSERT INTO reactions (name) VALUES ('Send Git Issue');
+INSERT INTO reactions (name) VALUES ('Send Discord message');
 INSERT INTO actions (name) VALUES ('Received email');
+INSERT INTO actions (name) VALUES ('Youtube subscribers changed');
 INSERT INTO actions (name) VALUES ('Received whatsapp');
 INSERT INTO actions (name) VALUES ('Event added');
 INSERT INTO actions (name) VALUES ('GitHub repo stared');

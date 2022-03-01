@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 const { response } = require('express')
 const { env } = require('dotenv').config()
 const { createGitHubHook, createOutlookHook } = require('./hook')
-const { sendGitIssue } = require('./reactions')
+const { sendGitIssue, sendDiscordMessage } = require('./reactions')
 
 exports.getAreas = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
@@ -77,6 +77,10 @@ exports.postArea = async (req, res) => {
   switch (reactionRes.name) {
     case 'Send Git Issue':
       sendGitIssue(req, serviceToken, res)
+      break;
+
+    case 'Send Discord message':
+      sendDiscordMessage(req, serviceToken, res)
       break;
 
     case 'Send email':
