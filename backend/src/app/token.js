@@ -21,6 +21,27 @@ exports.accessTokenGitHub = async (oldToken) => {
         return accessToken
 }
 
+exports.accessTokenReddit = async (code) => {
+  let access_token = "";
+
+  const data = qs.stringify({
+    grant_type: "authorization_code",
+    code: code,
+    redirect_uri: "http://localhost:3000/profile"
+  });
+  axios.post(process.env.REDDIT_TOKEN_URL, data, {
+    headers: {
+      Authorization: "Basic " + process.env.REDDIT_CLIENT_ID,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  }).then((res) => {
+    console.log(res.data["access_token"]);
+    access_token = res.data["access_token"];
+  }).catch(error => {
+    console.log('Error to fetch data\n' + error);
+  });
+} 
+
 exports.generateAccessToken = (username) => {
   return jwt.sign({ username: username }, process.env.TOKEN_SECRET, { expiresIn: '1h' })
 }
