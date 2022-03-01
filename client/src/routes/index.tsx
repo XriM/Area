@@ -26,8 +26,12 @@ import {
   updateArea,
   deleteArea
 } from "../helper/api";
-import { Trello } from "../helper/services/trello";
-import { Github } from "../helper/services/github";
+import { TrelloSignin } from "../helper/services/trello";
+import { GithubSignin } from "../helper/services/github";
+import { RedditSignin } from "../helper/services/reddit";
+import { YoutubeSignin } from "../helper/services/youtube";
+import { OutlookSignin } from "../helper/services/outlook";
+import { OneDriveSignin } from "../helper/services/onedrive";
 
 export {
   NavbarHome,
@@ -59,6 +63,10 @@ export {
   updateArea,
   deleteArea,
 
-  Trello,
-  Github
+  TrelloSignin,
+  GithubSignin,
+  RedditSignin,
+  YoutubeSignin,
+  OutlookSignin,
+  OneDriveSignin
 };

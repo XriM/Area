@@ -13,7 +13,7 @@ var redirectUri = "http://localhost:3000/profile";
 
 var success : boolean = false;
 
-export function Github() {
+export function GithubSignin() {
   let navigate = useNavigate();
   var code : any = "";
 

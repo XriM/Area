@@ -9,7 +9,7 @@ var clientId = "364030105707-i3koe2sbo4ecf7km0ijenpstlav1khi5.apps.googleusercon
 var secret = "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";
 var redirectUri = "http://localhost:3000";
 
-export function SheetsSignin() {
+export function YoutubeSignin() {
   const onSuccess = async (res : any) => {
     console.log("Success " + res.accessToken);
     await logToService(res.accessToken, '3');
