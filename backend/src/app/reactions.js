@@ -26,7 +26,7 @@ exports.sendDiscordMessage = async(req, res) => {
 }
 
 exports.sendGitIssue = async(req, token, res) => {
-  var result = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/issues`, { method: 'POST', body: JSON.stringify({
+  var result = fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/issues`, { method: 'POST', body: JSON.stringify({
     "title": req.body.title,
     "body": req.body.message
   }), headers: { Authorization: "Token " + token}}).then(() => {

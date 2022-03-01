@@ -1,7 +1,7 @@
 const { user } = require('pg/lib/defaults')
 const { pool } = require('../dbConfig')
 const axios = require('axios')
-const { checkIfWeather, checkIfSubscribe } = require('./crontab')
+const { checkIfWeather, checkIfSubscribe, checkIfSteam, checkIfCrypto } = require('./crontab')
 const fetch = require('node-fetch')
 const { response } = require('express')
 const { env } = require('dotenv').config()
@@ -53,6 +53,10 @@ exports.postArea = async (req, res) => {
   switch (actionRes.name) {
     case 'Received email':
       createOutlookHook(req, serviceToken, result, userId, res)
+      break;
+
+    case 'Steam players changed':
+      checkIfSteam(req, res)
       break;
 
     case 'Area successfully created':

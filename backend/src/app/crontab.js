@@ -52,8 +52,9 @@ exports.checkIfWeather = async (body, res) => {
         weather.getSmartJSON(function(err, smart) {
             console.log(smart) //debug
             if (smart.temp.parseInt() < temp_min || smart.temp.parseInt > temp_max) {
-                    var notifier = getIdsFromActionAndData("Weather changed", city)
+                    //var notifier = getIdsFromActionAndData("Weather changed", city)
                 }
+            res.status(200).send({message: 'Crontabs weather done.'})
             })
         //console.log("CRONED Weather") //debug
         })
@@ -72,11 +73,31 @@ exports.checkIfCrypto = async (body, res) => {
         kraken.fetchOHLCV(pair, '1m').then(data  => {
             res = parseInt(Buffer.from(data[0][1]), 'base64')
             if (value_min > res || value_max < res) {
-                getIdsFromActionAndData("CryptoCurrency price changed", pair)
+                //getIdsFromActionAndData("CryptoCurrency price changed", pair)
             }
+            res.status(200).send({message: 'Crontabs crypto done.'})
             console.log(data)
         })
         //console.log("CRONED Crypto") //debug
+    })
+}
+
+exports.checkIfSteam = async (req, res) => {
+
+    cron.schedule('*/2 * * * *', async () => {
+        var result = fetch(`https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/`, { method: 'GET', body: JSON.stringify({
+            "appid": req.body.steam
+        }).then((data) => {
+            if (data.response.player_count < req.body.players_min || data.response.player_count > req.body.players_max) {
+                // reaction
+            }
+            res.status(200).send({message: 'Crontabs steam done.'})
+        }).catch((error) => {
+            res.status(404).send({message: 'Crontabs steam error.'})
+            throw error
+            })
+        })
+        //console.log("CRONED steam") //debug
     })
 }
 
@@ -103,6 +124,7 @@ exports.checkIfSubscribe = async (userId, res) => {
             }
           }).catch(error => {
             console.log('Error to fetch userdata\n' + error);
+            res.status(404).send({message: 'Crontabs youtube error.'})
           });
         res.status(200).send({message: 'Crontabs youtube done.'})
     });
