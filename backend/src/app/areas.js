@@ -74,7 +74,7 @@ exports.postArea = async (req, res) => {
     case 'Youtube subscribers changed':
       checkIfSubscribe(userId, res)
       break;
-    
+
     case 'Subreddit subscribers changed':
       checkIfReddit(userId, res)
       break;
