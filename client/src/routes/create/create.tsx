@@ -494,8 +494,8 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              action = "Reddit";
-              actionId = "";
+              action = "Subreddit subscriber";
+              actionId = "3";
               config['subreddit'] = actualSubreddit;
               handleClose();
             }}>
@@ -648,8 +648,8 @@ function Body() {
         <Modal.Footer>
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
-              reaction = "TrelloCard";
-              reactionId = "";
+              reaction = "Add trello card";
+              reactionId = "2";
               config['idBoard'] = actualBoard;
               config['idList'] = actualList;
               config['name'] = actualTitle;

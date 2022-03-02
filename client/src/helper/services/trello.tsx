@@ -52,7 +52,6 @@ export function TrelloSignin() {
               variant="primary"
               className="principal__btn__color"
               onClick={ async () => {
-                GetBoards();
                 const insert = await logToService(actualKey, '1');
                 if (insert == true) {
                   token = actualKey;
@@ -83,30 +82,4 @@ export function TrelloSignin() {
 
 function TrelloOauth() {
   window.open("https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=" + trelloKey);
-}
-
-async function GetBoards() {
-  var axios = require('axios');
-
-  var config = {
-    method: 'get',
-    url: 'https://api.trello.com/1/members/me/boards?key=' + trelloKey + '&token=' + token,
-    headers: { 
-      'Cookie': 'dsc=be5b554b6883d1fe7c9e4eda1adf22c1ba68ae250ed8ef69c32487b36fe27034; preAuthProps=s%3A615afb3ae9a4423f12410c59%3AisEnterpriseAdmin%3Dfalse.QQhiuUCEnuGPc6peXEJYWXVYXuFAcx0%2F0zpcQEKXjjc'
-    }
-  };
-
-  axios(config)
-  .then(function (response : any) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error : any) {
-    console.log(error);
-  });
-
-  return;
-}
-
-function GetLists() {
-
 }

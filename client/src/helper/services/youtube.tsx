@@ -12,7 +12,7 @@ var redirectUri = "http://localhost:3000";
 export function YoutubeSignin() {
   const onSuccess = async (res : any) => {
     console.log("Success " + res.accessToken);
-    await logToService(res.accessToken, '3');
+    await logToService(res.accessToken, '9');
   }
 
   const onFailure = (res : any) => {
