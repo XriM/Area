@@ -25,7 +25,6 @@ export function OutlookSignin(props : { where : string }) {
     }
   };
     
-  // Authentication Parameters
   const authenticationParameters = {
     scopes: [
       'user.read',
@@ -41,7 +40,6 @@ export function OutlookSignin(props : { where : string }) {
     ]
   }
     
-  // Options
   const options = {
     loginType: LoginType.Popup,
   }

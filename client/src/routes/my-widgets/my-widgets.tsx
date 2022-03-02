@@ -1,13 +1,12 @@
 import "../../App.css";
-import { Button, Card, Form, FloatingLabel, Row, Col, ButtonGroup, ToggleButton, CardGroup } from "react-bootstrap";
+import { Button, Card, Row, Col, CardGroup } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-import { UserResponse, User } from "../../helper/types";
-import { deleteArea, getArea, getAreas, NavbarLogged } from "..";
+import { deleteArea, getAreas, NavbarLogged, getUser } from "..";
 
 var arrTriggers : JSX.Element[] = [];
 var arrReactions : string[] = [];
@@ -36,6 +35,7 @@ export default function MyWidgets() {
 }
 
 function Body() {
+  let navigate = useNavigate();
   const [Name, setName] = useState<string>("Area X");
   const [ActionName, setActionName] = useState<string>("Steam");
   const [ReactionName, setReactionName] = useState<string>("Discord pm");
@@ -48,6 +48,15 @@ function Body() {
   const [Areas, setAreas] = useState<Array<JSX.Element>>([]);
 
   useEffect(() => {
+    async function checkIfLogged() {
+      const result = await getUser();
+      if (result.id === "") {
+        navigate("/");
+      }
+      else {
+        fetchArea();
+      }
+    }
     async function fetchArea() {
       const result = await getAreas();
       arrTriggers = [];
@@ -99,7 +108,8 @@ function Body() {
       }
       setAreas(arrTriggers);
     }
-    fetchArea();
+    checkIfLogged();
+    //fetchArea();
   }, []);
 
   return (

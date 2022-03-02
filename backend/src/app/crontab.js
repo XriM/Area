@@ -71,7 +71,7 @@ exports.checkIfWeather = async (req, res, token, reactionId) => {
     weather.setUnits('metric')
     weather.setAPPID(process.env.WEATHER_APPID)
 
-    res.status(200).send({message: 'Crontabs weather done.'})
+    res.status(200).send({message: 'Weather service activated.'})
     cron.schedule('*/2 * * * *', () => {
         weather.getSmartJSON(function(err, smart) {
             console.log(smart) //debug
@@ -89,7 +89,7 @@ exports.checkIfCrypto = async (req, res, token, reactionId) => {
 
     let kraken = new ccxt.kraken()
 
-    res.status(200).send({message: 'Crontabs crypto done.'})
+    res.status(200).send({message: 'Crypto service activated.'})
     cron.schedule('*/2 * * * *', () => {
         kraken.fetchOHLCV(pair, '1m').then(data  => {
             res = parseInt(data[0][1])
@@ -102,7 +102,7 @@ exports.checkIfCrypto = async (req, res, token, reactionId) => {
 }
 
 exports.checkIfSteam = async (req, res, token, reactionId) => {
-    res.status(200).send({message: 'Crontabs steam done.'})
+    res.status(200).send({message: 'Steam service activated.'})
     cron.schedule('*/2 * * * *', async () => {
         var result = await axios.get(`https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1`, {
             params: { "appid": req.body.config.steam }
@@ -140,7 +140,7 @@ exports.checkIfSubscribe = async (req, res, token, reactionId) => {
             console.log('Error to fetch userdata\n' + error);
             res.status(404).send({message: 'Crontabs youtube error.'})
           });
-        res.status(200).send({message: 'Crontabs youtube done.'})
+        res.status(200).send({message: 'Youtube service activated.'})
     });
 }
 
@@ -174,6 +174,6 @@ exports.checkIfReddit = async (req, res, token, reactionId) => {
         .catch(function (error) {
             console.log(error);
         });
-        res.status(200).send({message: "Done"})
+        res.status(200).send({message: "Reddit service activated"})
     });
 }

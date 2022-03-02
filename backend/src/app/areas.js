@@ -35,7 +35,7 @@ exports.getArea = async (req, res) => {
   userId = userId.rows[0].id
   let areaId = await pool.query('SELECT area_id FROM user_area WHERE user_id = $1 AND area_id = $2', [userId, parseInt(req.params.area_id)])
   if (areaId.rows[0] == null) {
-    return res.status(400).send({ message: 'Failed to retreive area' })
+    return res.status(400).send({ message: 'Failed to retrieve area' })
   }
   areaId = areaId.rows[0].area_id
   const result = await pool.query('SELECT name FROM areas WHERE id = $1', [areaId])
@@ -96,7 +96,7 @@ exports.postArea = async (req, res) => {
       break;
 
     default:
-      res.status(404).send({ message: "Error parsing user's Ares"})
+      res.status(404).send({ message: "Error parsing user's Areas"})
   }
 }
 

@@ -3,7 +3,6 @@ import { Button, Card, Form, FloatingLabel, Row, Col, Image } from "react-bootst
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import { UserResponse, User } from "../../helper/types";
 import { NavbarLogged, signout, getUser, TrelloSignin, GithubSignin,
   RedditSignin, YoutubeSignin } from "..";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
