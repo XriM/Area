@@ -9,7 +9,7 @@ var clientId = "364030105707-i3koe2sbo4ecf7km0ijenpstlav1khi5.apps.googleusercon
 var secret = "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";
 var redirectUri = "http://localhost:3000";
 
-export function YoutubeSignin() {
+export function YoutubeSignin(props : { where : string }) {
   const onSuccess = async (res : any) => {
     console.log("Success " + res.accessToken);
     await logToService(res.accessToken, '9');
@@ -26,6 +26,7 @@ export function YoutubeSignin() {
       buttonText="Signin"
       onSuccess={onSuccess}
       onFailure={onFailure}
+      redirectUri={props.where}
       cookiePolicy={'single_host_origin'}
       scope={'https://www.googleapis.com/auth/youtube.force-ssl'}
       render={renderProps => (

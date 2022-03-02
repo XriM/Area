@@ -10,12 +10,3 @@ export interface UserResponse {
   password: string;
   username: string;
 }
-
-export interface Area {
-  id: string;
-  name : string;
-  actionName : string;
-  actionConfig : any;
-  reactionName : string;
-  reactionConfig : any;
-}

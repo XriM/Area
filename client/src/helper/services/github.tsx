@@ -5,6 +5,7 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { logToService } from "../api";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import axios from "axios";
 
 var clientId = "d05e9c2d8d588d4cb47c";
 var secret = "8313b9cbdea767e6e0a6227333cd525845c9c5e8";
@@ -13,29 +14,41 @@ var redirectUri = "http://localhost:3000/profile";
 
 var success : boolean = false;
 
-export function GithubSignin() {
+export function GithubSignin(props : { where : string }) {
   let navigate = useNavigate();
   var code : any = "";
+  let usernameLogged = window.sessionStorage.getItem("username");
+  let accessToken = window.sessionStorage.getItem("token");
 
   useEffect(() => {
-    async function getCode() {
-      if (window.location.href.includes("code=") === true) {
+    async function getCodeGithub() {
+      if (window.location.href.includes("code=") === true && window.sessionStorage.getItem("oauth") === "github") {
         const url = new URL(window.location.href);
         code = url.searchParams.get("code");
 
-        await sendCode(code);
-        if (success === true) {
-          navigate("/profile");
-        }
+        await axios
+          .post("http://localhost:8000/users/" + usernameLogged + "/services/6", code, {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            navigate("/profile")
+          })
+          .catch((error) => {
+            console.log(error);
+          })
       }
     }
-    getCode();
-  })
+    getCodeGithub();
+  }, [])
 
   return (
     <>
     <Button className="principal__btn__color"><FontAwesomeIcon icon={faLink} style={{color: 'white'}}
       onClick={ async () => {
+        window.sessionStorage.setItem("oauth", "github");
         await GithubOauth();
       }}/></Button>
     
@@ -50,7 +63,7 @@ async function GithubOauth() {
 async function sendCode(code : string) {
   const response = await logToService(code, '6');
 
-  if (response === true) {
+  if (response === "Service token successfully loaded") {
     success = true;
     return;
   }

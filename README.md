@@ -6,6 +6,7 @@ tutorials
 Notre area est un "tableau de contrôle à réaction", il est paramétrable avec plusieurs services, actions et réactions. Il est nécessaire de se créer un compte via login ou de se connecter avec un service afin d'accéder à la platforme.
 
 #### Liste des fonctionnalités:
+-
 
 -
 -

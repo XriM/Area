@@ -6,26 +6,35 @@ const { usersGet } = require('./app/users')
 const { userGet } = require('./app/users')
 const { userPatch } = require('./app/users')
 const { userDelete } = require('./app/users')
-const { getReactions, getReaction } = require('./app/reactions')
+const { getReactions, getReaction, sendDiscordMessage } = require('./app/reactions')
 const { getActions, getAction } = require('./app/actions')
 const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
 const { hookHandler } = require('./app/hook')
 const { ip } = require('./ip')
-// const publicIp = require('public-ip')
-// import publicIp from 'public-ip';
+const ngrok = require('ngrok')
 const express = require('express')
+const bodyParser = require('body-parser')
+const { env } = require('dotenv').config()
+const cors = require("cors")
 
 // Constants
-const PORT = 8000
-const HOST = ip
+const PORT = process.env.PORT
+const HOST = process.env.HOST
+//const HOST = ip
 const { pool } = require('./dbConfig')
-const bcrypt = require('bcrypt')
+const { bcrypt } = require('bcrypt')
 
 // App
 const app = express()
 
-console.log('IP:    ')
-console.log(ip)
+app.use(bodyParser.json());
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -52,9 +61,20 @@ app.get('/users/:username/areas', authenticateToken, getAreas)
 app.get('/users/:username/areas/:area_id', authenticateToken, getArea)
 app.post('/users/:username/areas', authenticateToken, postArea)
 app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
+app.post('/discord', sendDiscordMessage)
 app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
 app.post('/hooks', hookHandler)
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
+
+ngrok.connect({
+  proto : 'http',
+  addr : PORT,
+}, (err, url) => {
+  if (err) {
+      console.error('Error while connecting Ngrok',err);
+      return new Error('Ngrok Failed');
+  }
+});

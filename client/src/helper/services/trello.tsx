@@ -53,7 +53,7 @@ export function TrelloSignin() {
               className="principal__btn__color"
               onClick={ async () => {
                 const insert = await logToService(actualKey, '1');
-                if (insert == true) {
+                if (insert == "Service token successfully loaded") {
                   token = actualKey;
                   handleClose();
                   setKey("");
