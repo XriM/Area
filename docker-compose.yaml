@@ -26,14 +26,16 @@ services:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
 
   # flutter:
-  #   networks:
-  #     - flutter
-  #   build:
-  #       context: ./flutter/
-  #   volumes:
-  #     - ./flutter/:/flutter/workspace
-  #   ports:
-  #     - "3333:3333"
+  #  build: ./flutter/
+  #  depends_on:
+  #    - db
+  #  ports:
+  #    - "${PORT}:${PORT}"
+  #  networks:
+  #    - flutter
+  #  environment:
+  #    - PORT=$PORT
+  #    - MODE=$MODE
 
   db:
     image: postgres:alpine

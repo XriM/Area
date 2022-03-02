@@ -8,9 +8,14 @@ axios.defaults.withCredentials = true;
 const url = "http://localhost:8000";
 
 function getError(error : any) {
+  let message : string = "";
+
   if (error.response) {
+    if (error.response.status === 498) {
+      message = ": Please signin to access this content."
+    }
     alert(
-      "An error of type " + error.response.status + " occured"
+      "An error of type " + error.response.status + " occured " + message
     );
   }
 }

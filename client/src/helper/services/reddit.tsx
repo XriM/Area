@@ -38,7 +38,7 @@ export function RedditSignin(props : { where : string }) {
         }
        }
        getCode();
-     })
+     }, [])
   
     return (
       <>

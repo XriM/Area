@@ -1,13 +1,11 @@
 import "../../App.css";
 import { Button, Card, Form, Row, Col, Accordion, FloatingLabel, Modal, Container } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { faLink, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { UserResponse, User } from "../../helper/types";
-import { NavbarLogged, TrelloSignin, GithubSignin,
-  RedditSignin, YoutubeSignin, OutlookSignin, createArea } from "..";
+import { NavbarLogged, TrelloSignin, YoutubeSignin, createArea, getUser } from "..";
 
 var name : string = "";
 var reaction : string = "";
@@ -46,6 +44,16 @@ function Body() {
   const handleShow = () => setShow(true);
 
   const [actualName, setName] = useState<string>("");
+
+  useEffect(() => {
+    async function checkIfLogged() {
+      const result = await getUser();
+      if (result.id === "") {
+        navigate("/");
+      }
+    }
+    checkIfLogged();
+  }, []);
 
   function OutlookAction() {
     const [show, setShow] = useState(false);
@@ -360,10 +368,10 @@ function Body() {
         <Modal.Header closeButton>
           <Modal.Title>Github configuration</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{textAlign: 'center'}}>This action triggers when something happens on a specific <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>link</a> of the repository you want to monitor and its <a style={{fontWeight: 'bold'}}>owner</a>. And login to your account.
+        <Modal.Body style={{textAlign: 'center'}}>This action triggers when something happens on a specific <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>link</a> of the repository you want to monitor and its <a style={{fontWeight: 'bold'}}>owner</a>. Please login to your account on your <a style={{fontWeight: 'bold'}}>profile</a> page.
           <br/>
           <br/>
-          <GithubSignin where="/create"/>
+          <Button variant="dark" className="principal__btn__color" onClick={() => { navigate('/profile') }}><FontAwesomeIcon icon={faUser} style={{color: 'white'}}/></Button>
           <br/>
           <br/>
           <Form>
@@ -472,10 +480,10 @@ function Body() {
         <Modal.Header closeButton>
           <Modal.Title>Reddit configuration</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{textAlign: 'center'}}>This action triggers when the <a style={{fontWeight: 'bold'}}>subscribers</a> count of a desired subreddit changes. Please login to your account.
+        <Modal.Body style={{textAlign: 'center'}}>This action triggers when the <a style={{fontWeight: 'bold'}}>subscribers</a> count of a desired subreddit changes. Please login to your account on your <a style={{fontWeight: 'bold'}}>profile</a> page.
           <br/>
           <br/>
-          <RedditSignin where="/create"/>
+          <Button variant="dark" className="principal__btn__color" onClick={() => { navigate('/profile') }}><FontAwesomeIcon icon={faUser} style={{color: 'white'}}/></Button>
           <br/>
           <br/>
           <Form>
@@ -866,10 +874,10 @@ function Body() {
         <Modal.Header closeButton>
           <Modal.Title>Github configuration</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{textAlign: 'center'}}>This reaction will open an <a style={{fontWeight: 'bold'}}>issue</a> in your desired <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>link</a> of the repository you want to send the issues to, its <a style={{fontWeight: 'bold'}}>owner</a> and title, content of the issue. Please login to your account.
+        <Modal.Body style={{textAlign: 'center'}}>This reaction will open an <a style={{fontWeight: 'bold'}}>issue</a> in your desired <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>link</a> of the repository you want to send the issues to, its <a style={{fontWeight: 'bold'}}>owner</a> and title, content of the issue. Please login to your account on your <a style={{fontWeight: 'bold'}}>profile</a> page.
           <br/>
           <br/>
-          <GithubSignin where="/create"/>
+          <Button variant="dark" className="principal__btn__color" onClick={() => { navigate('/profile') }}><FontAwesomeIcon icon={faUser} style={{color: 'white'}}/></Button>
           <br/>
           <br/>
           <Form>

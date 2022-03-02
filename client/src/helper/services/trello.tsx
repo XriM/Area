@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 
 import { logToService } from "../api";
 

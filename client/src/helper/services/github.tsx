@@ -2,10 +2,11 @@ import "../../App.css";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-import { logToService } from "../api";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import axios from "axios";
+
+import { logToService } from "../api";
 
 var clientId = "d05e9c2d8d588d4cb47c";
 var secret = "8313b9cbdea767e6e0a6227333cd525845c9c5e8";
@@ -34,7 +35,7 @@ export function GithubSignin(props : { where : string }) {
           })
           .then((res) => {
             console.log(res);
-            navigate("/profile")
+            navigate(props.where);
           })
           .catch((error) => {
             console.log(error);

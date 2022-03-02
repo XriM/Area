@@ -1,5 +1,5 @@
 import "../../App.css";
-import { signup, signin, logToService } from "../api";
+import { logToService } from "../api";
 import GoogleLogin from 'react-google-login';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
