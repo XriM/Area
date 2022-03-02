@@ -1,46 +1,57 @@
 version: '3'
 
 services:
-  app:
-    build: ./backend/
-    depends_on:
-      - db
-    ports:
-      - "${PORT}:${PORT}"
-    networks:
-      - backend
-    environment:
-      - PORT=$PORT
-      - MODE=$MODE
+  # app:
+  #   build: ./backend/
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - "${PORT}:${PORT}"
+  #   networks:
+  #     - backend
+  #   environment:
+  #     - PORT=$PORT
+  #     - MODE=$MODE
 
-  client:
+  # client:
+  #   networks:
+  #     - frontend
+  #   build:
+  #       context: ./client
+  #   command: npm start
+  #   volumes:
+  #     - ./client/:/usr/app
+  #     - /usr/app/node_modules
+  #   ports:
+  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
+
+  flutter:
     networks:
-      - frontend
+      - flutter
     build:
-        context: ./client
-    command: npm start
+        context: ./flutter/
     volumes:
-      - ./client/:/usr/app
-      - /usr/app/node_modules
+      - ./flutter/:/flutter/workspace
     ports:
-      - "${CLIENT_PORT}:${CLIENT_PORT}"
+      - "3333:3333"
 
-  db:
-    image: postgres:alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASS}
-      - POSTGRES_DB=${DB_NAME}
-    networks:
-      - backend
-    volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./backend/src/schema/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+  # db:
+  #   image: postgres:alpine
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=${DB_USER}
+  #     - POSTGRES_PASSWORD=${DB_PASS}
+  #     - POSTGRES_DB=${DB_NAME}
+  #   networks:
+  #     - backend
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #     - ./backend/src/schema/schema.sql:/docker-entrypoint-initdb.d/schema.sql
 
 networks:
   backend:
   frontend:
+  flutter:
 
 volumes:
   db-data:

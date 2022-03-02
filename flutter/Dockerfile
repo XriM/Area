@@ -19,7 +19,11 @@ ENV PATH "$PATH:/home/user/Android/sdk/platform-tools"
 #Installing Flutter SDK
 RUN git clone https://github.com/flutter/flutter.git
 ENV PATH "$PATH:/home/user/flutter/bin"
-RUN ~/Android/sdk/tools/bin/sdkmanager --install "cmdline-tools;latest"    
+RUN ~/Android/sdk/tools/bin/sdkmanager --install "cmdline-tools;latest"
 RUN flutter channel dev
 RUN flutter upgrade
 RUN flutter doctor
+WORKDIR /home/developer/workspace/
+COPY ./workspace/ /home/developer/workspace/
+#RUN flutter clean
+RUN flutter run
