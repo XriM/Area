@@ -66,7 +66,7 @@ function Body() {
           <br/>
           <br/>
           <Button variant="primary" className="principal__btn__color" style={{marginBottom: 20}}><FontAwesomeIcon icon={faLink} style={{color: 'white'}} onClick= { () => {
-            navigate('/outlook');
+            navigate('/outlook-onedrive-create');
           }}/></Button>
         </Modal.Body>
         <Modal.Footer>
@@ -115,7 +115,7 @@ function Body() {
           <br/>
           <Form>
             <Form.Group className="mb-3">
-              <FloatingLabel controlId="floatingInput" label="Currency" className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Currency -- format PAIR1/PAIR2" className="mb-3">
               <Form.Control required type="text" value={actualCurrency}
                 onChange={(e) => {
                   currency = e.target.value;
@@ -150,7 +150,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "CryptoCurrency price changed";
-              actionId = "5";
+              actionId = "7";
               config['crypto'] = actualCurrency;
               config['value_min'] = actualMinValue;
               config['value_max'] = actualMaxValue;
@@ -234,7 +234,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Steam players changed";
-              actionId = "7";
+              actionId = "6";
               config['steam'] = actualGame;
               config['players_min'] = actualMinValue;
               config['players_max'] = actualMaxValue;
@@ -318,7 +318,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Weather changed";
-              actionId = "6";
+              actionId = "5";
               config['city'] = actualCity;
               config['temp_min'] = actualTemperatureMin;
               config['temp_max'] = actualTemperatureMax;
@@ -363,7 +363,7 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This action triggers when something happens on a specific <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>link</a> of the repository you want to monitor and its <a style={{fontWeight: 'bold'}}>owner</a>. And login to your account.
           <br/>
           <br/>
-          <GithubSignin/>
+          <GithubSignin where="/create"/>
           <br/>
           <br/>
           <Form>
@@ -393,7 +393,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "Github repo starred";
-              actionId = "5";
+              actionId = "4";
               config['github'] = actualRepo;
               config['owner'] = actualOwner;
               handleClose();
@@ -431,7 +431,7 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This action triggers when your <a style={{fontWeight: 'bold'}}>subscribers</a> count changes. Please login to your account.
           <br/>
           <br/>
-          <YoutubeSignin/>
+          <YoutubeSignin where="/create"/>
           <br/>
           <br/>
         </Modal.Body>
@@ -475,7 +475,7 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This action triggers when the <a style={{fontWeight: 'bold'}}>subscribers</a> count of a desired subreddit changes. Please login to your account.
           <br/>
           <br/>
-          <RedditSignin/>
+          <RedditSignin where="/create"/>
           <br/>
           <br/>
           <Form>
@@ -554,7 +554,7 @@ function Body() {
           <Button variant="primary" className="principal__btn__color"
             onClick = { () => {
               action = "File added";
-              actionId = "9";
+              actionId = "8";
               config['drive'] = actualDrive;
               handleClose();
             }}>
@@ -869,7 +869,7 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This reaction will open an <a style={{fontWeight: 'bold'}}>issue</a> in your desired <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>link</a> of the repository you want to send the issues to, its <a style={{fontWeight: 'bold'}}>owner</a> and title, content of the issue. Please login to your account.
           <br/>
           <br/>
-          <GithubSignin/>
+          <GithubSignin where="/create"/>
           <br/>
           <br/>
           <Form>
@@ -1104,7 +1104,8 @@ function Body() {
           const result = await createArea(config, name, actionId, reactionId);
 
           if (result === 0) {
-            navigate("/my-widgets");
+            alert("Area successfully created.");
+            navigate("/triggers");
           }
           setName("");
         }}>Add an AREA</Button>

@@ -1,12 +1,5 @@
 const { user } = require('pg/lib/defaults')
 const { pool } = require('../dbConfig')
-const axios = require('axios')
-const { checkIfWeather, checkIfSubscribe, checkIfSteam, checkIfCrypto } = require('./crontab')
-const fetch = require('node-fetch')
-const { response } = require('express')
-const { env } = require('dotenv').config()
-const { createGitHubHook, createOutlookHook, createOneDriveHook } = require('./hook')
-const { sendGitIssue, sendDiscordMessage } = require('./reactions')
 
 exports.getAreas = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
@@ -31,12 +24,12 @@ exports.getArea = async (req, res) => {
     return res.status(400).send({ message: 'Failed to retreive area' })
   }
   areaId = areaId.rows[0].area_id
-  const result = await pool.query('SELECT name FROM areas WHERE id = $1', [areaId])
+  const result = await pool.query('SELECT area_name FROM areas WHERE id = $1', [areaId])
   res.status(200).send(result.rows)
 }
 
 exports.postArea = async (req, res) => {
-  //req.body = JSON.parse(JSON.stringify(req.body))
+  req.body = JSON.parse(JSON.stringify(req.body))
   if (req.user.username !== req.params.username) {
     return res.status(498).send({ message: 'Invalid token!' })
   }
@@ -44,48 +37,10 @@ exports.postArea = async (req, res) => {
   const actionId = parseInt(req.body.action_id)
   const reactionId = parseInt(req.body.reaction_id)
   const areaName = req.body.name
-  const result = await pool.query('INSERT INTO areas (action_id, reaction_id, name) VALUES ($1, $2, $3) RETURNING *', [actionId, reactionId, areaName])
-  let actionRes = await pool.query(`SELECT * FROM actions WHERE id = $1`, [actionId]);
-  actionRes = actionRes.rows[0];
-  let reactionRes = await pool.query(`SELECT * FROM reactions WHERE id = $1`, [reactionId]);
-  reactionRes = reactionRes.rows[0];
-  const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
-  switch (actionRes.name) {
-    case 'Received email':
-      createOutlookHook(req, serviceToken, result, userId, res)
-      break;
-
-    case 'Steam players changed':
-      checkIfSteam(req, res, reactionId)
-      break;
-
-    case 'Area successfully created':
-      createGitHubHook(req, serviceToken.rows[0].token, res)
-      break;
-
-    case 'Weather changed':
-      checkIfWeather(req, res, reactionId)
-      break;
-
-    case 'CryptoCurrency price changed':
-      checkIfCrypto(req, res, reactionId)
-      break;
-    
-    case 'File added':
-      createOneDriveHook(req, serviceToken, result, userId, res)
-      break
-
-    case 'Youtube subscribers changed':
-      checkIfSubscribe(userId, res, reactionRes)
-      break;
-
-    case 'Subreddit subscribers changed':
-      checkIfReddit(userId, res, reactionRes)
-      break;
-
-    default:
-      res.status(404).send({ message: "Error parsing user's Ares"})
-  }
+  const result = await pool.query('INSERT INTO areas (action_id, reaction_id, area_name) VALUES ($1, $2, $3) RETURNING *', [actionId, reactionId, areaName])
+  await pool.query('INSERT INTO user_area (area_id, user_id) VALUES ($1, $2)', [result.rows[0].id, userId.rows[0].id])
+  console.log(result.rows)
+  res.status(200).send({ message: 'Area successfully created' })
 }
 
 exports.patchArea = async (req, res) => {

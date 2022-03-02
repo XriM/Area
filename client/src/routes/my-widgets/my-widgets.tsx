@@ -50,29 +50,26 @@ function Body() {
   useEffect(() => {
     async function fetchArea() {
       const result = await getAreas();
-      
-      // if (result.id[0] === "error") {
-      //   navigate("/");
-      // } to kick user if not logged
+      arrTriggers = [];
 
-      if (result.length > 0) {
-        for(let i = 0; i < result.length; i++) {
+      if (result.id.length > 0) {
+        for(let i = 0; i < result.id.length; i++) {
           var checkbox = "checkbox" + i;
           arrTriggers.push(
-            <div key={result[i].id} className="trigger__card">
+            <div key={result.id[i]} className="trigger__card">
               <Card className="profile__card" style={{ width: '30rem' }}>
                 <Card.Body>
-                  <Card.Title style={{ textAlign: 'center' }}>{result[i].name}</Card.Title>
+                  <Card.Title style={{ textAlign: 'center' }}>{result.name[i]}</Card.Title>
                   <br/>
                   <Card.Text>
                     <Row>
                       <Col>
-                        <p><a style={{ fontWeight: 'bold' }}>Action:</a> {result[i].actionName}</p>
+                        <p><a style={{ fontWeight: 'bold' }}>Action:</a> {result.action[i]}</p>
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {result[i].reactionName}</p>
+                        <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {result.reaction[i]}</p>
                       </Col>
                     </Row>
                   </Card.Text>
@@ -87,8 +84,8 @@ function Body() {
                     </Col>
                     <Col md={1} style={{marginTop: 5}}>
                     <Button variant="danger" className="secondary__btn__color" onClick={ async () => {
-                      const result = await deleteArea("");
-                      if (result === 0) {
+                      const response = await deleteArea(result.id[i]);
+                      if (response === 0) {
                         window.location.reload();
                       }
                     }}><FontAwesomeIcon icon={faTrash} style={{color: 'white'}}/></Button>
@@ -109,7 +106,7 @@ function Body() {
     <>
     <CardGroup>
 
-    {/* test purposes */}
+    {/* test purposes
     <div className="trigger__card">
       <Card className="profile__card" style={{ width: '30rem' }}>
         <Card.Body>
@@ -189,7 +186,7 @@ function Body() {
         </Card.Footer>
       </Card>
     </div>
-    {/* test purposes */}
+    test purposes */}
 
     {Areas}
 

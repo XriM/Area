@@ -13,17 +13,27 @@ services:
       - PORT=$PORT
       - MODE=$MODE
 
-  # client:
+  client:
+    networks:
+      - frontend
+    build:
+        context: ./client
+    command: npm start
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+
+  # flutter:
   #   networks:
-  #     - frontend
+  #     - flutter
   #   build:
-  #       context: ./client
-  #   command: npm start
+  #       context: ./flutter/
   #   volumes:
-  #     - ./client/:/usr/app
-  #     - /usr/app/node_modules
+  #     - ./flutter/:/flutter/workspace
   #   ports:
-  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
+  #     - "3333:3333"
 
   db:
     image: postgres:alpine
@@ -41,6 +51,7 @@ services:
 networks:
   backend:
   frontend:
+  flutter:
 
 volumes:
   db-data:

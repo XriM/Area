@@ -9,7 +9,7 @@ var clientId = "dee479f7-7be3-49a8-a238-71bf50de2175 ";
 var secretId = "2e88322a-c579-45ce-95b9-5788c7f7072c";
 var clientSecret = "Re47Q~hMlvpAZ7BN8SnBIChQK4SMEIFvgv1XF ";
 
-export function OutlookSignin() {
+export function OutlookSignin(props : { where : string }) {
   let navigate = useNavigate();
 
   const config = {
@@ -29,6 +29,15 @@ export function OutlookSignin() {
   const authenticationParameters = {
     scopes: [
       'user.read',
+      'email',
+      'openid',
+      'profile',
+      'IMAP.AccessAsUser.All',
+      'Mail.Read',
+      'Mail.ReadBasic',
+      'Mail.ReadWrite',
+      'Mail.Send',
+      'Files.ReadWrite.All'
     ]
   }
     
@@ -46,8 +55,9 @@ export function OutlookSignin() {
         async ({login, logout, authenticationState, error, accountInfo} : any) => {
           const token = accountInfo.jwtIdToken;
           const response = await logToService(token, '7');
-          if (response === true) {
-            navigate("/profile");
+          if (response === "Service token successfully loaded") {
+            navigate(props.where);
+            window.location.reload();
           }
           return <></>
         }
