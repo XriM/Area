@@ -4,6 +4,7 @@ import { Modal, Button, Form, FloatingLabel } from "react-bootstrap";
 
 import { UserResponse } from "../../helper/types";
 import { signup } from "..";
+import { GoogleSignup } from '../../helper/services/google';
 
 function ShowSignup() {
   const [show, setShow] = useState<boolean>(false);
@@ -100,6 +101,7 @@ function ShowSignup() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <GoogleSignup/>
           <a style={{ opacity: 0.8 }}>Area Entreprise</a>
         </Modal.Footer>
       </Modal>

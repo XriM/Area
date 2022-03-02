@@ -7,6 +7,7 @@ import App from "./App";
 import Profile from "./routes/profile/profile";
 import MyWidgets from "./routes/my-widgets/my-widgets";
 import CreateTrigger from "./routes/create/create";
+import { OutlookSignin } from "./helper/services/outlook_onedrive";
 
 const rootElement = document.getElementById("root");
 
@@ -17,6 +18,8 @@ render(
       <Route path="/profile" element={<Profile />} />
       <Route path="/triggers" element={<MyWidgets />} />
       <Route path="/create" element={<CreateTrigger />} />
+      <Route path="/outlook-onedrive-profile" element={<OutlookSignin where="/profile" />} />
+      <Route path="/outlook-onedrive-create" element={<OutlookSignin where="/create" />} />
     </Routes>
   </BrowserRouter>,
   rootElement

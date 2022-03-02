@@ -1,18 +1,13 @@
-import { useState }  from 'react';
 import "../../App.css";
 import {
   Container,
   Nav,
   Navbar,
-  Button
 } from "react-bootstrap";
-import { useNavigate } from "react-router";
 
-import { ShowLogin, ShowSignup, ping } from "..";
+import { ShowSignin, ShowSignup } from "..";
 
 function NavbarHome() {
-  const [id, setId] = useState<string>("");
-
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -39,57 +34,8 @@ function Body() {
     <div className="buttons__home">
       <ShowSignup />
       <a style={{marginRight: 15}}/>
-      <ShowLogin />
+      <ShowSignin />
     </div>
-    </>
-  );
-}
-
-function Faq() {
-  const navigate = useNavigate();
-
-  return (
-    <>
-      <Button
-        variant="light"
-        className="loginButton"
-        onClick = { () => {navigate("/faq")}}
-      >
-        F.A.Q
-      </Button>
-    </>
-  );
-}
-
-function Contact() {
-  const navigate = useNavigate();
-
-  return (
-    <>
-      <Button
-        variant="light"
-        className="loginButton"
-        onClick = { () => {navigate("/contact")}}
-      >
-        Contact
-      </Button>
-    </>
-  );
-}
-
-function ServerTest() {
-
-  return (
-    <>
-      <Button
-        variant="light"
-        className="loginButton"
-        onClick = { async () => {
-          await ping();
-        }}
-      >
-        PingServer
-      </Button>
     </>
   );
 }
