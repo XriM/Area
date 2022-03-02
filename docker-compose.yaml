@@ -25,17 +25,20 @@ services:
     ports:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
 
-  # flutter:
-  #  build: ./flutter/
-  #  depends_on:
-  #    - db
-  #  ports:
-  #    - "${PORT}:${PORT}"
-  #  networks:
-  #    - flutter
-  #  environment:
-  #    - PORT=$PORT
-  #    - MODE=$MODE
+  flutter:
+   build: ./flutter/
+   depends_on:
+     - db
+   volumes:
+      - ./flutter/:/flutter/
+   ports:
+     - "${FLU_PORT}:${FLU_PORT}"
+   networks:
+     - flutter
+   environment:
+     - PORT=$FLU_PORT
+     - MODE=$MODE
+   command: tail -F anything
 
   db:
     image: postgres:alpine

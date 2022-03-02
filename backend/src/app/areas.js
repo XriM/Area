@@ -80,7 +80,7 @@ exports.postArea = async (req, res) => {
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
       checkIfCrypto(req, res, '', reactionId)
       break;
-    
+
     case 'File added':
       createOneDriveHook(req, serviceToken, result, userId, res)
       break
