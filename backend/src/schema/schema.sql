@@ -76,7 +76,7 @@ INSERT INTO services (name) VALUES ('Crypto');
 INSERT INTO services (name) VALUES ('GitHub');
 INSERT INTO services (name) VALUES ('Outlook');
 INSERT INTO services (name) VALUES ('Steam');
-INSERT INTO services (name) VALUES ('Youtube')
+INSERT INTO services (name) VALUES ('Youtube');
 
 INSERT INTO reactions (name) VALUES ('Send email');
 INSERT INTO reactions (name) VALUES ('Add trello card');

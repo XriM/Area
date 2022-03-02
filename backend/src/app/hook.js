@@ -141,7 +141,7 @@ async function getUserIdFromEmail(data) {
 }
 
 async function receivedEmailOutlook() {
-
+  
 }
 
 exports.hookHandler = async (req, res) => {
@@ -154,6 +154,7 @@ exports.hookHandler = async (req, res) => {
   let reaction_id
   let config
   let token
+  console.log(body)
   if ('message' in  body) {
     console.log('Gmail push notification: ')
     console.log(body)
