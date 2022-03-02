@@ -42,29 +42,26 @@ async function triggerReaction(reactionId)
     switch (reactionId) {
         case 1:
             await sendEmailOutlook(token, config);
-            return true
             break;
         
         case 2:
-            return true
             break;
         
         case 3:
-            return true
-            await sendGitIssue(req, token, );
+            await sendGitIssue(token, config);
             break;
         
         case 4:
-            await sendDiscordMessage();
-            return true
+            await sendDiscordMessage(token, config);
             break;
         default:
             return false
             break;
     }
+    return true
 }
 
-exports.checkIfWeather = async (body, res, reactionRes) => {
+exports.checkIfWeather = async (body, res, token, reactionId) => {
 
     const city = Buffer.from(body.city.data, 'base64')
     const temp_min = parseInt(Buffer.from(body.temp_min.data, 'base64'))
@@ -79,15 +76,14 @@ exports.checkIfWeather = async (body, res, reactionRes) => {
         weather.getSmartJSON(function(err, smart) {
             console.log(smart) //debug
             if (smart.temp.parseInt() < temp_min || smart.temp.parseInt > temp_max) {
-                    //var notifier = getIdsFromActionAndData("Weather changed", city)
-                }
+                triggerReaction(reactionId, token, body.config)
+            }
             res.status(200).send({message: 'Crontabs weather done.'})
             })
-        //console.log("CRONED Weather") //debug
         })
 }
 
-exports.checkIfCrypto = async (body, res, reactionRes) => {
+exports.checkIfCrypto = async (body, res, token, reactionId) => {
     // ici c'est le bitcoigne
 
     const pair = Buffer.from(body.crypto.data, 'base64')
@@ -100,7 +96,7 @@ exports.checkIfCrypto = async (body, res, reactionRes) => {
         kraken.fetchOHLCV(pair, '1m').then(data  => {
             res = parseInt(Buffer.from(data[0][1]), 'base64')
             if (value_min > res || value_max < res) {
-                //getIdsFromActionAndData("CryptoCurrency price changed", pair)
+                triggerReaction(reactionId, token, body.config)
             }
             res.status(200).send({message: 'Crontabs crypto done.'})
             console.log(data)
@@ -109,14 +105,14 @@ exports.checkIfCrypto = async (body, res, reactionRes) => {
     })
 }
 
-exports.checkIfSteam = async (req, res, reactionRes) => {
+exports.checkIfSteam = async (req, res, token, reactionId) => {
 
     cron.schedule('*/2 * * * *', async () => {
         var result = fetch(`https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/`, { method: 'GET', body: JSON.stringify({
             "appid": req.body.steam
         }).then((data) => {
             if (data.response.player_count < req.body.players_min || data.response.player_count > req.body.players_max) {
-                // reaction
+                triggerReaction(reactionId, token, body.config)
             }
             res.status(200).send({message: 'Crontabs steam done.'})
         }).catch((error) => {
@@ -128,8 +124,8 @@ exports.checkIfSteam = async (req, res, reactionRes) => {
     })
 }
 
-exports.checkIfSubscribe = async (userId, res, reactionRes) => {
-    const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
+exports.checkIfSubscribe = async (body, res, token, reactionId) => {
+    //const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
     let subscribers = "";
 
     cron.schedule('*/2 * * * *', () => {
@@ -137,7 +133,7 @@ exports.checkIfSubscribe = async (userId, res, reactionRes) => {
 
         axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
             headers: {
-              Authorization: "Bearer " + key,
+              Authorization: "Bearer " + token,
             },
           }).then((result) => {
             subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
@@ -148,6 +144,7 @@ exports.checkIfSubscribe = async (userId, res, reactionRes) => {
             console.log(subscribers + " was before")
             if (subscribers !== subscriberCount) {
                 console.log("more subs" + subscriberCount);
+                triggerReaction(reactionId, token, body.config)
                 //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
             }
             subscribers = subscriberCount;
@@ -159,15 +156,13 @@ exports.checkIfSubscribe = async (userId, res, reactionRes) => {
     });
 }
 
-exports.checkIfReddit = async (userId, res, reactionRes) => {
-    const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED REDDIT SERVICE ID', [userId])
-    const subreddit = await pool.query('SELECT config FROM user_area WHERE user_id = $1', [userId])
+exports.checkIfReddit = async (body, res, token, reactionId) => {
     let subscribers = "";
 
     cron.schedule('*/5 * * * * *', () => {
         var config = {
             method: 'get',
-            url: 'https://oauth.reddit.com/' + subreddit + '/about',
+            url: 'https://oauth.reddit.com/' + body.config.subreddit + '/about',
             headers: {
             'Authorization': 'Bearer ' + process.env.REDDIT_BEARER,
             'Cookie': process.env.REDDIT_COOKIE
@@ -183,6 +178,7 @@ exports.checkIfReddit = async (userId, res, reactionRes) => {
             console.log(subscribers + " was before")
             if (subscribers !== subscriberCount) {
                 console.log("more subs" + subscriberCount);
+                triggerReaction(reactionId, token, body.config)
                 //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
             }
             subscribers = subscriberCount;

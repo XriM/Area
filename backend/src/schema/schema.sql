@@ -68,14 +68,15 @@ INSERT INTO users (password, email, username) VALUES (('pass1'), ('email1'), ('u
 INSERT INTO users (password, email, username) VALUES (('pass2'), ('email2'), ('username2'));
 INSERT INTO users (password, email, username) VALUES (('pass3'), ('email3'), ('username3'));
 
-INSERT INTO services (name) VALUES ('Google Calendar');
-INSERT INTO services (name) VALUES ('Gmail');
+INSERT INTO services (name) VALUES ('Trello');
+INSERT INTO services (name) VALUES ('Reddit');
 INSERT INTO services (name) VALUES ('Discord');
 INSERT INTO services (name) VALUES ('Weather');
 INSERT INTO services (name) VALUES ('Crypto');
 INSERT INTO services (name) VALUES ('GitHub');
 INSERT INTO services (name) VALUES ('Outlook');
 INSERT INTO services (name) VALUES ('Steam');
+INSERT INTO services (name) VALUES ('Youtube')
 
 INSERT INTO reactions (name) VALUES ('Send email');
 INSERT INTO reactions (name) VALUES ('Reaction added');

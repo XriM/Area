@@ -56,7 +56,7 @@ exports.postArea = async (req, res) => {
       break;
 
     case 'Steam players changed':
-      checkIfSteam(req, res, reactionRes)
+      checkIfSteam(req, res, reactionId)
       break;
 
     case 'Area successfully created':
@@ -64,11 +64,11 @@ exports.postArea = async (req, res) => {
       break;
 
     case 'Weather changed':
-      checkIfWeather(req, res, reactionRes)
+      checkIfWeather(req, res, reactionId)
       break;
 
     case 'CryptoCurrency price changed':
-      checkIfCrypto(req, res, reactionRes)
+      checkIfCrypto(req, res, reactionId)
       break;
     
     case 'File added':
@@ -81,24 +81,6 @@ exports.postArea = async (req, res) => {
 
     case 'Subreddit subscribers changed':
       checkIfReddit(userId, res, reactionRes)
-      break;
-
-    default:
-      res.status(404).send({ message: "Error parsing user's Ares"})
-  }
-  switch (reactionRes.name) {
-    case 'Send Git Issue':
-      sendGitIssue(req, serviceToken, res)
-      break;
-
-    case 'Send Discord message':
-      sendDiscordMessage(req, serviceToken, res)
-      break;
-
-    case 'Send email':
-      break;
-
-    case 'Reaction added':
       break;
 
     default:
