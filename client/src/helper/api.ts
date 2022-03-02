@@ -7,6 +7,8 @@ import { User, Area, UserResponse } from './types';
 axios.defaults.withCredentials = true;
 const url = "http://localhost:8000";
 
+var usernameLogged = "";
+
 function getError(error : any) {
   if (error.response) {
     console.log(error.response.data.error.message);
@@ -50,9 +52,7 @@ export async function signup(email: string, password: string, username: string) 
     .then((res) => {
       console.log(res);
       alert(
-        "Your signup has been taken into account " +
-          res.data.username +
-          ". Please signin now."
+        res.data.message
       );
       signup = true;
     })
@@ -75,7 +75,10 @@ export async function signin(email: string, password: string) {
     .then((res) => {
       console.log(res);
       id = res.data.id;
-      alert("Signed in ! Welcome back " + res.data.username);
+      usernameLogged = res.data.username;
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -83,15 +86,17 @@ export async function signin(email: string, password: string) {
   return id;
 }
 
-export async function updateUser(id : string, email : string) {
+export async function updateUser(email : string) {
   let new_email = "";
 
   await axios
-    .patch(url + "/users/me" + id, email)
+    .patch(url + "/users/" + usernameLogged, email)
     .then((res) => {
       console.log(res);
       new_email = res.data.email;
-      alert("User " + email + " has been updated with email " + new_email);
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -101,10 +106,12 @@ export async function updateUser(id : string, email : string) {
 
 export async function signout() {
   await axios
-    .post(url + "/users/me/signout")
+    .post(url + "/users/" + usernameLogged + "/signout")
     .then((res) => {
       console.log(res);
-      alert("Successfully signed out.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -114,10 +121,12 @@ export async function signout() {
 
 export async function deleteAccount() {
   await axios
-    .delete(url + "/users/me")
+    .delete(url + "/users/" + usernameLogged)
     .then((res) => {
       console.log(res);
-      alert("Your account has been successfully deleted.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -138,6 +147,9 @@ export async function getUsers() {
         const element = res.data[i].username;
         users.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -156,7 +168,9 @@ export async function getUser() {
       user.password = res.data.password;
       user.username = res.data.username;
       user.id = res.data.id;
-      alert("User " + res.data.username + " has been found.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -170,13 +184,16 @@ export async function getServices() {
   let services : Array<string> = [];
 
   await axios
-    .get(url + "/users/me/services")
+    .get(url + "/users/" + usernameLogged + "/services")
     .then((res) => {
       console.log(res);
       for (let i = 0; i < res.data.length; i++) {
         const element = res.data[i].name;
         services.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -188,10 +205,13 @@ export async function getService(serviceId : string) {
   let serviceLog : boolean = false;
 
   await axios
-    .get(url + "/users/me/services" + serviceId)
+    .get(url + "/users/" + usernameLogged + "/services" + serviceId)
     .then((res) => {
       console.log(res);
       serviceLog = res.data.isLog;
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -203,11 +223,13 @@ export async function logToService(token: string, serviceId : string) {
   let serviceLog : boolean = false;
 
   await axios
-    .post(url + "/users/me/services" + serviceId, token)
+    .post(url + "/users/" + usernameLogged + "/services" + serviceId, token)
     .then((res) => {
       console.log(res);
       serviceLog = res.data.isLog;
-      alert("You successfully logged in to " + res.data.name + ".");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -219,11 +241,13 @@ export async function updateTokenService(token: string, serviceId : string) {
   let serviceLog : boolean = false;
 
   await axios
-    .patch(url + "/users/me/services" + serviceId, token)
+    .patch(url + "/users/" + usernameLogged + "/services" + serviceId, token)
     .then((res) => {
       console.log(res);
       serviceLog = res.data.isLog;
-      alert("You successfully updated your credentials for the service " + res.data.name + ".");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -233,10 +257,12 @@ export async function updateTokenService(token: string, serviceId : string) {
 
 export async function disconnectService(serviceId : string) {
   await axios
-    .delete(url + "/users/me/services/" + serviceId)
+    .delete(url + "/users/" + usernameLogged + "/services/" + serviceId)
     .then((res) => {
       console.log(res);
-      alert("Your credentials for this service has been successfully deleted.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -250,13 +276,16 @@ export async function getActions() {
   let actions : Array<string> = [];
 
   await axios
-    .get(url + "/users/me/actions")
+    .get(url + "/users/" + usernameLogged + "/actions")
     .then((res) => {
       console.log(res);
       for (let i = 0; i < res.data.length; i++) {
         const element = res.data[i].name;
         actions.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -268,11 +297,13 @@ export async function getAction(actionId : string) {
   let action : any;
 
   await axios
-    .get(url + "/users/me/actions" + actionId)
+    .get(url + "/users/" + usernameLogged + "/actions" + actionId)
     .then((res) => {
       console.log(res);
       action = res.data.config;
-      alert("The action " + res.data.name + " has been found.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -286,13 +317,16 @@ export async function getReactions() {
   let reactions : Array<string> = [];
 
   await axios
-    .get(url + "/users/me/reactions")
+    .get(url + "/users/" + usernameLogged + "/reactions")
     .then((res) => {
       console.log(res);
       for (let i = 0; i < res.data.length; i++) {
         const element = res.data[i].name;
         reactions.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -304,11 +338,13 @@ export async function getReaction(reactionId : string) {
   let reaction : any;
 
   await axios
-    .get(url + "/users/me/reactions" + reactionId)
+    .get(url + "/users/" + usernameLogged + "/reactions" + reactionId)
     .then((res) => {
       console.log(res);
       reaction = res.data.config;
-      alert("The reaction " + res.data.name + " has been found.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -322,13 +358,16 @@ export async function getAreas() {
   let areas : Array<Area> = [];
 
   await axios
-    .get(url + "/users/me/areas")
+    .get(url + "/users/" + usernameLogged + "/areas")
     .then((res) => {
       console.log(res);
       for (let i = 0; i < res.data.length; i++) {
         const element = res.data[i].name;
         areas.push(element);
       }
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -337,10 +376,10 @@ export async function getAreas() {
 }
 
 export async function getArea(areaId : string) {
-  let area : Area = { id: "", name : "", actionName : "", actionConfig : {}, reactionName : [""], reactionConfig : [{}] };
+  let area : Area = { id: "", name : "", actionName : "", actionConfig : {}, reactionName : "", reactionConfig : {} };
 
   await axios
-    .get(url + "/users/me/areas" + areaId)
+    .get(url + "/users/" + usernameLogged + "/areas" + areaId)
     .then((res) => {
       console.log(res);
       area.id = res.data.id;
@@ -349,7 +388,9 @@ export async function getArea(areaId : string) {
       area.actionConfig = res.data.actionConfig;
       area.reactionName = res.data.reactionName;
       area.reactionConfig = res.data.reactionConfig;
-      alert("The area " + res.data.name + " has been found.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -358,12 +399,23 @@ export async function getArea(areaId : string) {
 }
 
 
-export async function createArea(params : Area) {
+export async function createArea(params : any, name : string, actionId : string, reactionId : string) {
+  const config = {
+    action_id: actionId,
+    reaction_id: reactionId,
+    name: name,
+    config:{
+      params
+	  }
+  }
+
   await axios
-    .post(url + "/users/me/areas", params)
+    .post(url + "/users/" + usernameLogged + "/areas", config)
     .then((res) => {
       console.log(res);
-      alert("Area " + params.name + " has been created.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -373,10 +425,12 @@ export async function createArea(params : Area) {
 
 export async function updateArea(params: Area, areaId : string) {
   await axios
-    .patch(url + "/users/me/areas" + areaId, params)
+    .patch(url + "/users/" + usernameLogged + "/areas" + areaId, params)
     .then((res) => {
       console.log(res);
-      alert("Area " + params.name + " has been updated.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);
@@ -386,10 +440,12 @@ export async function updateArea(params: Area, areaId : string) {
 
 export async function deleteArea(areaId : string) {
   await axios
-    .delete(url + "/users/me/areas/" + areaId)
+    .delete(url + "/users/" + usernameLogged + "/areas/" + areaId)
     .then((res) => {
       console.log(res);
-      alert("This Area has been deleted.");
+      alert(
+        res.data.message
+      );
     })
     .catch((error) => {
       getError(error);

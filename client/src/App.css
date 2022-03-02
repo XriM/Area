@@ -56,6 +56,8 @@ body {
   }
 }
 
+/* Graphic chart */
+
 .principal__color {
   color: #2C8DF1 !important;
 }
@@ -72,6 +74,24 @@ body {
   color: #2C8DF1;
 }
 
+.principal__cancel__color {
+  background-color: white !important;
+  border-color: #2C8DF1 !important;
+  color: #2C8DF1;
+}
+
+.principal__btn__color:focus {
+  box-shadow: 0 0 0 0rem;
+}
+
+.principal__cancel__color:focus {
+  box-shadow: 0 0 0 0rem;
+}
+
+.principal__cancel__color:hover {
+  color: #2C8DF1;
+}
+
 .secondary__color {
   color: #FE9455 !important;
 }
@@ -81,6 +101,18 @@ body {
   border-color: #FE9455 !important;
   color: white;
 }
+
+.secondary__btn__color:active,
+.secondary__btn__color:focus,
+.secondary__btn__color:focus:active {
+  box-shadow: none;
+}
+
+.secondary__btn__color:hover {
+  color: white;
+}
+
+/* General properties */
 
 .alert-fixed {
   position: fixed;
@@ -92,6 +124,12 @@ body {
 }
 
 .centered__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered__bottom__buttons {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,7 +164,15 @@ body {
   background: #2C8DF1;  
   background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
   width: 100%;
-  height:100vh;
+  height: 100vh;
+}
+
+.area__cover{
+  background: #2C8DF1;  
+  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  background-size: cover;  
+  width: 100%;
+  height: 100%;
 }
 
 .circles{

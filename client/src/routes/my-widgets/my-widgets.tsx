@@ -38,13 +38,13 @@ export default function MyWidgets() {
 function Body() {
   const [Name, setName] = useState<string>("Area X");
   const [ActionName, setActionName] = useState<string>("Steam");
+  const [ReactionName, setReactionName] = useState<string>("Discord pm");
   const [radioValue, setRadioValue] = useState('1');
   const radios = [
     { name: 'Active', value: '1' },
     { name: 'Inactive', value: '2' },
   ];
   
-  const [ReactionNames, setReactionNames] = useState<Array<string>>(["Discord pm", "Discord Webkook"]);
   const [Areas, setAreas] = useState<Array<JSX.Element>>([]);
 
   useEffect(() => {
@@ -57,10 +57,6 @@ function Body() {
 
       if (result.length > 0) {
         for(let i = 0; i < result.length; i++) {
-          for (let j = 0; j < result[i].reactionName[j].length; j++) {
-            arrReactions.push(result[i].reactionName[j]);
-          }
-          setReactionNames(arrReactions);
           var checkbox = "checkbox" + i;
           arrTriggers.push(
             <div key={result[i].id} className="trigger__card">
@@ -76,7 +72,7 @@ function Body() {
                     </Row>
                     <Row>
                       <Col>
-                        <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {ReactionNames.join(' / ')}</p>
+                        <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {result[i].reactionName}</p>
                       </Col>
                     </Row>
                   </Card.Text>
@@ -127,7 +123,7 @@ function Body() {
             </Row>
             <Row>
               <Col>
-                <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {ReactionNames.join(' / ')}</p>
+                <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {ReactionName}</p>
               </Col>
             </Row>
           </Card.Text>
@@ -167,7 +163,7 @@ function Body() {
             </Row>
             <Row>
               <Col>
-                <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {ReactionNames.join(' / ')}</p>
+                <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {ReactionName}</p>
               </Col>
             </Row>
           </Card.Text>

@@ -5,8 +5,9 @@ import { useNavigate } from "react-router";
 
 import { UserResponse } from "../../helper/types";
 import { signin } from "..";
+import { GoogleSignin } from "../../helper/services/google";
 
-function ShowLogin() {
+function ShowSignin() {
   const navigate = useNavigate();
 
   const [show, setShow] = useState<boolean>(false);
@@ -20,7 +21,7 @@ function ShowLogin() {
   return (
     <>
       <Button
-        variant="light"
+        variant="outline-light"
         className="secondary__btn__color"
         onClick={handleShow}
       >
@@ -92,6 +93,7 @@ function ShowLogin() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <GoogleSignin/>
           <a style={{ opacity: 0.8 }}>Area Enterprise</a>
         </Modal.Footer>
       </Modal>
@@ -99,4 +101,4 @@ function ShowLogin() {
   );
 }
 
-export { ShowLogin };
+export { ShowSignin };
