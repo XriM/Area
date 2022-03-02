@@ -2,8 +2,8 @@
 
 import 'dart:async';
 
+import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
 import 'package:area_app/Screens/App/AppScreens/services/outlookWebview.dart';
-import 'package:area_app/Screens/App/AppScreens/thenFilled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,13 +11,10 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
 import 'package:area_app/globals.dart' as globals;
 
-class EmailReactionForm extends StatelessWidget {
-  EmailReactionForm({Key? key}) : super(key: key);
+class OneDriveServiceForm extends StatelessWidget {
+  OneDriveServiceForm({Key? key}) : super(key: key);
 
-  TextEditingController _email = TextEditingController();
-  TextEditingController _cc = TextEditingController();
-  TextEditingController _sub = TextEditingController();
-  TextEditingController _msg = TextEditingController();
+  TextEditingController _drive = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
@@ -47,7 +44,7 @@ class EmailReactionForm extends StatelessWidget {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Outlook",
+            "AREA | One Drive",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
@@ -59,7 +56,7 @@ class EmailReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Outlook',
+                  'One Drive',
                   style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w500,
@@ -69,51 +66,18 @@ class EmailReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Email to send mail',
+                  'One Drive to check',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: _email,
+                controller: _drive,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Email',
+                  labelText: 'Currency',
                 ),
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: _cc,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Cc',
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: _sub,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Subject',
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: _msg,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Message',
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
             ),
             SignInButton(
               Buttons.Microsoft,
@@ -124,29 +88,23 @@ class EmailReactionForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.reactionName = globals.outlookValues[0] as String;
-                print(globals.emailValues[0]);
-                globals.reactionColor = globals.outlookColor;
-                globals.reactionPara = _email.text;
-                globals.emailPara = {
-                  "to": [
-                    _email.text,
-                  ],
-                  "cc": [_cc.text],
-                  "subject": _sub.text,
-                  "message": _msg.text
-                };
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ThenFilled(
-                      ifPassedColor: globals.serviceColor,
-                      ifPassedColorName: globals.serviceName,
-                      thenPassedColor: globals.reactionColor,
-                      thenPassedColorName: globals.reactionName,
-                    ),
-                  ),
-                );
+                globals.serviceName = globals.oneDriveValues[0] as String;
+                globals.serviceColor = globals.oneDriveColor;
+                globals.oneDrivePara = {"drive": _drive.text};
+                Timer(Duration(seconds: 1), () async {
+                  _btnController.success();
+                  await Future.delayed(const Duration(seconds: 1), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => IfFilled(
+                          passedColor: globals.serviceColor,
+                          passedColorName: globals.serviceName,
+                        ),
+                      ),
+                    );
+                  });
+                });
               },
             ),
           ],

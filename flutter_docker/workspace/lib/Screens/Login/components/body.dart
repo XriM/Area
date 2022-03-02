@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:area_app/Screens/Api/loginCall.dart';
 import 'package:area_app/Screens/App/app.dart';
 import 'package:flutter/material.dart';
 import 'package:area_app/Screens/Login/components/background.dart';
@@ -26,9 +27,13 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void loginExit() async {
-      print(mailController.text);
-      print(passwordController.text);
-      print(userNameController.text);
+      // print(mailController.text);
+      // print(passwordController.text);
+      // print(userNameController.text);
+
+      Map<String, dynamic> myJson;
+      myJson = getLogin(mailController.text, passwordController.text)
+          as Map<String, dynamic>;
 
       if (mailController.text == "" ||
           passwordController.text == "" ||
@@ -40,21 +45,32 @@ class Body extends StatelessWidget {
           _btnController.reset();
         });
       } else {
-        globals.userName = userNameController.text;
-        globals.userMail = passwordController.text;
-        Timer(Duration(seconds: 3), () async {
-          _btnController.success();
-          await Future.delayed(const Duration(seconds: 2), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return Application();
-                },
-              ),
-            );
+        if (myJson['message'].toString() == "Successfully logged in!") {
+          globals.userName = myJson['username'].toString();
+          globals.token = myJson['token'].toString();
+          // globals.userName = userNameController.text;
+          globals.userMail = passwordController.text;
+          Timer(Duration(seconds: 3), () async {
+            _btnController.success();
+            await Future.delayed(const Duration(seconds: 2), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Application();
+                  },
+                ),
+              );
+            });
           });
-        });
+        } else {
+          Timer(Duration(seconds: 1), () async {
+            _btnController.error();
+          });
+          Timer(Duration(seconds: 3), () async {
+            _btnController.reset();
+          });
+        }
       }
     }
 

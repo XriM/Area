@@ -12,7 +12,10 @@ import 'package:area_app/globals.dart' as globals;
 class TrelloReactionForm extends StatelessWidget {
   TrelloReactionForm({Key? key}) : super(key: key);
 
-  TextEditingController _email = TextEditingController();
+  TextEditingController idBoard = TextEditingController();
+  TextEditingController idList = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController description = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
@@ -61,10 +64,49 @@ class TrelloReactionForm extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: _email,
+                controller: idBoard,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Email',
+                  labelText: 'Board Id',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: idList,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'List Id',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: name,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Name',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: description,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Description',
                 ),
               ),
             ),
@@ -78,8 +120,13 @@ class TrelloReactionForm extends StatelessWidget {
               onPressed: () async {
                 globals.reactionName = globals.trelloValues[0] as String;
                 globals.reactionColor = globals.trelloColor;
-                globals.reactionPara = _email.text;
-                globals.trelloPara = {};
+                // globals.reactionPara = _email.text;
+                globals.trelloPara = {
+                  "idBoard": idBoard,
+                  "idList": idList,
+                  "name": name,
+                  "description": description
+                };
                 Navigator.push(
                   context,
                   MaterialPageRoute(

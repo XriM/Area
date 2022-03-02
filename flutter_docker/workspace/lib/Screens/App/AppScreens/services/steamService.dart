@@ -13,6 +13,8 @@ class SteamServiceForm extends StatelessWidget {
   SteamServiceForm({Key? key}) : super(key: key);
 
   TextEditingController gameID = TextEditingController();
+  TextEditingController playerMin = TextEditingController();
+  TextEditingController playerMax = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
@@ -70,6 +72,32 @@ class SteamServiceForm extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: playerMin,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Player Min',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: playerMax,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Player Min',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             RoundedLoadingButton(
               child: Text('ADD', style: TextStyle(color: Colors.white)),
               controller: _btnController,
@@ -86,6 +114,11 @@ class SteamServiceForm extends StatelessWidget {
                 globals.serviceName = globals.steamValues[0] as String;
                 globals.serviceColor = globals.steamColor;
                 globals.servicePara = gameID.text;
+                globals.steamPara = {
+                  "steam": gameID.text,
+                  "players_min": playerMin.text,
+                  "players_max": playerMax.text,
+                };
                 Navigator.push(
                   context,
                   MaterialPageRoute(

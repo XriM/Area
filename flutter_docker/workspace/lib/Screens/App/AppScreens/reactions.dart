@@ -1,12 +1,9 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:area_app/Screens/App/AppScreens/reactions/githubReaction.dart';
-import 'package:area_app/Screens/App/AppScreens/reactions/sheetsReaction.dart';
+import 'package:area_app/Screens/App/AppScreens/reactions/outlookReaction.dart';
 import 'package:area_app/Screens/App/AppScreens/reactions/discordReaction.dart';
-import 'package:area_app/Screens/App/AppScreens/reactions/emailReaction.dart';
-import 'package:area_app/Screens/App/AppScreens/reactions/sheetsReaction.dart';
 import 'package:area_app/Screens/App/AppScreens/reactions/trelloReaction.dart';
-import 'package:area_app/Screens/App/AppScreens/reactions/twilioReaction.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:area_app/globals.dart' as globals;
 
@@ -138,7 +135,7 @@ class Reactions extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => EmailReactionForm()),
+                        builder: (context) => OutlookReactionForm()),
                   );
                 },
                 child: Container(

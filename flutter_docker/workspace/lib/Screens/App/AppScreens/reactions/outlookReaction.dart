@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
 import 'package:area_app/Screens/App/AppScreens/services/OutlookWebview.dart';
+import 'package:area_app/Screens/App/AppScreens/thenFilled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,7 +15,10 @@ import 'package:area_app/globals.dart' as globals;
 class OutlookReactionForm extends StatelessWidget {
   OutlookReactionForm({Key? key}) : super(key: key);
 
-  TextEditingController _email = TextEditingController();
+  TextEditingController _to = TextEditingController();
+  TextEditingController _cc = TextEditingController();
+  TextEditingController _subject = TextEditingController();
+  TextEditingController _msg = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
@@ -71,10 +75,40 @@ class OutlookReactionForm extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: _email,
+                controller: _to,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Email',
+                  labelText: 'To',
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: _cc,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Cc',
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: _subject,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Subject',
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: _msg,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Message',
                 ),
               ),
             ),
@@ -93,18 +127,25 @@ class OutlookReactionForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.serviceName = globals.outlookValues[0] as String;
+                globals.reactionName = globals.outlookValuesR[0] as String;
                 globals.reactionColor = globals.outlookColor;
-                globals.outlookPara = {"email": _email.text};
+                globals.outlookParaR = {
+                  "to": [_to.text],
+                  "cc": [_cc.text],
+                  "subject": _subject.text,
+                  "message": _msg.text
+                };
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => IfFilled(
-                          passedColor: globals.serviceColor,
-                          passedColorName: globals.serviceName,
+                        builder: (_) => ThenFilled(
+                          ifPassedColor: globals.serviceColor,
+                          ifPassedColorName: globals.serviceName,
+                          thenPassedColor: globals.reactionColor,
+                          thenPassedColorName: globals.reactionName,
                         ),
                       ),
                     );

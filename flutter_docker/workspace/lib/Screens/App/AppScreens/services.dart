@@ -1,10 +1,13 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:area_app/Screens/App/AppScreens/services/oneDriveService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/outlookService.dart';
+import 'package:area_app/Screens/App/AppScreens/services/redditService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/steamService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/cryptoService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/githubService.dart';
 import 'package:area_app/Screens/App/AppScreens/services/meteoService.dart';
+import 'package:area_app/Screens/App/AppScreens/services/youtubeService.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:area_app/globals.dart' as globals;
@@ -276,7 +279,7 @@ class _ServicesState extends State<Services> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => OutlookServiceForm()),
+                        builder: (context) => YoutubeServiceForm()),
                   );
                 },
                 child: Container(
@@ -323,7 +326,7 @@ class _ServicesState extends State<Services> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => OutlookServiceForm()),
+                        builder: (context) => RedditServiceForm()),
                   );
                 },
                 child: Container(
@@ -367,7 +370,7 @@ class _ServicesState extends State<Services> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => OutlookServiceForm()),
+                        builder: (context) => OneDriveServiceForm()),
                   );
                 },
                 child: Container(

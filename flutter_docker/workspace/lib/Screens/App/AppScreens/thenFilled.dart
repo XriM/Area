@@ -56,6 +56,32 @@ class _ThenFilledState extends State<ThenFilled> {
 
   @override
   Widget build(BuildContext context) {
+    void postWidgets() async {
+      Map<String, dynamic> myJson;
+      myJson = createArea() as Map<String, dynamic>;
+
+      if (myJson['message'].toString() == "Area successfully created!") {
+        Timer(Duration(seconds: 3), () async {
+          _btnController.success();
+          await Future.delayed(const Duration(seconds: 2), () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+          });
+        });
+      } else {
+        Timer(Duration(seconds: 1), () async {
+          _btnController.error();
+        });
+        Timer(Duration(seconds: 3), () async {
+          _btnController.reset();
+        });
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -162,25 +188,25 @@ class _ThenFilledState extends State<ThenFilled> {
               color: Color(0xff333333),
               height: 60,
               onPressed: () async {
-                Timer(Duration(seconds: 1), () async {
-                  print(globals.serviceName);
-                  print(globals.servicePara);
-                  print(globals.reactionName);
-                  print(globals.reactionPara);
-                  print(globals.githCode);
-                  print(globals.ootCode);
-                  _btnController.success();
-                  print("ADD");
-                  await Future.delayed(const Duration(seconds: 1), () {
-                    createArea();
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  });
-                });
+                postWidgets();
+                // Timer(Duration(seconds: 1), () async {
+                //   print(globals.serviceName);
+                //   print(globals.servicePara);
+                //   print(globals.reactionName);
+                //   print(globals.reactionPara);
+                //   print(globals.githCode);
+                //   print(globals.ootCode);
+                //   _btnController.success();
+                //   print("ADD");
+                //   await Future.delayed(const Duration(seconds: 1), () {
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //   });
+                // });
               },
             ),
             const SizedBox(height: 30),

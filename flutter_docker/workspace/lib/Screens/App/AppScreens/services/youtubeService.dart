@@ -2,24 +2,41 @@
 
 import 'dart:async';
 
-import 'package:area_app/Screens/App/AppScreens/thenFilled.dart';
+import 'package:area_app/Screens/Api/googleSignInApi.dart';
+import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
 import 'package:area_app/globals.dart' as globals;
 
-class DiscordReactionForm extends StatelessWidget {
-  DiscordReactionForm({Key? key}) : super(key: key);
+class YoutubeServiceForm extends StatelessWidget {
+  YoutubeServiceForm({Key? key}) : super(key: key);
 
-  TextEditingController webhookUrlId = TextEditingController();
-  TextEditingController webhookUrlToken = TextEditingController();
+  TextEditingController _currency = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
+    Future<void> signIn() async {
+      try {
+        final user = await GoogleSignInApi.login();
+
+        user!.authentication.then((googleKey) {
+          print(googleKey.accessToken);
+          globals.googleToken = googleKey.accessToken;
+          // print(googleKey.idToken);
+        }).catchError((err) {
+          print('inner error');
+        });
+      } catch (e) {
+        print('Error signing in $e');
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -34,7 +51,7 @@ class DiscordReactionForm extends StatelessWidget {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Discord",
+            "AREA | Youtube",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
@@ -46,7 +63,7 @@ class DiscordReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Discord',
+                  'Youtube',
                   style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w500,
@@ -56,31 +73,25 @@ class DiscordReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Discord account',
+                  'Get notified when you get a sub !',
                   style: TextStyle(fontSize: 20),
                 )),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: webhookUrlId,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Account',
-                ),
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.all(10),
+            //   child: TextField(
+            //     controller: _currency,
+            //     decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       labelText: 'Youtube',
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 20,
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: webhookUrlToken,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Account',
-                ),
-              ),
+            SignInButton(
+              Buttons.Google,
+              onPressed: signIn,
             ),
             SizedBox(
               height: 20,
@@ -90,23 +101,25 @@ class DiscordReactionForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                globals.reactionName = globals.discordValues[0] as String;
-                globals.reactionColor = globals.discordColor;
-                globals.discordPara = {
-                  "discord": webhookUrlId.text,
-                  "url_token": webhookUrlToken.text,
-                };
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ThenFilled(
-                      ifPassedColor: globals.serviceColor,
-                      ifPassedColorName: globals.serviceName,
-                      thenPassedColor: globals.reactionColor,
-                      thenPassedColorName: globals.reactionName,
-                    ),
-                  ),
-                );
+                globals.serviceName = globals.youtubeValues[0] as String;
+                globals.serviceColor = globals.youtubeColor;
+                globals.youtubePara = {};
+                Timer(Duration(seconds: 1), () async {
+                  _btnController.success();
+                  await Future.delayed(const Duration(seconds: 1), () {
+                    // Navigator.pop(context);
+                    // Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => IfFilled(
+                          passedColor: globals.serviceColor,
+                          passedColorName: globals.serviceName,
+                        ),
+                      ),
+                    );
+                  });
+                });
               },
             ),
           ],

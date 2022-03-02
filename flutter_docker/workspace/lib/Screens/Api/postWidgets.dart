@@ -9,72 +9,94 @@ Future<Map<String, dynamic>> createArea() async {
   Map<String, dynamic> body =
       jsonCreator(globals.serviceName, globals.reactionName);
 
-  print("--------------------");
-  print(body);
-  print("--------------------");
+  // return {};
 
-  return {};
-
-  // final Uri url = Uri.https(
-  //   '',
-  //   '/users/' + globals.userName + '/areas/',
-  // );
-  // final http.Response response = await http.post(
-  //   url,
-  //   headers: header,
-  //   body: body,
-  // );
-  // if (response.statusCode == 200) {
-  //   final Map<String, dynamic> json =
-  //       await jsonDecode(response.body) as Map<String, dynamic>;
-  //   return json;
-  // } else {
-  //   throw Exception('Failed to get login');
-  // }
+  final Uri url = Uri.https(
+    '',
+    '/users/' + globals.userName + '/areas/',
+  );
+  final http.Response response = await http.post(
+    url,
+    headers: header,
+    body: body,
+  );
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> json =
+        await jsonDecode(response.body) as Map<String, dynamic>;
+    return json;
+  } else {
+    throw Exception('Failed to create AREA');
+  }
 }
 
 Map<String, dynamic> jsonCreator(String serviceName, String reactionName) {
   Map<String, dynamic> body = {};
+  Map<String, dynamic> finalBody = {};
+  int actionId = 0;
+  int reactionId = 0;
 
   if (globals.serviceName == 'Steam') {
     body = globals.steamPara;
+    print("la");
+    print(body);
+    actionId = globals.steamValues[1] as int;
   }
   if (globals.serviceName == 'Github') {
     body = globals.githubPara;
+    actionId = globals.githubValues[1] as int;
   }
   if (globals.serviceName == 'Weather') {
-    print("le weather");
     body = globals.weatherPara;
+    actionId = globals.weatherValues[1] as int;
   }
   if (globals.serviceName == 'Crypto') {
     body = globals.cryptoPara;
+    actionId = globals.cryptoValues[1] as int;
   }
   if (globals.serviceName == 'Outlook') {
     body = globals.outlookPara;
+    actionId = globals.outlookValues[1] as int;
+  }
+  if (globals.serviceName == 'Youtube') {
+    body = globals.youtubePara;
+    actionId = globals.youtubeValues[1] as int;
+  }
+  if (globals.serviceName == 'Reddit') {
+    body = globals.redditPara;
+    actionId = globals.redditValues[1] as int;
+  }
+  if (globals.serviceName == 'One Drive') {
+    body = globals.oneDrivePara;
+    actionId = globals.oneDriveValues[1] as int;
   }
   if (globals.reactionName == 'Trello') {
     body.addAll(globals.trelloPara);
-  }
-  if (globals.reactionName == 'Sheets') {
-    body.addAll(globals.sheetsPara);
+    reactionId = globals.trelloValues[1] as int;
   }
   if (globals.reactionName == 'Discord') {
     body.addAll(globals.discordPara);
+    reactionId = globals.discordValues[1] as int;
   }
   if (globals.reactionName == 'Outlook') {
-    print(globals.emailPara);
-    body.addAll(globals.emailPara);
-  }
-  if (globals.reactionName == 'Twilio') {
-    body.addAll(globals.twilioPara);
+    body.addAll(globals.outlookParaR);
+    reactionId = globals.outlookValuesR[1] as int;
   }
   if (globals.reactionName == 'Github') {
-    print("le github rea");
-    print(globals.githubParaR);
     body.addAll(globals.githubParaR);
+    reactionId = globals.githubValuesR[1] as int;
   }
+  finalBody = {
+    "action_id": actionId,
+    "reaction_id": reactionId,
+    "name": serviceName + " + " + reactionName,
+    "config": [body]
+  };
   print("--------------------");
   print(body);
   print("--------------------");
-  return body;
+
+  print("--------------------");
+  print(finalBody);
+  print("--------------------");
+  return finalBody;
 }

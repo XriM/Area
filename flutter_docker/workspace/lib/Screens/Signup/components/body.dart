@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:area_app/Screens/Api/googleSignInApi.dart';
+import 'package:area_app/Screens/Api/signUpCall.dart';
 import 'package:area_app/Screens/App/app.dart';
 import 'package:flutter/material.dart';
 import 'package:area_app/Screens/Login/login_screen.dart';
@@ -28,6 +29,10 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void signUpExit() async {
+      Map<String, dynamic> myJson;
+      myJson = getSignUp(mailController.text, userNameController.text,
+          passwordController.text) as Map<String, dynamic>;
+
       if (mailController.text == "" ||
           passwordController.text == "" ||
           userNameController.text == "") {
@@ -38,35 +43,54 @@ class Body extends StatelessWidget {
           _btnController.reset();
         });
       } else {
-        print(mailController.text);
-        print(userNameController.text);
-        print(passwordController.text);
-        globals.userName = userNameController.text;
-        globals.userMail = passwordController.text;
-        Timer(Duration(seconds: 3), () async {
-          _btnController.success();
-          await Future.delayed(const Duration(seconds: 2), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return LoginScreen();
-                },
-              ),
-            );
+        if (myJson['message'].toString() == "Account created!") {
+          print(mailController.text);
+          print(userNameController.text);
+          print(passwordController.text);
+          globals.userName = userNameController.text;
+          globals.userMail = passwordController.text;
+          Timer(Duration(seconds: 3), () async {
+            _btnController.success();
+            await Future.delayed(const Duration(seconds: 2), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return LoginScreen();
+                  },
+                ),
+              );
+            });
           });
-        });
+        } else {
+          Timer(Duration(seconds: 1), () async {
+            _btnController.error();
+          });
+          Timer(Duration(seconds: 3), () async {
+            _btnController.reset();
+          });
+        }
       }
     }
 
     Future<void> signIn() async {
       try {
         final user = await GoogleSignInApi.login();
+
         print(user?.displayName);
         print(user?.email);
+        print(user?.serverAuthCode);
+        print(user?.id);
         globals.user = user;
         globals.userName = user?.displayName;
         globals.userMail = user?.email;
+        user!.authentication.then((googleKey) {
+          print(googleKey.accessToken);
+          globals.googleToken = googleKey.accessToken;
+          // print(googleKey.idToken);
+        }).catchError((err) {
+          print('inner error');
+        });
 
         if (globals.userName == null || globals.userMail == null) {
           Timer(Duration(seconds: 1), () async {

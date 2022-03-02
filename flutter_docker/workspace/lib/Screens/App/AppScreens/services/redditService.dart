@@ -2,23 +2,35 @@
 
 import 'dart:async';
 
-import 'package:area_app/Screens/App/AppScreens/thenFilled.dart';
+import 'package:area_app/Screens/App/AppScreens/ifFilled.dart';
+import 'package:area_app/Screens/App/AppScreens/services/githubWebview.dart';
+import 'package:area_app/Screens/App/AppScreens/services/redditWebview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
 import 'package:area_app/globals.dart' as globals;
 
-class TwilioReactionForm extends StatelessWidget {
-  TwilioReactionForm({Key? key}) : super(key: key);
+class RedditServiceForm extends StatelessWidget {
+  RedditServiceForm({Key? key}) : super(key: key);
 
-  TextEditingController _number = TextEditingController();
+  TextEditingController _subreddit = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
+    _test() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => RedditWebview(),
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -33,7 +45,7 @@ class TwilioReactionForm extends StatelessWidget {
               ),
               preferredSize: const Size.fromHeight(10.0)),
           title: Text(
-            "AREA | Twilio",
+            "AREA | Reddit",
             style: const TextStyle(color: Color(0xff333333)),
           ),
         ),
@@ -45,7 +57,7 @@ class TwilioReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Twilio',
+                  'Reddit',
                   style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w500,
@@ -55,18 +67,25 @@ class TwilioReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Number to send whatsApp message',
+                  'Rddit subreddit to follow',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: _number,
+                controller: _subreddit,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Telephone Number',
+                  labelText: 'subbredit',
                 ),
               ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SignInButton(
+              Buttons.Reddit,
+              onPressed: _test,
             ),
             SizedBox(
               height: 20,
@@ -76,29 +95,24 @@ class TwilioReactionForm extends StatelessWidget {
               controller: _btnController,
               color: Color(0xff333333),
               onPressed: () async {
-                // Timer(Duration(seconds: 1), () async {
-                //   _btnController.success();
-                //   print(_email.text);
-                //   await Future.delayed(const Duration(seconds: 1), () {
-                //     Navigator.pop(context);
-                //     Navigator.pop(context);
-
-                //   });
-                // });
-                globals.serviceName = globals.twilioValues[0] as String;
-                globals.reactionColor = Colors.red;
-                globals.reactionPara = _number.text;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ThenFilled(
-                      ifPassedColor: globals.serviceColor,
-                      ifPassedColorName: globals.serviceName,
-                      thenPassedColor: globals.reactionColor,
-                      thenPassedColorName: globals.reactionName,
-                    ),
-                  ),
-                );
+                globals.serviceName = globals.redditValues[0] as String;
+                globals.serviceColor = globals.redditColor;
+                globals.redditPara = {"subreddit": _subreddit.text};
+                Timer(Duration(seconds: 1), () async {
+                  _btnController.success();
+                  print(globals.lastRedditToken);
+                  await Future.delayed(const Duration(seconds: 1), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => IfFilled(
+                          passedColor: globals.serviceColor,
+                          passedColorName: globals.serviceName,
+                        ),
+                      ),
+                    );
+                  });
+                });
               },
             ),
           ],

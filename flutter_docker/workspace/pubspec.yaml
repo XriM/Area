@@ -35,6 +35,7 @@ dependencies:
   webview_flutter: ^3.0.1
   aad_oauth: ^0.3.0
   material_design_icons_flutter: ^5.0.6595
+  firebase: ^9.0.2
   
 
 dev_dependencies:
