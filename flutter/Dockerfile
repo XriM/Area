@@ -25,5 +25,6 @@ RUN flutter upgrade
 RUN flutter doctor
 WORKDIR /home/developer/workspace/
 COPY ./workspace/ /home/developer/workspace/
+RUN adb connect 10.41.179.118:5555
 #RUN flutter clean
 RUN flutter run
