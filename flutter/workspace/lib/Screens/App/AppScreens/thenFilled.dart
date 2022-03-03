@@ -82,6 +82,29 @@ class _ThenFilledState extends State<ThenFilled> {
       }
     }
 
+    Future<int> postServiceA() async {
+      Map<String, dynamic> myJson;
+      myJson = createServiceA() as Map<String, dynamic>;
+
+      if (myJson['message'].toString() ==
+          "Service token successfully loaded!") {
+        return 1;
+      } else {
+        return 42;
+      }
+    }
+
+    Future<int> postServiceR() async {
+      Map<String, dynamic> myJson;
+      myJson = createServiceR() as Map<String, dynamic>;
+      if (myJson['message'].toString() ==
+          "Service token successfully loaded!") {
+        return 1;
+      } else {
+        return 42;
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -188,7 +211,25 @@ class _ThenFilledState extends State<ThenFilled> {
               color: Color(0xff333333),
               height: 60,
               onPressed: () async {
-                postWidgets();
+                if (postServiceA() == 1) {
+                  if (postServiceR() == 1)
+                    postWidgets();
+                  else {
+                    Timer(Duration(seconds: 1), () async {
+                      _btnController.error();
+                    });
+                    Timer(Duration(seconds: 3), () async {
+                      _btnController.reset();
+                    });
+                  }
+                } else {
+                  Timer(Duration(seconds: 1), () async {
+                    _btnController.error();
+                  });
+                  Timer(Duration(seconds: 3), () async {
+                    _btnController.reset();
+                  });
+                }
                 // Timer(Duration(seconds: 1), () async {
                 //   print(globals.serviceName);
                 //   print(globals.servicePara);

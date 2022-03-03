@@ -6,7 +6,7 @@ Future<Map<String, dynamic>> getWidgets(String _email, String _password) async {
   String token = globals.token;
 
   final Map<String, String> header = {
-    'acces_token': token,
+    'Authorization': 'Bearer ' + token,
   };
   final Uri url = Uri.https(
     '',

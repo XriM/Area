@@ -62,6 +62,16 @@ Color oneDriveColor = Color(0xFF00a4ef);
 Color trelloColor = Color(0xFF8bbdd9);
 Color discordColor = Color(0xFF7289da);
 
+String trelloId = '1';
+String redditId = '2';
+String discordId = '3';
+String weatherId = '4';
+String cryptoId = '5';
+String gitHubId = '6';
+String outlookId = '7';
+String steamId = '8';
+String youtubeId = '9';
+
 Future<Token> redditToken = fetchEmptyToken();
 
 var ngrokUri = "";
