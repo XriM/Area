@@ -13,12 +13,25 @@ Future<Map<String, dynamic>> getLogin(String _email, String _password) async {
     globals.ngrokUri,
     '/users/login',
   );
+
   final http.Response response = await http.post(url, body: body);
+  print('BA');
+  print('BA');
+  print('BA');
+  print('BA');
+  print('BA');
+  print('BA');
+  print(body);
+  print(url);
+  print(response.body);
+
   if (response.statusCode == 200) {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
     return json;
   } else {
-    throw Exception('Failed to get login');
+    final Map<String, dynamic> json =
+        await jsonDecode(response.body) as Map<String, dynamic>;
+    return json;
   }
 }

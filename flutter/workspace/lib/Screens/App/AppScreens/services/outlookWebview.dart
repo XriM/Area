@@ -57,12 +57,12 @@ class _OotlookWebviewState extends State<OotlookWebview> {
       ),
       body: ListView(
         children: <Widget>[
-          ListTile(
-            title: Text(
-              'AzureAD OAuth',
-              style: Theme.of(context).textTheme.headline5,
-            ),
-          ),
+          // ListTile(
+          //   title: Text(
+          //     'AzureAD OAuth',
+          //     style: Theme.of(context).textTheme.headline5,
+          //   ),
+          // ),
           ListTile(
             leading: Icon(Icons.launch),
             title: Text('Login'),
@@ -101,7 +101,7 @@ class _OotlookWebviewState extends State<OotlookWebview> {
     try {
       await oauth.login();
       var accessToken = await oauth.getAccessToken();
-      showMessage('Logged in successfully, your access token: $accessToken');
+      // showMessage('Logged in successfully, your access token: $accessToken');
       globals.ootCode = accessToken;
     } catch (e) {
       showError(e);

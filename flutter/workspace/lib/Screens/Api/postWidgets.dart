@@ -10,6 +10,9 @@ Future<Map<String, dynamic>> createArea() async {
       jsonCreatorArea(globals.serviceName, globals.reactionName);
 
   // return {};
+  print(globals.token);
+
+  print(body);
 
   final Uri url = Uri.https(
     globals.ngrokUri,
@@ -44,12 +47,23 @@ Future<Map<String, dynamic>> createServiceA() async {
     headers: header,
     body: body,
   );
+  print('------------createServiceA-----------');
+  print(globals.userName);
+  print(url);
+  print(globals.token);
+  print(header);
+  print(body);
+  print('------------createServiceA-----------');
   if (response.statusCode == 200) {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
+    print(json);
     return json;
   } else {
-    throw Exception('Failed to create AREA');
+    final Map<String, dynamic> json =
+        await jsonDecode(response.body) as Map<String, dynamic>;
+    print(json);
+    return json;
   }
 }
 
@@ -68,12 +82,18 @@ Future<Map<String, dynamic>> createServiceR() async {
     headers: header,
     body: body,
   );
+  print(globals.token);
+  print(url);
   if (response.statusCode == 200) {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
+    print(json);
     return json;
   } else {
-    throw Exception('Failed to create AREA');
+    final Map<String, dynamic> json =
+        await jsonDecode(response.body) as Map<String, dynamic>;
+    print(json);
+    return json;
   }
 }
 
@@ -160,9 +180,9 @@ Map<String, dynamic> jsonCreatorServiceA(String serviceName) {
     body = {'token': globals.lastRedditToken};
   if (globals.serviceName == 'One Drive') body = {'token': globals.ootCode};
 
-  print("--------------------");
-  print(body);
-  print("--------------------");
+  // print("-------Service Action----------");
+  // print(body);
+  // print("--------------------");
 
   return body;
 }
@@ -174,7 +194,7 @@ Map<String, dynamic> jsonCreatorServiceR(String reactionName) {
   if (globals.reactionName == 'Discord') body = {};
   if (globals.reactionName == 'Outlook') body = {'token': globals.ootCode};
   if (globals.reactionName == 'Github') body = {'token': globals.githCode};
-  print("--------------------");
+  print("-------Service Reaction----------");
   print(body);
   print("--------------------");
 

@@ -29,9 +29,21 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void signUpExit() async {
-      Map<String, dynamic> myJson;
-      myJson = getSignUp(mailController.text, userNameController.text,
-          passwordController.text) as Map<String, dynamic>;
+      // Future<Map<String, dynamic>> myFutureJson;
+      // Map<String, dynamic> myJson = {};
+      print(globals.userMail);
+      print(globals.userName);
+      final Map<String, dynamic> myJson = await getSignUp(mailController.text,
+          userNameController.text, passwordController.text);
+      // myFutureJson.then((Map<String, dynamic> value) {
+      //   final myJson = await value;
+      // });
+      print("LA");
+      print("LA");
+      print("LA");
+      print("LA");
+      print("LA");
+      print(myJson);
 
       if (mailController.text == "" ||
           passwordController.text == "" ||
@@ -48,7 +60,7 @@ class Body extends StatelessWidget {
           print(userNameController.text);
           print(passwordController.text);
           globals.userName = userNameController.text;
-          globals.userMail = passwordController.text;
+          globals.userMail = mailController.text;
           Timer(Duration(seconds: 3), () async {
             _btnController.success();
             await Future.delayed(const Duration(seconds: 2), () {

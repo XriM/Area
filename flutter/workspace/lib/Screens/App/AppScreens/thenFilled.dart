@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_field
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:area_app/Screens/Api/postWidgets.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,12 @@ class _ThenFilledState extends State<ThenFilled> {
   @override
   Widget build(BuildContext context) {
     void postWidgets() async {
-      Map<String, dynamic> myJson;
-      myJson = createArea() as Map<String, dynamic>;
+      // Map<String, dynamic> myJson;
+      // myJson = createArea() as Map<String, dynamic>;
+
+      final Map<String, dynamic> myJson = await createArea();
+
+      print(json);
 
       if (myJson['message'].toString() == "Area successfully created!") {
         Timer(Duration(seconds: 3), () async {
@@ -83,11 +88,16 @@ class _ThenFilledState extends State<ThenFilled> {
     }
 
     Future<int> postServiceA() async {
-      Map<String, dynamic> myJson;
-      myJson = createServiceA() as Map<String, dynamic>;
+      // Map<String, dynamic> myJson;
+      // myJson = createServiceA() as Map<String, dynamic>;
 
-      if (myJson['message'].toString() ==
-          "Service token successfully loaded!") {
+      final Map<String, dynamic> myJson = await createServiceA();
+
+      print('------------postServiceA-----------');
+      print(json);
+      print('------------postServiceA-----------');
+
+      if (myJson['message'].toString() == "Service token successfully loaded") {
         return 1;
       } else {
         return 42;
@@ -95,10 +105,11 @@ class _ThenFilledState extends State<ThenFilled> {
     }
 
     Future<int> postServiceR() async {
-      Map<String, dynamic> myJson;
-      myJson = createServiceR() as Map<String, dynamic>;
-      if (myJson['message'].toString() ==
-          "Service token successfully loaded!") {
+      // Map<String, dynamic> myJson;
+      // myJson = createServiceR() as Map<String, dynamic>;
+
+      final Map<String, dynamic> myJson = await createServiceR();
+      if (myJson['message'].toString() == "Service token successfully loaded") {
         return 1;
       } else {
         return 42;
@@ -211,10 +222,30 @@ class _ThenFilledState extends State<ThenFilled> {
               color: Color(0xff333333),
               height: 60,
               onPressed: () async {
-                if (postServiceA() == 1) {
-                  if (postServiceR() == 1)
+                final int monTestA = await postServiceA();
+                final int monTestR = await postServiceR();
+
+                // if (monTestR == 1) {
+                //   print(monTestR);
+                //   Timer(Duration(seconds: 1), () async {
+                //     _btnController.success();
+                //   });
+                //   Timer(Duration(seconds: 3), () async {
+                //     _btnController.reset();
+                //   });
+                // } else {
+                //   print(monTestR);
+                //   Timer(Duration(seconds: 1), () async {
+                //     _btnController.error();
+                //   });
+                //   Timer(Duration(seconds: 3), () async {
+                //     _btnController.reset();
+                //   });
+                // }
+                if (monTestA == 1) {
+                  if (monTestR == 1) {
                     postWidgets();
-                  else {
+                  } else {
                     Timer(Duration(seconds: 1), () async {
                       _btnController.error();
                     });
@@ -230,24 +261,22 @@ class _ThenFilledState extends State<ThenFilled> {
                     _btnController.reset();
                   });
                 }
-                // Timer(Duration(seconds: 1), () async {
-                //   print(globals.serviceName);
-                //   print(globals.servicePara);
-                //   print(globals.reactionName);
-                //   print(globals.reactionPara);
-                //   print(globals.githCode);
-                //   print(globals.ootCode);
-                //   _btnController.success();
-                //   print("ADD");
-                //   await Future.delayed(const Duration(seconds: 1), () {
-                //     Navigator.pop(context);
-                //     Navigator.pop(context);
-                //     Navigator.pop(context);
-                //     Navigator.pop(context);
-                //     Navigator.pop(context);
-                //     Navigator.pop(context);
-                //   });
-                // });
+                Timer(Duration(seconds: 1), () async {
+                  print('-------PARA-----------');
+                  print(globals.serviceName);
+                  print(globals.reactionName);
+                  print('-------PARA-----------');
+                  _btnController.success();
+                  print("ADD");
+                  await Future.delayed(const Duration(seconds: 1), () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  });
+                });
               },
             ),
             const SizedBox(height: 30),
