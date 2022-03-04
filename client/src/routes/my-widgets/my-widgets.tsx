@@ -1,13 +1,12 @@
 import "../../App.css";
-import { Button, Card, Form, FloatingLabel, Row, Col, ButtonGroup, ToggleButton, CardGroup } from "react-bootstrap";
+import { Button, Card, Row, Col, CardGroup } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-import { UserResponse, User } from "../../helper/types";
-import { deleteArea, getArea, getAreas, NavbarLogged } from "..";
+import { deleteArea, getAreas, NavbarLogged, getUser } from "..";
 
 var arrTriggers : JSX.Element[] = [];
 var arrReactions : string[] = [];
@@ -36,47 +35,50 @@ export default function MyWidgets() {
 }
 
 function Body() {
+  let navigate = useNavigate();
   const [Name, setName] = useState<string>("Area X");
   const [ActionName, setActionName] = useState<string>("Steam");
+  const [ReactionName, setReactionName] = useState<string>("Discord pm");
   const [radioValue, setRadioValue] = useState('1');
   const radios = [
     { name: 'Active', value: '1' },
     { name: 'Inactive', value: '2' },
   ];
   
-  const [ReactionNames, setReactionNames] = useState<Array<string>>(["Discord pm", "Discord Webkook"]);
   const [Areas, setAreas] = useState<Array<JSX.Element>>([]);
 
   useEffect(() => {
+    async function checkIfLogged() {
+      const result = await getUser();
+      if (result.id === "") {
+        navigate("/");
+      }
+      else {
+        fetchArea();
+      }
+    }
     async function fetchArea() {
       const result = await getAreas();
-      
-      // if (result.id[0] === "error") {
-      //   navigate("/");
-      // } to kick user if not logged
+      arrTriggers = [];
 
-      if (result.length > 0) {
-        for(let i = 0; i < result.length; i++) {
-          for (let j = 0; j < result[i].reactionName[j].length; j++) {
-            arrReactions.push(result[i].reactionName[j]);
-          }
-          setReactionNames(arrReactions);
+      if (result.id.length > 0) {
+        for(let i = 0; i < result.id.length; i++) {
           var checkbox = "checkbox" + i;
           arrTriggers.push(
-            <div key={result[i].id} className="trigger__card">
+            <div key={result.id[i]} className="trigger__card">
               <Card className="profile__card" style={{ width: '30rem' }}>
                 <Card.Body>
-                  <Card.Title style={{ textAlign: 'center' }}>{result[i].name}</Card.Title>
+                  <Card.Title style={{ textAlign: 'center' }}>{result.name[i]}</Card.Title>
                   <br/>
                   <Card.Text>
                     <Row>
                       <Col>
-                        <p><a style={{ fontWeight: 'bold' }}>Action:</a> {result[i].actionName}</p>
+                        <p><a style={{ fontWeight: 'bold' }}>Action:</a> {result.action[i]}</p>
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {ReactionNames.join(' / ')}</p>
+                        <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {result.reaction[i]}</p>
                       </Col>
                     </Row>
                   </Card.Text>
@@ -91,8 +93,8 @@ function Body() {
                     </Col>
                     <Col md={1} style={{marginTop: 5}}>
                     <Button variant="danger" className="secondary__btn__color" onClick={ async () => {
-                      const result = await deleteArea("");
-                      if (result === 0) {
+                      const response = await deleteArea(result.id[i]);
+                      if (response === 0) {
                         window.location.reload();
                       }
                     }}><FontAwesomeIcon icon={faTrash} style={{color: 'white'}}/></Button>
@@ -106,94 +108,13 @@ function Body() {
       }
       setAreas(arrTriggers);
     }
-    fetchArea();
+    checkIfLogged();
+    //fetchArea();
   }, []);
 
   return (
     <>
     <CardGroup>
-
-    {/* test purposes */}
-    <div className="trigger__card">
-      <Card className="profile__card" style={{ width: '30rem' }}>
-        <Card.Body>
-        <Card.Title style={{ textAlign: 'center' }}>{Name}</Card.Title>
-          <Card.Text>
-            <br/>
-            <Row>
-              <Col>
-                <p><a style={{ fontWeight: 'bold' }}>Action:</a> {ActionName}</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {ReactionNames.join(' / ')}</p>
-              </Col>
-            </Row>
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
-        <small className="text-muted">
-          <Row>
-            <Col md={10} style={{marginTop: 5}}>
-              <CheckBoxWrapper>
-                <CheckBox id="checkbox" type="checkbox" />
-                <CheckBoxLabel htmlFor="checkbox" />
-              </CheckBoxWrapper>
-            </Col>
-            <Col md={1}>
-              <Button variant="danger" className="secondary__btn__color" onClick={ async () => {
-                const result = await deleteArea("");
-                if (result === 0) {
-                  window.location.reload();
-                }
-              }}><FontAwesomeIcon icon={faTrash} style={{color: 'white'}}/></Button>
-            </Col>
-          </Row>
-        </small>
-        </Card.Footer>
-      </Card>
-    </div>
-    <div className="trigger__card">
-      <Card className="profile__card" style={{ width: '30rem' }}>
-        <Card.Body>
-          <Card.Title style={{ textAlign: 'center' }}>{Name}</Card.Title>
-          <br/>
-          <Card.Text>
-            <Row>
-              <Col>
-                <p><a style={{ fontWeight: 'bold' }}>Action:</a> {ActionName}</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p><a style={{ fontWeight: 'bold' }}>Reactions:</a> {ReactionNames.join(' / ')}</p>
-              </Col>
-            </Row>
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
-        <small className="text-muted">
-          <Row>
-            <Col md={10} style={{marginTop: 5}}>
-            <CheckBoxWrapper>
-              <CheckBox id="checkbox1" type="checkbox" />
-              <CheckBoxLabel htmlFor="checkbox1" />
-            </CheckBoxWrapper>
-          </Col>
-          <Col md={1}>
-          <Button variant="danger" className="secondary__btn__color" onClick={ async () => {
-            const result = await deleteArea("");
-            if (result === 0) {
-              window.location.reload();
-            }
-          }}><FontAwesomeIcon icon={faTrash} style={{color: 'white'}}/></Button>
-          </Col></Row>
-        </small>
-        </Card.Footer>
-      </Card>
-    </div>
-    {/* test purposes */}
 
     {Areas}
 

@@ -16,19 +16,20 @@ exports.login = async (req, res) => {
   let username = ''
   let hash = ''
   const user = await pool.query('SELECT * FROM users WHERE email = $1', [email])
+  if (!user.rows[0]) {
+    return res.status(400).send({ message: "Email doesn't exists!" })
+  }
   username = user.rows[0].username
   hash = user.rows[0].password
   let newToken = ''
   console.log(username)
-  if (!username) {
-    return res.status(400).send({ message: "Email doesn't exists!" })
-  } else if (!await bcrypt.compare(password, hash)) {
+  if (!await bcrypt.compare(password, hash)) {
     return res.status(400).send({ message: 'Wrong password!' })
   } else {
     newToken = token.generateAccessToken(username)
     new Cookies(req, res).set('access_token', newToken, {
       httpOnly: true
     })
-    return res.status(200).send({ token: newToken, message: 'Successfully logged in!' })
+    return res.status(200).send({ token: newToken, message: 'Successfully logged in!', user: username })
   }
 }

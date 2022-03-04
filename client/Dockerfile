@@ -6,6 +6,8 @@ COPY package*.json ./
 
 RUN npm install --no-optional
 
+RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
+
 COPY . ./
 
 EXPOSE $CLIENT_PORT

@@ -1,5 +1,5 @@
 import { NavbarHome, Body } from "./home/homepage";
-import { ShowLogin } from "./home/login";
+import { ShowSignin } from "./home/signin";
 import { ShowSignup } from "./home/signup";
 import NavbarLogged from "../components/navbar_logged";
 import {
@@ -8,7 +8,6 @@ import {
   signin,
   updateUser,
   signout,
-  deleteAccount,
   getUsers,
   getUser,
   getServices,
@@ -26,11 +25,16 @@ import {
   updateArea,
   deleteArea
 } from "../helper/api";
+import { TrelloSignin } from "../helper/services/trello";
+import { GithubSignin } from "../helper/services/github";
+import { RedditSignin } from "../helper/services/reddit";
+import { YoutubeSignin } from "../helper/services/youtube";
+import { OutlookSignin } from "../helper/services/outlook_onedrive";
 
 export {
   NavbarHome,
   Body,
-  ShowLogin,
+  ShowSignin,
   ShowSignup,
   NavbarLogged,
 
@@ -39,7 +43,6 @@ export {
   signin,
   updateUser,
   signout,
-  deleteAccount,
   getUsers,
   getUser,
   getServices,
@@ -55,5 +58,11 @@ export {
   getArea,
   createArea,
   updateArea,
-  deleteArea
+  deleteArea,
+
+  TrelloSignin,
+  GithubSignin,
+  RedditSignin,
+  YoutubeSignin,
+  OutlookSignin
 };
