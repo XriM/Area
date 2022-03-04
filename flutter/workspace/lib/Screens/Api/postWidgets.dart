@@ -12,7 +12,7 @@ Future<Map<String, dynamic>> createArea() async {
   // return {};
 
   final Uri url = Uri.https(
-    '',
+    globals.ngrokUri,
     '/users/' + globals.userName + '/areas/',
   );
   final http.Response response = await http.post(
@@ -36,7 +36,7 @@ Future<Map<String, dynamic>> createServiceA() async {
   Map<String, dynamic> body = jsonCreatorServiceA(globals.serviceName);
 
   final Uri url = Uri.https(
-    '',
+    globals.ngrokUri,
     '/users/' + globals.userName + '/services/' + serviceIdGetA(),
   );
   final http.Response response = await http.post(
@@ -60,7 +60,7 @@ Future<Map<String, dynamic>> createServiceR() async {
   Map<String, dynamic> body = jsonCreatorServiceA(globals.reactionName);
 
   final Uri url = Uri.https(
-    '',
+    globals.ngrokUri,
     '/users/' + globals.userName + '/services/' + serviceIdGetR(),
   );
   final http.Response response = await http.post(

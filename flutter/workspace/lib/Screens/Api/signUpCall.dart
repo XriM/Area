@@ -12,7 +12,7 @@ Future<Map<String, dynamic>> getSignUp(
     'password': _password,
   };
   final Uri url = Uri.https(
-    '',
+    globals.ngrokUri,
     '/users/signup',
   );
   final http.Response response = await http.post(url, body: body);

@@ -9,7 +9,7 @@ Future<Map<String, dynamic>> getWidgets(String _email, String _password) async {
     'Authorization': 'Bearer ' + token,
   };
   final Uri url = Uri.https(
-    '',
+    globals.ngrokUri,
     '/users/:id/areas/:id', // id ??
   );
   final http.Response response = await http.get(url, headers: header);
