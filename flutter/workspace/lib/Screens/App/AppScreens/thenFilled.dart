@@ -58,14 +58,21 @@ class _ThenFilledState extends State<ThenFilled> {
   @override
   Widget build(BuildContext context) {
     void postWidgets() async {
-      // Map<String, dynamic> myJson;
-      // myJson = createArea() as Map<String, dynamic>;
-
       final Map<String, dynamic> myJson = await createArea();
+
+      print('postWidget');
+      print('postWidget');
+      print('postWidget');
+
+      createArea();
+
+      print('postWidget||||');
+      print('postWidget||||');
+      print('postWidget||||');
 
       print(json);
 
-      if (myJson['message'].toString() == "Area successfully created!") {
+      if (myJson['message'].toString() == "Area successfully created") {
         Timer(Duration(seconds: 3), () async {
           _btnController.success();
           await Future.delayed(const Duration(seconds: 2), () {
@@ -225,6 +232,19 @@ class _ThenFilledState extends State<ThenFilled> {
                 final int monTestA = await postServiceA();
                 final int monTestR = await postServiceR();
 
+                print(monTestA);
+                print(monTestR);
+
+                postWidgets();
+
+                // Timer(Duration(seconds: 1), () async {
+                //   _btnController.error();
+                // });
+
+                // Timer(Duration(seconds: 3), () async {
+                //   _btnController.reset();
+                // });
+
                 // if (monTestR == 1) {
                 //   print(monTestR);
                 //   Timer(Duration(seconds: 1), () async {
@@ -242,41 +262,41 @@ class _ThenFilledState extends State<ThenFilled> {
                 //     _btnController.reset();
                 //   });
                 // }
-                if (monTestA == 1) {
-                  if (monTestR == 1) {
-                    postWidgets();
-                  } else {
-                    Timer(Duration(seconds: 1), () async {
-                      _btnController.error();
-                    });
-                    Timer(Duration(seconds: 3), () async {
-                      _btnController.reset();
-                    });
-                  }
-                } else {
-                  Timer(Duration(seconds: 1), () async {
-                    _btnController.error();
-                  });
-                  Timer(Duration(seconds: 3), () async {
-                    _btnController.reset();
-                  });
-                }
-                Timer(Duration(seconds: 1), () async {
-                  print('-------PARA-----------');
-                  print(globals.serviceName);
-                  print(globals.reactionName);
-                  print('-------PARA-----------');
-                  _btnController.success();
-                  print("ADD");
-                  await Future.delayed(const Duration(seconds: 1), () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  });
-                });
+                // if (monTestA == 1) {
+                //   if (monTestR == 1) {
+                //     postWidgets();
+                //   } else {
+                //     Timer(Duration(seconds: 1), () async {
+                //       _btnController.error();
+                //     });
+                //     Timer(Duration(seconds: 3), () async {
+                //       _btnController.reset();
+                //     });
+                //   }
+                // } else {
+                //   Timer(Duration(seconds: 1), () async {
+                //     _btnController.error();
+                //   });
+                //   Timer(Duration(seconds: 3), () async {
+                //     _btnController.reset();
+                //   });
+                // }
+                // Timer(Duration(seconds: 1), () async {
+                //   print('-------PARA-----------');
+                //   print(globals.serviceName);
+                //   print(globals.reactionName);
+                //   print('-------PARA-----------');
+                //   _btnController.success();
+                //   print("ADD");
+                //   await Future.delayed(const Duration(seconds: 1), () {
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //   });
+                // });
               },
             ),
             const SizedBox(height: 30),

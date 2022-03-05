@@ -65,7 +65,7 @@ class DiscordReactionForm extends StatelessWidget {
                 controller: webhookUrlId,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Account',
+                  labelText: 'Webhook Url Id',
                 ),
               ),
             ),
@@ -78,7 +78,7 @@ class DiscordReactionForm extends StatelessWidget {
                 controller: webhookUrlToken,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Account',
+                  labelText: 'Webhook Url Token',
                 ),
               ),
             ),

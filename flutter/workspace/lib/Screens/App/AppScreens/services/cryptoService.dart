@@ -76,7 +76,7 @@ class CryptoServiceForm extends StatelessWidget {
                 controller: _limitMin,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Limit',
+                  labelText: 'Limit Min',
                 ),
               ),
             ),
@@ -86,7 +86,7 @@ class CryptoServiceForm extends StatelessWidget {
                 controller: _limitMax,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Limit',
+                  labelText: 'Limit Max',
                 ),
               ),
             ),

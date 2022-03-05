@@ -29,7 +29,8 @@ class _OotlookWebviewState extends State<OotlookWebview> {
       tenant: "901cb4ca-b862-4029-9306-e5cd0f6d9f86",
       clientId: "dee479f7-7be3-49a8-a238-71bf50de2175",
       clientSecret: "Re47Q~hMlvpAZ7BN8SnBIChQK4SMEIFvgv1XF",
-      scope: "https://graph.microsoft.com/.default",
+      scope:
+          "email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All",
       redirectUri: "https://localhost/callback");
 
   final AadOAuth oauth = new AadOAuth(config);

@@ -75,7 +75,7 @@ class OneDriveServiceForm extends StatelessWidget {
                 controller: _drive,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Currency',
+                  labelText: 'Drive',
                 ),
               ),
             ),
