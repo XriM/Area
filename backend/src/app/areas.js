@@ -13,7 +13,7 @@ exports.getAreas = async (req, res) => {
   if (req.user.username !== req.params.username) {
     return res.status(498).send({ message: 'Invalid token!' })
   }
-  let response = []
+  let response = {areas: []}
   let userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.user.username])
   userId = userId.rows[0].id
   const result = await pool.query('SELECT * FROM user_area WHERE user_id = $1', [userId])
@@ -21,7 +21,7 @@ exports.getAreas = async (req, res) => {
     const area = await pool.query('SELECT * FROM areas WHERE id = $1', [element.area_id])
     const action = await pool.query('SELECT * FROM actions WHERE id = $1', [area.rows[0].action_id])
     const reaction = await pool.query('SELECT * FROM reactions WHERE id = $1', [area.rows[0].reaction_id])
-    response.push({id: area.rows[0].id, name: area.rows[0].name, action: {id: action.rows[0].id, name: action.rows[0].name }, reaction: {id: reaction.rows[0].id, name: reaction.rows[0].name}})
+    response.areas.push({id: area.rows[0].id, name: area.rows[0].name, action: {id: action.rows[0].id, name: action.rows[0].name }, reaction: {id: reaction.rows[0].id, name: reaction.rows[0].name}})
   }
   return res.status(200).send(response)
 }
