@@ -10,7 +10,6 @@ const { getReactions, getReaction, sendDiscordMessage } = require('./app/reactio
 const { getActions, getAction } = require('./app/actions')
 const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
 const { hookHandler } = require('./app/hook')
-const { ip } = require('./ip')
 const ngrok = require('ngrok')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -22,9 +21,6 @@ const swaggerJsDoc = require("swagger-jsdoc")
 // Constants
 const PORT = process.env.PORT
 const HOST = process.env.HOST
-//const HOST = ip
-const { pool } = require('./dbConfig')
-const { bcrypt } = require('bcrypt')
 
 // App
 const app = express()
@@ -315,8 +311,6 @@ app.post('/users/:username/areas', authenticateToken, postArea)
  *        description: Invalid token!
  */
 app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
-
-app.post('/discord', sendDiscordMessage)
 
 /**
  * @swagger

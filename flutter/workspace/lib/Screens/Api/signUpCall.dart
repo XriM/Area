@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:area_app/globals.dart' as globals;
 
 Future<Map<String, dynamic>> getSignUp(
-    String _email, String _password, String _username) async {
+    String _email, String _username, String _password) async {
   // String token = globals.token;
 
   final Map<String, String> body = {
@@ -12,15 +12,32 @@ Future<Map<String, dynamic>> getSignUp(
     'password': _password,
   };
   final Uri url = Uri.https(
-    '',
+    globals.ngrokUri,
     '/users/signup',
   );
   final http.Response response = await http.post(url, body: body);
+
+  print('BA');
+  print('BA');
+  print('BA');
+  print('BA');
+  print('BA');
+  print('BA');
+  print(body);
+  print(url);
+  print(response.body);
+
+  // print('---------------------------');
+  // globals.redditToken
+  //     .then((value) => globals.lastRedditToken = value.getAccessToken);
+  // print('---------------------------');
   if (response.statusCode == 200) {
+    print("200");
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
     return json;
   } else {
+    print("ERROR");
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
     return json;

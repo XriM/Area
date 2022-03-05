@@ -43,14 +43,14 @@ async function triggerReaction(reactionId, token, config)
         case 1:
             await sendEmailOutlook(token, config);
             break;
-        
+
         case 2:
             break;
-        
+
         case 3:
             await sendGitIssue(token, config);
             break;
-        
+
         case 4:
             await sendDiscordMessage(token, config);
             break;
@@ -92,11 +92,14 @@ exports.checkIfCrypto = async (req, res, token, reactionId) => {
     res.status(200).send({message: 'Crypto service activated.'})
     cron.schedule('*/2 * * * *', () => {
         kraken.fetchOHLCV(pair, '1m').then(data  => {
-            res = parseInt(data[0][1])
+            res = parseFloat(data[0][1])
             if (value_min > res || value_max < res) {
                 triggerReaction(reactionId, token, req.body.config)
             }
             console.log(data)
+        }).catch(error => {
+            console.log(error)
+            throw error;
         })
     })
 }
@@ -110,7 +113,6 @@ exports.checkIfSteam = async (req, res, token, reactionId) => {
         if (result.data.response.player_count < req.body.config.players_min || result.data.response.player_count > req.body.config.players_max) {
             triggerReaction(reactionId, token, req.body.config)
         }
-        //console.log("CRONED steam") //debug
     })
 }
 

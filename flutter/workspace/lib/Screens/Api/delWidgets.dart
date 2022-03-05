@@ -2,19 +2,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:area_app/globals.dart' as globals;
 
-Future<Map<String, dynamic>> getWidgets() async {
+Future<Map<String, dynamic>> delWidgets(String areaId) async {
   String token = globals.token;
-  String username = globals.userName;
 
-  final String url = '/users/' + username + '/areas';
   final Map<String, String> header = {
     'Authorization': 'Bearer ' + token,
   };
-  final Uri uri = Uri.https(
+  final Uri url = Uri.https(
     globals.ngrokUri,
-    url,
+    '/users/' + globals.userName + '/areas/' + areaId,
   );
-  final http.Response response = await http.get(uri, headers: header);
+  final http.Response response = await http.get(url, headers: header);
   if (response.statusCode == 200) {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;

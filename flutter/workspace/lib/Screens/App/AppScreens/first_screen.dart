@@ -18,10 +18,10 @@ class _FirstScreenState extends State<FirstScreen> {
     return FutureBuilder<Map<String, dynamic>>(
       future: widget.areas,
       builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data!['areas'].length > 0) {
           return ListView.separated(
             padding: const EdgeInsets.all(40),
-            itemCount: snapshot.data!.length,
+            itemCount: snapshot.data!['areas'].length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
                 height: 400.0,
@@ -44,7 +44,7 @@ class _FirstScreenState extends State<FirstScreen> {
                             SizedBox(
                               width: 280,
                               child: Text(
-                                snapshot.data![index].name,
+                                snapshot.data!['areas'][index]['name'],
                                 style: TextStyle(fontSize: 18, color: Colors.white),
                                 textAlign: TextAlign.justify,
                               ),

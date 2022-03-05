@@ -31,9 +31,13 @@ class Body extends StatelessWidget {
       // print(passwordController.text);
       // print(userNameController.text);
 
-      Map<String, dynamic> myJson;
-      myJson = getLogin(mailController.text, passwordController.text)
-          as Map<String, dynamic>;
+      // Map<String, dynamic> myJson;
+      // myJson = getLogin(mailController.text, passwordController.text)
+      //     as Map<String, dynamic>;
+      print(globals.userMail);
+      print(globals.userName);
+      final Map<String, dynamic> myJson =
+          await getLogin(mailController.text, passwordController.text);
 
       if (mailController.text == "" ||
           passwordController.text == "" ||
@@ -46,7 +50,7 @@ class Body extends StatelessWidget {
         });
       } else {
         if (myJson['message'].toString() == "Successfully logged in!") {
-          globals.userName = myJson['username'].toString();
+          globals.userName = myJson['user'].toString();
           globals.token = myJson['token'].toString();
           // globals.userName = userNameController.text;
           globals.userMail = passwordController.text;

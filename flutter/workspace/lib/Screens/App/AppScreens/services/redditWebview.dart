@@ -39,20 +39,6 @@ class _RedditWebviewState extends State<RedditWebview> {
 
   @override
   Widget build(BuildContext context) {
-    urlParser(String _url) {
-      var uri = Uri.parse(_url);
-      uri.queryParameters.forEach((key, value) async {
-        if (key == "code") {
-          print("-------------");
-          print(value);
-          globals.githCode = value;
-          globals.githubToken = {"token": value};
-          print("-------------");
-        }
-      });
-      // Navigator.pop(context);
-    }
-
     String getAuthorizeUrl() {
       String str = 'https://www.reddit.com/api/v1/authorize?';
       queryParameters.forEach((String k, String v) {

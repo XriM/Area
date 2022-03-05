@@ -76,16 +76,6 @@ class YoutubeServiceForm extends StatelessWidget {
                   'Get notified when you get a sub !',
                   style: TextStyle(fontSize: 20),
                 )),
-            // Container(
-            //   padding: const EdgeInsets.all(10),
-            //   child: TextField(
-            //     controller: _currency,
-            //     decoration: const InputDecoration(
-            //       border: OutlineInputBorder(),
-            //       labelText: 'Youtube',
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 20,
             ),
@@ -107,8 +97,6 @@ class YoutubeServiceForm extends StatelessWidget {
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {
-                    // Navigator.pop(context);
-                    // Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
