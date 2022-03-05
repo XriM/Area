@@ -117,26 +117,31 @@ exports.createGitHubHook = async (req, serviceToken, result, userId, res) => {
 
   token = serviceToken.rows[0].token
 
-  var resultat = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/hooks`, { method: 'POST', body: JSON.stringify({     // CREATE HOOK
-      "name": "web",
-      "active": true,
-      "events": [
-          "star"
-      ],
-      "config": {
-          "url": `${process.env.NGROK_ADDRESS}/hooks`,
-          "content_type": "json",
-          "insecure_ssl": "0"
+  try {
+    var resultat = await axios.post(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/hooks`, { //method: 'POST', body: JSON.stringify({     // CREATE HOOK
+        "name": "web",
+        "active": true,
+        "events": [
+            "star"
+        ],
+        "config": {
+            "url": `${process.env.NGROK_ADDRESS}/hooks`,
+            "content_type": "json",
+            "insecure_ssl": "0"
+        }
+    }, {
+      headers: { Authorization: "Token " + token
       }
-  }), headers: { Authorization: "Token " + token}}).then((data => data.json()).then( async (json) => {
+    })
     let config = req.body.config
-    req.body.config.subscriptionId = json[0].repository.id
+    console.log(resultat.data)
+    req.body.config.subscriptionId = resultat.data.repository.id
     const conf = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, config])
-    res.status(200).send({ message: "Hook have been well created for " + req.body.github + "." })})
-  ).catch((error) => {
-    console.error('Error creating hook from GitHub')
-    throw error
-  })
+  } catch (err) {
+    console.log(err)
+    //console.log(err.response.data.error)
+  }
+  res.status(200).send({ message: "Hook have been well created for " + req.body.github + "." })
 }
 
 async function getUserIdFromEmail(data) {
