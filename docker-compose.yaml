@@ -46,7 +46,7 @@ services:
   #    - ./flutter/:/flutter/workspace
   #  ports:
   #    - "${CLIENT_PORT}:${CLIENT_PORT}"
-      
+
   db:
     image: postgres:alpine
     restart: always

@@ -73,8 +73,8 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This action triggers when you receive an <a style={{fontWeight: 'bold'}}>important</a> email. Please login to your account.
           <br/>
           <br/>
-          <Button variant="primary" className="principal__btn__color" style={{marginBottom: 20}}><FontAwesomeIcon icon={faLink} style={{color: 'white'}} onClick= { () => {
-            navigate('/outlook-onedrive-create');
+          <Button variant="primary" className="principal__btn__color" style={{marginBottom: 20}}><FontAwesomeIcon icon={faUser} style={{color: 'white'}} onClick= { () => {
+            navigate('/profile');
           }}/></Button>
         </Modal.Body>
         <Modal.Footer>
@@ -546,7 +546,7 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This action triggers when an action happens on a folder of your <a style={{fontWeight: 'bold'}}>drive</a>. Leave the field blank if you wish to monitor all your OneDrive. Please login to your account.
           <br/>
           <br/>
-          <Button className="principal__btn__color" onClick={ () => { navigate("/onedrive") }}><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
+          <Button className="principal__btn__color" onClick={ () => { navigate("/profile") }}><FontAwesomeIcon icon={faUser} style={{color: 'white'}}/></Button>
           <br/>
           <br/>
           <Form>
@@ -941,7 +941,7 @@ function Body() {
               config['message'] = actualMessage;
               handleClose();
             }}>
-              Select Action
+              Select Reaction
             </Button>
             <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
               setRepo("");

@@ -13,7 +13,7 @@ var arrTriggers : JSX.Element[] = [];
 export default function MyWidgets() {
   return (
     <>
-    <div className="area" >
+    <div className="area__cover" >
       <ul className="circles">
         <li></li>
         <li></li>
@@ -105,7 +105,6 @@ function Body() {
       setAreas(arrTriggers);
     }
     checkIfLogged();
-    //fetchArea();
   }, []);
 
   return (
@@ -115,6 +114,7 @@ function Body() {
     {Areas}
 
     </CardGroup>
+    <br/><br/><br/>
     </>
   );
 }
