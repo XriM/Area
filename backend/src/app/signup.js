@@ -15,7 +15,7 @@ exports.signup = async (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.render('signup', { errors })
+    res.status(400).send(errors);
   } else {
     const hashedPassword = await bcrypt.hash(password, 10)
     console.log(hashedPassword)

@@ -33,3 +33,7 @@ exports.login = async (req, res) => {
     return res.status(200).send({ token: newToken, message: 'Successfully logged in!', user: username })
   }
 }
+
+//exports.googleLogin = async (req, res) => {
+//  let token = 
+//}
