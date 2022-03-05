@@ -166,13 +166,13 @@ class _ServicesState extends State<Services> {
                               children: [
                                 SizedBox(height: 20),
                                 Icon(
-                                  Icons.wb_sunny_rounded,
+                                  MdiIcons.weatherRainy,
                                   color: Colors.white,
                                   size: 60,
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  "METEO",
+                                  "Weather",
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.white),
                                 )

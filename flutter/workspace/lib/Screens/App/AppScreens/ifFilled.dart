@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'reactions.dart';
@@ -38,6 +39,71 @@ class _IfFilledState extends State<IfFilled> {
 
   @override
   Widget build(BuildContext context) {
+    Icon getIcon() {
+      if (passedColorName == 'Steam') {
+        return Icon(
+          MdiIcons.steam,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (passedColorName == 'Github') {
+        return Icon(
+          MdiIcons.github,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (passedColorName == 'Weather') {
+        return Icon(
+          MdiIcons.weatherRainy,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (passedColorName == 'Crypto') {
+        return Icon(
+          MdiIcons.bitcoin,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (passedColorName == 'Outlook') {
+        return Icon(
+          MdiIcons.microsoftOutlook,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (passedColorName == 'Youtube') {
+        return Icon(
+          MdiIcons.youtube,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (passedColorName == 'Reddit') {
+        return Icon(
+          MdiIcons.reddit,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (passedColorName == 'One Drive') {
+        return Icon(
+          MdiIcons.microsoftOnedrive,
+          color: Colors.white,
+          size: 40,
+        );
+      } else {
+        return Icon(
+          MdiIcons.batteryUnknown,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -85,11 +151,16 @@ class _IfFilledState extends State<IfFilled> {
                         child: SizedBox(
                             width: 280,
                             child: Center(
-                              child: Text(
-                                passedColorName,
-                                style: TextStyle(
-                                    fontSize: 28, color: Colors.white),
-                                textAlign: TextAlign.justify,
+                              child: ListTile(
+                                leading: getIcon(),
+                                title: Text(
+                                  passedColorName,
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.justify,
+                                ),
                               ),
                             )),
                       ),
@@ -134,23 +205,6 @@ class _IfFilledState extends State<IfFilled> {
                           ),
                         )))),
             SizedBox(height: 60),
-            // RoundedLoadingButton(
-            //   child: Text(
-            //     "ADD",
-            //     style: TextStyle(fontSize: 28, color: Colors.white),
-            //     textAlign: TextAlign.justify,
-            //   ),
-            //   controller: _btnController,
-            //   color: Color(0xff333333),
-            //   height: 60,
-            //   onPressed: () async {
-            //     Timer(Duration(seconds: 1), () async {
-            //       _btnController.success();
-            //       print("ADD");
-            //       await Future.delayed(const Duration(seconds: 1), () {});
-            //     });
-            //   },
-            // ),
             const SizedBox(height: 30),
           ],
         )));

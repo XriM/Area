@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:area_app/Screens/Api/postWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:area_app/globals.dart' as globals;
 
@@ -101,6 +102,108 @@ class _ThenFilledState extends State<ThenFilled> {
       }
     }
 
+    Icon getIconAction() {
+      if (globals.serviceName == 'Steam') {
+        return Icon(
+          MdiIcons.steam,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (globals.serviceName == 'Github') {
+        return Icon(
+          MdiIcons.github,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (globals.serviceName == 'Weather') {
+        return Icon(
+          MdiIcons.weatherRainy,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (globals.serviceName == 'Crypto') {
+        return Icon(
+          MdiIcons.bitcoin,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (globals.serviceName == 'Outlook') {
+        return Icon(
+          MdiIcons.microsoftOutlook,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (globals.serviceName == 'Youtube') {
+        return Icon(
+          MdiIcons.youtube,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (globals.serviceName == 'Reddit') {
+        return Icon(
+          MdiIcons.reddit,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (globals.serviceName == 'One Drive') {
+        return Icon(
+          MdiIcons.microsoftOnedrive,
+          color: Colors.white,
+          size: 40,
+        );
+      } else {
+        return Icon(
+          MdiIcons.batteryUnknown,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+    }
+
+    Icon getIconReaction() {
+      if (thenPassedColorName == 'Trello') {
+        return Icon(
+          MdiIcons.trello,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (thenPassedColorName == 'Discord') {
+        return Icon(
+          MdiIcons.discord,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (thenPassedColorName == 'Outlook') {
+        return Icon(
+          MdiIcons.microsoftOutlook,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+      if (thenPassedColorName == 'Github') {
+        return Icon(
+          MdiIcons.github,
+          color: Colors.white,
+          size: 40,
+        );
+      } else {
+        return Icon(
+          MdiIcons.batteryUnknown,
+          color: Colors.white,
+          size: 40,
+        );
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -148,11 +251,16 @@ class _ThenFilledState extends State<ThenFilled> {
                         child: SizedBox(
                             width: 280,
                             child: Center(
-                              child: Text(
-                                globals.serviceName,
-                                style: TextStyle(
-                                    fontSize: 28, color: Colors.white),
-                                textAlign: TextAlign.justify,
+                              child: ListTile(
+                                leading: getIconAction(),
+                                title: Text(
+                                  globals.serviceName,
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.justify,
+                                ),
                               ),
                             )),
                       ),
@@ -188,12 +296,17 @@ class _ThenFilledState extends State<ThenFilled> {
                           child: SizedBox(
                             width: 280,
                             child: Center(
-                                child: Text(
-                              thenPassedColorName,
-                              style:
-                                  TextStyle(fontSize: 28, color: Colors.white),
-                              textAlign: TextAlign.justify,
-                            )),
+                              child: ListTile(
+                                  leading: getIconReaction(),
+                                  title: Text(
+                                    thenPassedColorName,
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.justify,
+                                  )),
+                            ),
                           ),
                         )))),
             SizedBox(height: 60),
