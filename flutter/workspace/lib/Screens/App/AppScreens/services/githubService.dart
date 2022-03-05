@@ -106,8 +106,8 @@ class GithubServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = globals.githubValues[0] as String;
                 globals.githubPara = {
-                  "github": _repo.text,
-                  "owner": _owner.text,
+                  "\"github\"": "\"" + _repo.text + "\"",
+                  "\"owner\"": "\"" + _owner.text + "\"",
                 };
                 globals.serviceColor = globals.githubColor;
                 Timer(Duration(seconds: 1), () async {

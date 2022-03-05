@@ -90,7 +90,7 @@ class OneDriveServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = globals.oneDriveValues[0] as String;
                 globals.serviceColor = globals.oneDriveColor;
-                globals.oneDrivePara = {"drive": _drive.text};
+                globals.oneDrivePara = {"\"drive\"": "\"" + _drive.text + "\""};
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {

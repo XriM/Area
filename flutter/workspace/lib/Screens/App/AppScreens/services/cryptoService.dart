@@ -97,9 +97,9 @@ class CryptoServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = globals.cryptoValues[0] as String;
                 globals.cryptoPara = {
-                  "crypto": _currency.text,
-                  "value_min": _limitMin.text,
-                  "value_max": _limitMax.text,
+                  "\"crypto\"": "\"" + _currency.text + "\"",
+                  "\"value_min\"": "\"" + _limitMin.text + "\"",
+                  "\"value_max\"": "\"" + _limitMax.text + "\"",
                 };
                 print("-------------");
                 print(globals.cryptoPara);

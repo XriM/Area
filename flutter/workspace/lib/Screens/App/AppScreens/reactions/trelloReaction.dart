@@ -122,10 +122,10 @@ class TrelloReactionForm extends StatelessWidget {
                 globals.reactionColor = globals.trelloColor;
                 // globals.reactionPara = _email.text;
                 globals.trelloPara = {
-                  "idBoard": idBoard,
-                  "idList": idList,
-                  "name": name,
-                  "description": description
+                  "\"idBoard\"": "\"" + idBoard.text + "\"",
+                  "\"idList\"": "\"" + idList.text + "\"",
+                  "\"name\"": "\"" + name.text + "\"",
+                  "\"description\"": "\"" + description.text + "\""
                 };
                 Navigator.push(
                   context,

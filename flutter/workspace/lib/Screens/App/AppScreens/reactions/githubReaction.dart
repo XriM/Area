@@ -130,10 +130,10 @@ class GithubReactionForm extends StatelessWidget {
                 globals.reactionName = globals.githubValues[0] as String;
                 globals.reactionColor = globals.githubColor;
                 globals.githubParaR = {
-                  "github": _repo.text,
-                  "owner": _owner.text,
-                  "title": _title.text,
-                  "message": _msg.text,
+                  "\"github\"": "\"" + _repo.text + "\"",
+                  "\"owner\"": "\"" + _owner.text + "\"",
+                  "\"title\"": "\"" + _title.text + "\"",
+                  "\"message\"": "\"" + _msg.text + "\"",
                 };
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();

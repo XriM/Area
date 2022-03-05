@@ -97,7 +97,9 @@ class RedditServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = globals.redditValues[0] as String;
                 globals.serviceColor = globals.redditColor;
-                globals.redditPara = {"subreddit": _subreddit.text};
+                globals.redditPara = {
+                  "\"subreddit\"": "\"" + _subreddit.text + "\""
+                };
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   print(globals.lastRedditToken);

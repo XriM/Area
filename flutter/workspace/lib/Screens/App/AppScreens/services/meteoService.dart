@@ -97,9 +97,9 @@ class MeteoServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = globals.weatherValues[0] as String;
                 globals.weatherPara = {
-                  "city": city.text,
-                  "temp_min": degreesMin.text,
-                  "temp_max": degreesMax.text,
+                  "\"city\"": "\"" + city.text + "\"",
+                  "\"temp_min\"": "\"" + degreesMin.text + "\"",
+                  "\"temp_max\"": "\"" + degreesMax.text + "\"",
                 };
                 print("-------------");
                 print(globals.weatherPara);
