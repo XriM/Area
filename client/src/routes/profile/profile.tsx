@@ -168,7 +168,6 @@ function ProfileServices() {
             </Row>
             </div>
           </Card.Text>
-          
         </Card.Body>
       </Card>
     </div>
