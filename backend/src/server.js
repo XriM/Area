@@ -1,4 +1,4 @@
-const { login } = require('./app/login')
+const { login, googleLogin } = require('./app/login')
 const { authenticateToken } = require('./app/token')
 const { getUserServices, getUserService, postUserService } = require('./app/services')
 const { signup } = require('./app/signup')
@@ -138,6 +138,19 @@ app.post('/users/signup', signup)
  *        description: Failed to login! | Email doesn't exists! | Wrong password!
  */
 app.post('/users/login', login)
+
+/**
+ * @swagger
+ * /users/google_login:
+ *  post:
+ *    description: Use to signin to Area via google
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ *      '400':
+ *        description: Failed to login!
+ */
+app.post('/users/google_login', googleLogin)
 
 /**
  * @swagger

@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const token = require('./token')
 const { pool } = require('../dbConfig')
 const Cookies = require('cookies')
+const { default: axios } = require('axios')
 
 exports.login = async (req, res) => {
   req.body = JSON.parse(JSON.stringify(req.body))
@@ -34,6 +35,27 @@ exports.login = async (req, res) => {
   }
 }
 
-//exports.googleLogin = async (req, res) => {
-//  let token = 
-//}
+exports.googleLogin = async (req, res) => {
+  let googleIdToken = req.body.id_token
+  let email = ''
+  let username = ''
+  const result = await axios.get('https://oauth2.googleapis.com/tokeninfo?id_token=' + googleIdToken)
+  email = result.data.email
+  username = result.data.name
+  const user = await pool.query('SELECT * FROM users WHERE email = $1', [email])
+  if (!('id' in user.rows[0]) ) {
+    await pool.query('INSERT INTO users (email, username) VALUES ($1, $2)', [email, username])
+    newToken = token.generateAccessToken(username)
+    new Cookies(req, res).set('access_token', newToken, {
+      httpOnly: true
+    })
+    return res.status(200).send({ token: newToken, message: 'Successfully logged in!', user: username })
+  } else if ('id' in user.rows[0]) {
+    newToken = token.generateAccessToken(username)
+    new Cookies(req, res).set('access_token', newToken, {
+      httpOnly: true
+    })
+    return res.status(200).send({ token: newToken, message: 'Successfully logged in!', user: username })
+  }
+  return res.status(400).send({ message: 'Login failed' })
+}
