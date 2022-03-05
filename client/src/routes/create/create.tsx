@@ -3,7 +3,7 @@ import { Button, Card, Form, Row, Col, Accordion, FloatingLabel, Modal, Containe
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faLink, faUser, faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 import { NavbarLogged, TrelloSignin, YoutubeSignin, createArea, getUser } from "..";
 
@@ -59,7 +59,7 @@ function Body() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     return (
       <>
       <Button variant="primary" className="principal__btn__color" onClick= { () => {
@@ -118,8 +118,12 @@ function Body() {
         <Modal.Header closeButton>
           <Modal.Title>Crypto-currencies configuration</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{textAlign: 'center'}}>This action triggers when a choosen <a style={{fontWeight: 'bold'}}>crypto-currency</a> hits a <a style={{fontWeight: 'bold'}}>value</a> in the <a style={{fontWeight: 'bold'}}>range</a> you asked for.
+        <Modal.Body style={{textAlign: 'center'}}>This action triggers when a choosen <a style={{fontWeight: 'bold'}}>crypto-currency</a> hits a <a style={{fontWeight: 'bold'}}>value</a> in the <a style={{fontWeight: 'bold'}}>range</a> you asked for. Please check the available pairs by clicking on the above button.
           <br/>
+          <br/>
+          <Button variant="primary" className="principal__btn__color" style={{marginBottom: 20}}><FontAwesomeIcon icon={faQuestion} style={{color: 'white'}} onClick= { () => {
+            window.open('https://support.kraken.com/hc/en-us/articles/201893658-Currency-pairs-available-for-trading-on-Kraken');
+          }}/></Button>
           <br/>
           <Form>
             <Form.Group className="mb-3">
@@ -425,7 +429,7 @@ function Body() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     return (
       <>
       <Button variant="primary" className="principal__btn__color" onClick= { () => {
@@ -722,7 +726,7 @@ function Body() {
                 }}
               />
               </FloatingLabel>
-            </Form.Group>            
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -819,7 +823,7 @@ function Body() {
                 }}
               />
               </FloatingLabel>
-            </Form.Group>        
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -913,7 +917,7 @@ function Body() {
               />
               </FloatingLabel>
             </Form.Group>
-            
+
             <Form.Group className="mb-3">
               <FloatingLabel controlId="floatingTextarea" label="Issue text-only content" className="mb-3">
               <Form.Control required as="textarea" value={actualMessage}
@@ -990,7 +994,7 @@ function Body() {
                     </Card.Body>
                   </Card>
                 </Col>
-              
+
                 <Col md={3}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://icones.pro/wp-content/uploads/2021/07/icone-meteo-bleue.png" />
@@ -1010,7 +1014,7 @@ function Body() {
                       <GithubAction/>
                     </Card.Body>
                   </Card>
-                </Col> 
+                </Col>
                 <Col md={3} style={{marginTop: 5}}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://ih1.redbubble.net/image.1121504414.0314/pp,840x830-pad,1000x1000,f8f8f8.jpg" />
@@ -1019,7 +1023,7 @@ function Body() {
                       <OneDriveAction/>
                     </Card.Body>
                   </Card>
-                </Col> 
+                </Col>
                 <Col md={3} style={{marginTop: 5}}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" />
@@ -1028,7 +1032,7 @@ function Body() {
                       <YoutubeAction/>
                     </Card.Body>
                   </Card>
-                </Col> 
+                </Col>
                 <Col md={3} style={{marginTop: 5}}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://cdn-icons-png.flaticon.com/512/1384/1384067.png" />
@@ -1037,7 +1041,7 @@ function Body() {
                       <RedditAction/>
                     </Card.Body>
                   </Card>
-                </Col> 
+                </Col>
               </Row>
             </Accordion.Body>
           </Accordion.Item>

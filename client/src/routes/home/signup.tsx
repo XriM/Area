@@ -88,6 +88,7 @@ function ShowSignup() {
                 handleClose();
                 setEmail("");
                 setPasswd("");
+                setUsername("");
               }
             }}
             >

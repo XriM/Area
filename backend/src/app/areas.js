@@ -67,8 +67,8 @@ exports.postArea = async (req, res) => {
       checkIfSteam(req, res, '', reactionId)
       break;
 
-    case 'Area successfully created':
-      createGitHubHook(req, res, serviceToken.rows[0].token)
+    case 'GitHub repo stared':
+      createGitHubHook(req, serviceToken, result, userId, res)
       break;
 
     case 'Weather changed':
@@ -125,7 +125,7 @@ exports.deleteArea = async (req, res) => {
   if (req.user.username !== req.params.username) {
     return res.status(498).send({ message: 'Invalid token!' })
   }
-  const areaId = req.params.areaId
+  let areaId = req.params.area_id
   let userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.user.username])
   userId = userId.rows[0].id
   await pool.query('DELETE FROM user_area WHERE user_id = $1 AND area_id = $2', [userId, areaId])
