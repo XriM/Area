@@ -113,7 +113,9 @@ exports.deleteGitHubHook = async (req, res) => {
       })
 }
 
-exports.createGitHubHook = async (req, token, result, userId, res) => {
+exports.createGitHubHook = async (req, serviceToken, result, userId, res) => {
+
+  token = serviceToken.rows[0].token
 
   var resultat = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/hooks`, { method: 'POST', body: JSON.stringify({     // CREATE HOOK
       "name": "web",

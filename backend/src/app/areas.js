@@ -68,7 +68,7 @@ exports.postArea = async (req, res) => {
       break;
 
     case 'GitHub repo stared':
-      createGitHubHook(req, res, serviceToken.rows[0].token)
+      createGitHubHook(req, serviceToken, result, userId, res)
       break;
 
     case 'Weather changed':
