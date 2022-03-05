@@ -1,3 +1,4 @@
+import 'package:area_app/Screens/Api/getWidgets.dart';
 import 'package:area_app/Screens/App/AppScreens/first_screen.dart';
 import 'package:area_app/Screens/App/AppScreens/second_screen.dart';
 import 'package:area_app/Screens/App/AppScreens/third_screen.dart';
@@ -135,7 +136,7 @@ class _ApplicationState extends State<Application> {
   Widget _body(ScreenType screenType) {
     switch (screenType) {
       case ScreenType.firstScreen:
-        return const FirstScreen();
+        return FirstScreen(areas: getWidgets());
       case ScreenType.secondScreen:
         return const SecondScreen();
       case ScreenType.thirdScreen:

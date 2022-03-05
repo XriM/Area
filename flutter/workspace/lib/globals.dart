@@ -64,4 +64,4 @@ Color discordColor = Color(0xFF7289da);
 
 Future<Token> redditToken = fetchEmptyToken();
 
-var ngrokUri = "";
+var ngrokUri = "887c-163-5-10-62.ngrok.io";
