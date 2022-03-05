@@ -95,7 +95,7 @@ class OutlookServiceForm extends StatelessWidget {
               onPressed: () async {
                 globals.serviceName = globals.outlookValues[0] as String;
                 globals.serviceColor = globals.outlookColor;
-                globals.outlookPara = {"email": _email.text};
+                globals.outlookPara = {"\"email\"": '\"' + _email.text + '\"'};
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
                   await Future.delayed(const Duration(seconds: 1), () {
