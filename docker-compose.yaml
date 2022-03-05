@@ -13,24 +13,24 @@ services:
       - PORT=$PORT
       - MODE=$MODE
 
-  # client:
-    # networks:
-      # - frontend
-    # build:
-        # context: ./client
-    # command: npm start
-    # volumes:
-      # - ./client/:/usr/app
-      # - /usr/app/node_modules
-    # ports:
-      # - "${CLIENT_PORT}:${CLIENT_PORT}"
+  client:
+    networks:
+      - frontend
+    build:
+        context: ./client
+    command: npm start
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
 
   #flutter:
   # build: ./flutter/
   # depends_on:
   #   - db
   # volumes:
-  #    - ./flutter/:/flutter/
+  #    - ./client/:/usr/app
   # ports:
   #   - "${FLU_PORT}:${FLU_PORT}"
   # networks:

@@ -116,9 +116,10 @@ exports.deleteGitHubHook = async (req, res) => {
 exports.createGitHubHook = async (req, serviceToken, result, userId, res) => {
 
   token = serviceToken.rows[0].token
+  console.log('token: ' + token)
 
   try {
-    var resultat = await axios.post(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/hooks`, { //method: 'POST', body: JSON.stringify({     // CREATE HOOK
+    var resultat = await axios.post(`https://api.github.com/repos/${req.body.config.owner}/${req.body.config.github}/hooks`, { //method: 'POST', body: JSON.stringify({     // CREATE HOOK
         "name": "web",
         "active": true,
         "events": [
@@ -137,11 +138,12 @@ exports.createGitHubHook = async (req, serviceToken, result, userId, res) => {
     console.log(resultat.data)
     req.body.config.subscriptionId = resultat.data.repository.id
     const conf = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, config])
+    console.log(conf.rows[0])
   } catch (err) {
     console.log(err)
     //console.log(err.response.data.error)
   }
-  res.status(200).send({ message: "Hook have been well created for " + req.body.github + "." })
+  res.status(200).send({ message: "Hook have been well created for " + req.body.config.github + "." })
 }
 
 async function getUserIdFromEmail(data) {
