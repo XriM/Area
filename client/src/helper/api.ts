@@ -486,7 +486,7 @@ export async function createArea(params : any, name : string, actionId : string,
 export async function updateArea(params: { id : string, name : string, action : string, reaction : string }, areaId : string) {
   let usernameLogged = window.sessionStorage.getItem("username");
   let token = window.sessionStorage.getItem("token");
-  
+
   await axios
     .patch(url + "/users/" + usernameLogged + "/areas" + areaId, params, {
       headers: {

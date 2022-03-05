@@ -40,7 +40,7 @@ function Body() {
     { name: 'Active', value: '1' },
     { name: 'Inactive', value: '2' },
   ];
-  
+
   const [Areas, setAreas] = useState<Array<JSX.Element>>([]);
 
   useEffect(() => {

@@ -55,7 +55,6 @@ export function GithubSignin(props : { where : string }) {
         window.sessionStorage.setItem("oauth", "github");
         await GithubOauth();
       }}/></Button>
-    
     </>
   );
 }

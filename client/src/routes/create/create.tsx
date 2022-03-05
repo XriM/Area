@@ -429,7 +429,7 @@ function Body() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     return (
       <>
       <Button variant="primary" className="principal__btn__color" onClick= { () => {
@@ -726,7 +726,7 @@ function Body() {
                 }}
               />
               </FloatingLabel>
-            </Form.Group>            
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -823,7 +823,7 @@ function Body() {
                 }}
               />
               </FloatingLabel>
-            </Form.Group>        
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -917,7 +917,7 @@ function Body() {
               />
               </FloatingLabel>
             </Form.Group>
-            
+
             <Form.Group className="mb-3">
               <FloatingLabel controlId="floatingTextarea" label="Issue text-only content" className="mb-3">
               <Form.Control required as="textarea" value={actualMessage}
@@ -994,7 +994,7 @@ function Body() {
                     </Card.Body>
                   </Card>
                 </Col>
-              
+
                 <Col md={3}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://icones.pro/wp-content/uploads/2021/07/icone-meteo-bleue.png" />
@@ -1014,7 +1014,7 @@ function Body() {
                       <GithubAction/>
                     </Card.Body>
                   </Card>
-                </Col> 
+                </Col>
                 <Col md={3} style={{marginTop: 5}}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://ih1.redbubble.net/image.1121504414.0314/pp,840x830-pad,1000x1000,f8f8f8.jpg" />
@@ -1023,7 +1023,7 @@ function Body() {
                       <OneDriveAction/>
                     </Card.Body>
                   </Card>
-                </Col> 
+                </Col>
                 <Col md={3} style={{marginTop: 5}}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" />
@@ -1032,7 +1032,7 @@ function Body() {
                       <YoutubeAction/>
                     </Card.Body>
                   </Card>
-                </Col> 
+                </Col>
                 <Col md={3} style={{marginTop: 5}}>
                   <Card className="text-center" style={{ width: '18rem', alignItems: 'center' }}>
                     <Card.Img variant="top" style={{ width: '10rem', height: '10rem', objectFit: 'cover' }} src="https://cdn-icons-png.flaticon.com/512/1384/1384067.png" />
@@ -1041,7 +1041,7 @@ function Body() {
                       <RedditAction/>
                     </Card.Body>
                   </Card>
-                </Col> 
+                </Col>
               </Row>
             </Accordion.Body>
           </Accordion.Item>
