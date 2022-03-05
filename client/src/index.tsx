@@ -18,8 +18,7 @@ render(
       <Route path="/profile" element={<Profile />} />
       <Route path="/triggers" element={<MyWidgets />} />
       <Route path="/create" element={<CreateTrigger />} />
-      <Route path="/outlook-onedrive-profile" element={<OutlookSignin where="/profile" />} />
-      <Route path="/outlook-onedrive-create" element={<OutlookSignin where="/create" />} />
+      <Route path="/outlook-onedrive-profile" element={<OutlookSignin/>} />
     </Routes>
   </BrowserRouter>,
   rootElement

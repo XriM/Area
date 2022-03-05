@@ -21,9 +21,12 @@ export function RedditSignin(props : { where : string }) {
         if (window.location.href.includes("code=") === true && window.sessionStorage.getItem("oauth") === "reddit") {
           const url = new URL(window.location.href);
           code = url.searchParams.get("code");
+          const params = {
+            token: code,
+          };
 
           await axios
-          .post("http://localhost:8000/users/" + usernameLogged + "/services/2", code, {
+          .post("http://localhost:8000/users/" + usernameLogged + "/services/2", params, {
             headers: {
               Authorization: "Bearer " + accessToken,
             },

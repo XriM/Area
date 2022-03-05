@@ -225,9 +225,12 @@ export async function logToService(token: string, serviceId : string) {
   let serviceLog : string = "";
   let usernameLogged = window.sessionStorage.getItem("username");
   let accessToken = window.sessionStorage.getItem("token");
+  const params = {
+    token: token,
+  };
 
   await axios
-    .post(url + "/users/" + usernameLogged + "/services/" + serviceId, token, {
+    .post(url + "/users/" + usernameLogged + "/services/" + serviceId, params, {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
@@ -410,7 +413,6 @@ export async function getAreas() {
     .then((res) => {
       console.log(res);
       for (let i = 0; i < res.data.length; i++) {
-        const element = res.data[i];
         areas.id.push(res.data[i].id);
         areas.name.push(res.data[i].name);
         areas.action.push(res.data[i].action.name);
@@ -436,10 +438,10 @@ export async function getArea(areaId : string) {
     })
     .then((res) => {
       console.log(res);
-      area.id = res.data.id;
-      area.name = res.data.name;
-      area.action = res.data.action.name;
-      area.reaction = res.data.reaction.name;
+      area.id = res.data.areas.id;
+      area.name = res.data.areas.name;
+      area.action = res.data.areas.action.name;
+      area.reaction = res.data.areas.reaction.name;
       alert(
         res.data.message
       );

@@ -3,7 +3,7 @@ import { Button, Card, Form, Row, Col, Accordion, FloatingLabel, Modal, Containe
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faLink, faUser, faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 import { NavbarLogged, TrelloSignin, YoutubeSignin, createArea, getUser } from "..";
 
@@ -59,7 +59,7 @@ function Body() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     return (
       <>
       <Button variant="primary" className="principal__btn__color" onClick= { () => {
@@ -118,8 +118,12 @@ function Body() {
         <Modal.Header closeButton>
           <Modal.Title>Crypto-currencies configuration</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{textAlign: 'center'}}>This action triggers when a choosen <a style={{fontWeight: 'bold'}}>crypto-currency</a> hits a <a style={{fontWeight: 'bold'}}>value</a> in the <a style={{fontWeight: 'bold'}}>range</a> you asked for.
+        <Modal.Body style={{textAlign: 'center'}}>This action triggers when a choosen <a style={{fontWeight: 'bold'}}>crypto-currency</a> hits a <a style={{fontWeight: 'bold'}}>value</a> in the <a style={{fontWeight: 'bold'}}>range</a> you asked for. Please check the available pairs by clicking on the above button.
           <br/>
+          <br/>
+          <Button variant="primary" className="principal__btn__color" style={{marginBottom: 20}}><FontAwesomeIcon icon={faQuestion} style={{color: 'white'}} onClick= { () => {
+            window.open('https://support.kraken.com/hc/en-us/articles/201893658-Currency-pairs-available-for-trading-on-Kraken');
+          }}/></Button>
           <br/>
           <Form>
             <Form.Group className="mb-3">

@@ -9,7 +9,6 @@ import styled from "styled-components";
 import { deleteArea, getAreas, NavbarLogged, getUser } from "..";
 
 var arrTriggers : JSX.Element[] = [];
-var arrReactions : string[] = [];
 
 export default function MyWidgets() {
   return (
@@ -36,9 +35,6 @@ export default function MyWidgets() {
 
 function Body() {
   let navigate = useNavigate();
-  const [Name, setName] = useState<string>("Area X");
-  const [ActionName, setActionName] = useState<string>("Steam");
-  const [ReactionName, setReactionName] = useState<string>("Discord pm");
   const [radioValue, setRadioValue] = useState('1');
   const radios = [
     { name: 'Active', value: '1' },
