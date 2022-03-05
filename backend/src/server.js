@@ -6,6 +6,7 @@ const { usersGet } = require('./app/users')
 const { userGet } = require('./app/users')
 const { userPatch } = require('./app/users')
 const { userDelete } = require('./app/users')
+const { about } = require('./app/about')
 const { getReactions, getReaction, sendDiscordMessage } = require('./app/reactions')
 const { getActions, getAction } = require('./app/actions')
 const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
@@ -355,6 +356,8 @@ app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
  *        description: Invalid token!
  */
 app.post('/hooks', hookHandler)
+
+app.get('/about.json', about)
 
 app.post('/github', createGitHubHook)
 app.get('/githublist', getGitHubHook)
