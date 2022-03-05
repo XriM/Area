@@ -20,6 +20,7 @@ exports.accessTokenGitHub = async (oldToken) => {
             console.log('Error getting user from GitHub')
             //throw error
         })
+        console.log('avant le return :' + accessToken)
         return accessToken
 }
 
