@@ -115,9 +115,9 @@ class SteamServiceForm extends StatelessWidget {
                 globals.serviceColor = globals.steamColor;
                 globals.servicePara = gameID.text;
                 globals.steamPara = {
-                  "steam": gameID.text,
-                  "players_min": playerMin.text,
-                  "players_max": playerMax.text,
+                  "\"steam\"": "\"" + gameID.text + "\"",
+                  "\"players_min\"": "\"" + playerMin.text + "\"",
+                  "\"players_max\"": "\"" + playerMax.text + "\"",
                 };
                 Navigator.push(
                   context,

@@ -93,8 +93,8 @@ class DiscordReactionForm extends StatelessWidget {
                 globals.reactionName = globals.discordValues[0] as String;
                 globals.reactionColor = globals.discordColor;
                 globals.discordPara = {
-                  "discord": webhookUrlId.text,
-                  "url_token": webhookUrlToken.text,
+                  "\"discord\"": "\"" + webhookUrlId.text + "\"",
+                  "\"url_token\"": "\"" + webhookUrlToken.text + "\"",
                 };
                 Navigator.push(
                   context,

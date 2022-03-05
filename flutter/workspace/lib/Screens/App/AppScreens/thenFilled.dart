@@ -213,12 +213,12 @@ class _ThenFilledState extends State<ThenFilled> {
                 print(globals.token);
 
                 postWidgets();
-                Timer(Duration(seconds: 1), () async {
-                  _btnController.error();
-                });
-                Timer(Duration(seconds: 3), () async {
-                  _btnController.reset();
-                });
+                // Timer(Duration(seconds: 1), () async {
+                //   _btnController.error();
+                // });
+                // Timer(Duration(seconds: 3), () async {
+                //   _btnController.reset();
+                // });
               },
             ),
             const SizedBox(height: 30),
