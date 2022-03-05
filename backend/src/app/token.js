@@ -10,7 +10,7 @@ exports.getOutlookToken = async (code) => {
   const outlookToken = await axios.get('https://login.microsoftonline.com/common/oauth2/v2.0/token', {
     'code': code,
     'client_id': 'dee479f7-7be3-49a8-a238-71bf50de2175',
-    'scopes': 'email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All',
+    'scope': 'email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All',
     'redirect_uri': 'https://localhost/callback',
     'grant_type': 'authorization_code',
     'client_secret': 'Re47Q~hMlvpAZ7BN8SnBIChQK4SMEIFvgv1XF',
