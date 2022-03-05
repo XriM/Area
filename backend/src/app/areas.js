@@ -67,7 +67,7 @@ exports.postArea = async (req, res) => {
       checkIfSteam(req, res, '', reactionId)
       break;
 
-    case 'Area successfully created':
+    case 'GitHub repo stared':
       createGitHubHook(req, res, serviceToken.rows[0].token)
       break;
 

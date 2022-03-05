@@ -70,9 +70,10 @@ exports.createOneDriveHook = async (req, serviceToken, result, userId, res) => {
 }
 
 exports.getGitHubHook = async (req, res) => {
+  //token = req.body.
 
-  const userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.body.username])
-  const accessToken = await pool.query('SELECT token FROM user_service WHERE user_id = $1', [userId])
+  // const userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.body.username])
+  // const accessToken = await pool.query('SELECT token FROM user_service WHERE user_id = $1', [userId])
   let row = []
 
   axios.get(`https://api.github.com/repos/${req.body.owner}/${req.body.repo}/hooks`, {   // LIST HOOK OF REPO
@@ -95,8 +96,8 @@ exports.getGitHubHook = async (req, res) => {
 
 exports.deleteGitHubHook = async (req, res) => {
 
-  const userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.body.username])
-  const accessToken = await pool.query('SELECT token FROM user_service WHERE user_id = $1', [userId])
+  // const userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.body.username])
+  // const accessToken = await pool.query('SELECT token FROM user_service WHERE user_id = $1', [userId])
 
   axios.delete(`https://api.github.com/repos/${req.body.owner}/${req.body.repo}/hooks/${req.params.hookId}`, {
   headers: { Authorization: `Token ${accessToken}` },
@@ -112,9 +113,9 @@ exports.deleteGitHubHook = async (req, res) => {
       })
 }
 
-exports.createGitHubHook = async (req, res, token) => {
+exports.createGitHubHook = async (req, token, result, userId, res) => {
 
-  var result = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/hooks`, { method: 'POST', body: JSON.stringify({     // CREATE HOOK
+  var resultat = await fetch(`https://api.github.com/repos/${req.body.owner}/${req.body.github}/hooks`, { method: 'POST', body: JSON.stringify({     // CREATE HOOK
       "name": "web",
       "active": true,
       "events": [
@@ -125,9 +126,12 @@ exports.createGitHubHook = async (req, res, token) => {
           "content_type": "json",
           "insecure_ssl": "0"
       }
-  }), headers: { Authorization: "Token " + token}}).then(() => {
-  res.status(200).send({ message: "Hook have been well created for " + req.body.github + "." })})
-  .catch((error) => {
+  }), headers: { Authorization: "Token " + token}}).then((data => data.json()).then( async (json) => {
+    let config = req.body.config
+    req.body.config.subscriptionId = json[0].repository.id
+    const conf = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, config])
+    res.status(200).send({ message: "Hook have been well created for " + req.body.github + "." })})
+  ).catch((error) => {
     console.error('Error creating hook from GitHub')
     throw error
   })
@@ -138,10 +142,6 @@ async function getUserIdFromEmail(data) {
   const userService = await pool.query("SELECT * FROM user_service WHERE service_config ->> 'email' = $1", [json.emailAddress]);
   console.log(userService.rows[0])
   return userService.rows[0].user_id
-}
-
-async function receivedEmailOutlook() {
-  
 }
 
 exports.hookHandler = async (req, res) => {
@@ -198,6 +198,17 @@ exports.hookHandler = async (req, res) => {
       reaction_id = area.rows[0].reaction_id
       triggered = true
     }
+  }
+  if ('action' in body) {
+    console.log(body.value[0].subscriptionId)
+    const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.value[0].subscriptionId}'`
+    const user = await pool.query(query)
+    if (!('config' in user))
+      return
+    config = user.rows[0].config
+    const area = await pool.query('SELECT * FROM areas WHERE id = $1', [user.rows[0].user_id])
+    reaction_id = area.rows[0].reaction_id
+    triggered = true
   }
   if (!triggered)
     return

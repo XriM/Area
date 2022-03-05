@@ -43,7 +43,7 @@ exports.accessTokenReddit = async (code) => {
     console.log("Error getting reddit token")
   });
   return access_token;
-} 
+}
 
 exports.generateAccessToken = (username) => {
   return jwt.sign({ username: username }, process.env.TOKEN_SECRET, { expiresIn: '1h' })

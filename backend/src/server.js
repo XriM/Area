@@ -9,7 +9,7 @@ const { userDelete } = require('./app/users')
 const { getReactions, getReaction, sendDiscordMessage } = require('./app/reactions')
 const { getActions, getAction } = require('./app/actions')
 const { getAreas, getArea, postArea, patchArea, deleteArea } = require('./app/areas')
-const { hookHandler } = require('./app/hook')
+const { hookHandler, createGitHubHook, getGitHubHook, deleteGitHubHook } = require('./app/hook')
 const ngrok = require('ngrok')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -327,7 +327,27 @@ app.patch('/users/:username/areas/:area_id', authenticateToken, patchArea)
  */
 app.delete('/users/:username/areas/:area_id', authenticateToken, deleteArea)
 
+
+/**
+ * @swagger
+ * /hooks:
+ *  post:
+ *    description: parse hooks handling
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ *      '401':
+ *        description: You need to signin to an account
+ *      '498':
+ *        description: Invalid token!
+ */
 app.post('/hooks', hookHandler)
+
+app.post('/github', createGitHubHook)
+app.get('/githublist', getGitHubHook)
+app.delete('/delete/:id', deleteGitHubHook)
+
+
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)

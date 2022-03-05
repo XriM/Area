@@ -24,4 +24,6 @@ RUN flutter channel dev
 RUN flutter upgrade
 RUN flutter doctor
 WORKDIR /home/developer/workspace/
-COPY ./workspace/ /home/developer/workspace/
+COPY --chown=root ./workspace/ /home/developer/workspace/
+USER root
+RUN flutter build apk --split-per-abi
