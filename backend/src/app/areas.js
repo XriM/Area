@@ -68,6 +68,7 @@ exports.postArea = async (req, res) => {
       break;
 
     case 'GitHub repo stared':
+      console.log("repo: " + req.body.config.github + " owner: " + req.body.config.owner)
       createGitHubHook(req, serviceToken, result, userId, res)
       break;
 

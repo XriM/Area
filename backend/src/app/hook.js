@@ -143,7 +143,7 @@ exports.createGitHubHook = async (req, serviceToken, result, userId, res) => {
     console.log(err)
     //console.log(err.response.data.error)
   }
-  res.status(200).send({ message: "Hook have been well created for " + req.body.config.github + "." })
+  res.status(200).send({ message: 'Area successfully created' })
 }
 
 async function getUserIdFromEmail(data) {
