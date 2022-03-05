@@ -7,42 +7,24 @@ Future<Map<String, dynamic>> createArea() async {
     'Authorization': 'Bearer ' + globals.token,
   };
 
-  print('createArea');
-  print('createArea');
-  print('createArea');
-
   Map<String, dynamic> tempBody = jsonCreatorArea();
 
   Map<String, String> body =
       tempBody.map((key, value) => MapEntry(key, value.toString()));
 
-  // return {};
-  print(globals.token);
-
-  print(body);
-
   final Uri url = Uri.https(
     globals.ngrokUri,
     '/users/' + globals.userName + '/areas',
   );
-  print('---------------RESPONSE----------------');
-  print(url);
-  print(header);
-  print(body);
-  print(globals.token);
-  print('---------------RESPONSE----------------');
-
-  // print(body.runtimeType);
-  // print(body.runtimeType);
-  // print(body.runtimeType);
-  // print(body.runtimeType);
 
   final http.Response response =
       await http.post(url, headers: header, body: body);
-
-  print('---------------RESPONSE----------------');
+  print("--------- CREATE AREA ---------");
+  print(url);
+  print(header);
+  print(body);
   print(response.body);
-  print('---------------RESPONSE----------------');
+  print("--------- CREATE AREA ---------");
   if (response.statusCode == 200) {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
@@ -69,22 +51,19 @@ Future<Map<String, dynamic>> createServiceA() async {
     headers: header,
     body: body,
   );
-  print('------------createServiceA-----------');
-  print(globals.userName);
-  print(url);
-  print(globals.token);
-  print(header);
-  print(body);
-  print('------------createServiceA-----------');
   if (response.statusCode == 200) {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
-    print(json);
+    print("--------- CREATE SERVICE A ---------");
+    print(url);
+    print(header);
+    print(body);
+    print(response.body);
+    print("--------- CREATE SERVICE A ---------");
     return json;
   } else {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
-    print(json);
     return json;
   }
 }
@@ -93,7 +72,7 @@ Future<Map<String, dynamic>> createServiceR() async {
   final Map<String, String> header = {
     'Authorization': 'Bearer ' + globals.token,
   };
-  Map<String, dynamic> body = jsonCreatorServiceA(globals.reactionName);
+  Map<String, dynamic> body = jsonCreatorServiceR(globals.reactionName);
 
   final Uri url = Uri.https(
     globals.ngrokUri,
@@ -104,94 +83,97 @@ Future<Map<String, dynamic>> createServiceR() async {
     headers: header,
     body: body,
   );
-  print('------------createServiceA-----------');
-  print(globals.userName);
-  print(url);
-  print(globals.token);
-  print(header);
-  print(body);
-  print('------------createServiceA-----------');
+
   if (response.statusCode == 200) {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
-    print(json);
+    print("--------- CREATE SERVICE R ---------");
+    print(url);
+    print(header);
+    print(body);
+    print(response.body);
+    print("--------- CREATE SERVICE R ---------");
     return json;
   } else {
     final Map<String, dynamic> json =
         await jsonDecode(response.body) as Map<String, dynamic>;
-    print(json);
     return json;
   }
 }
 
 Map<String, dynamic> jsonCreatorArea() {
-  Map<String, dynamic> body = {};
+  Map<String, dynamic> tempBody = {};
   Map<String, dynamic> finalBody = {};
   String actionId = '';
   String reactionId = '';
 
   if (globals.serviceName == 'Steam') {
-    body = globals.steamPara;
+    tempBody = globals.steamPara;
     actionId = globals.steamValuesId;
   }
   if (globals.serviceName == 'Github') {
-    body = globals.githubPara;
+    tempBody = globals.githubPara;
     actionId = globals.githubValuesId;
   }
   if (globals.serviceName == 'Weather') {
-    body = globals.weatherPara;
+    tempBody = globals.weatherPara;
     actionId = globals.weatherValuesId;
   }
   if (globals.serviceName == 'Crypto') {
-    body = globals.cryptoPara;
+    tempBody = globals.cryptoPara;
     actionId = globals.cryptoValuesId;
   }
   if (globals.serviceName == 'Outlook') {
-    body = globals.outlookPara;
+    tempBody = globals.outlookPara;
     actionId = globals.outlookValuesId;
   }
   if (globals.serviceName == 'Youtube') {
-    body = globals.youtubePara;
+    tempBody = globals.youtubePara;
     actionId = globals.youtubeValuesId;
   }
   if (globals.serviceName == 'Reddit') {
-    body = globals.redditPara;
+    tempBody = globals.redditPara;
     actionId = globals.redditValuesId;
   }
   if (globals.serviceName == 'One Drive') {
-    body = globals.oneDrivePara;
+    tempBody = globals.oneDrivePara;
     actionId = globals.oneDriveValuesId;
   }
   if (globals.reactionName == 'Trello') {
-    body.addAll(globals.trelloPara);
+    tempBody.addAll(globals.trelloPara);
     reactionId = globals.trelloValuesId;
   }
   if (globals.reactionName == 'Discord') {
-    body.addAll(globals.discordPara);
+    tempBody.addAll(globals.discordPara);
     reactionId = globals.discordValuesId;
   }
   if (globals.reactionName == 'Outlook') {
-    body.addAll(globals.outlookParaR);
+    tempBody.addAll(globals.outlookParaR);
     reactionId = globals.outlookValuesRId;
   }
   if (globals.reactionName == 'Github') {
-    body.addAll(globals.githubParaR);
+    tempBody.addAll(globals.githubParaR);
     reactionId = globals.githubValuesRId;
   }
+
+  Map<String, String> body =
+      tempBody.map((key, value) => MapEntry(key, value.toString()));
+
   finalBody = {
     "action_id": actionId,
     "reaction_id": reactionId,
     "name": globals.serviceName + " + " + globals.reactionName,
+    // "config": {
+    //   "\"email\"": "\"David.nikolic@epitech.eu\"",
+    //   "\"to\"": ["\"briann.gerbaux@gmail.com\""],
+    //   "\"cc\"": ["\"\""],
+    //   "\"subject\"": "\"sub\"",
+    //   "\"message\"": "\"msg\""
+    // }
+
     "config": body
   };
-  print("--------------------");
-  print(body);
-  print("--------------------");
 
-  print("--------------------");
-  print(finalBody);
-  print(finalBody.runtimeType);
-  print("--------------------");
   return finalBody;
 }
 
@@ -208,10 +190,6 @@ Map<String, dynamic> jsonCreatorServiceA(String serviceName) {
     body = {'token': globals.lastRedditToken};
   if (globals.serviceName == 'One Drive') body = {'token': globals.ootCode};
 
-  print("-------Service Action----------");
-  print(body);
-  print("--------------------");
-
   return body;
 }
 
@@ -222,9 +200,6 @@ Map<String, dynamic> jsonCreatorServiceR(String reactionName) {
   if (globals.reactionName == 'Discord') body = {};
   if (globals.reactionName == 'Outlook') body = {'token': globals.ootCode};
   if (globals.reactionName == 'Github') body = {'token': globals.githCode};
-  print("-------Service Reaction----------");
-  print(body);
-  print("--------------------");
 
   return body;
 }

@@ -105,8 +105,13 @@ exports.postUserService = async (req, res) => {
     await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2`, [outlookToken, userId.rows[0].id])
   }
   if (service.rows[0].name == 'GitHub') {
-    var githubToken = accessTokenGitHub(req.body.token)
-    await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2`, [githubToken, userId.rows[0].id])
+    console.log('req.body.token:')
+    console.log(req.body.token)
+
+    var githubToken = await accessTokenGitHub(req.body.token)
+    console.log('après le return: ' + githubToken)
+    mafe = await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 RETURNING *`, [githubToken, userId.rows[0].id])
+    console.log(mafe.rows[0].token)
   }
   if (service.rows[0].name == 'Reddit') {
     var redditToken = accessTokenReddit(req.body.token)
