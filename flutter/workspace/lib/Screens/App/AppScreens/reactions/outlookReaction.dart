@@ -130,10 +130,10 @@ class OutlookReactionForm extends StatelessWidget {
                 globals.reactionName = globals.outlookValuesR[0] as String;
                 globals.reactionColor = globals.outlookColor;
                 globals.outlookParaR = {
-                  "to": [_to.text],
-                  "cc": [_cc.text],
-                  "subject": _subject.text,
-                  "message": _msg.text
+                  "\"to\"": ['\"' + _to.text + '\"'],
+                  "\"cc\"": ['\"' + _cc.text + '\"'],
+                  "\"subject\"": '\"' + _subject.text + '\"',
+                  "\"message\"": '\"' + _msg.text + '\"'
                 };
                 Timer(Duration(seconds: 1), () async {
                   _btnController.success();
