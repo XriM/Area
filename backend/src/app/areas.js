@@ -1,7 +1,7 @@
 const { user } = require('pg/lib/defaults')
 const { pool } = require('../dbConfig')
 const axios = require('axios')
-const { checkIfWeather, checkIfSubscribe, checkIfSteam, checkIfCrypto } = require('./crontab')
+const { checkIfWeather, checkIfSubscribe, checkIfSteam, checkIfCrypto, checkIfReddit } = require('./crontab')
 const fetch = require('node-fetch')
 const { response } = require('express')
 const { env } = require('dotenv').config()
@@ -56,6 +56,7 @@ exports.postArea = async (req, res) => {
   actionRes = actionRes.rows[0];
   let reactionRes = await pool.query(`SELECT * FROM reactions WHERE id = $1`, [reactionId]);
   reactionRes = reactionRes.rows[0];
+  console.log("user id: " + userId.rows[0].id)
   const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
   switch (actionRes.name) {
     case 'Received email':
@@ -88,12 +89,13 @@ exports.postArea = async (req, res) => {
 
     case 'Youtube subscribers changed':
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfSubscribe(userId, res, serviceToken.rows[0].token, reactionId)
+      checkIfSubscribe(req, res, serviceToken.rows[0].token, reactionId)
       break;
-
-    case 'Subreddit subscribers changed':
-      await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfReddit(userId, res, serviceToken.rows[0].token, reactionId)
+      
+      case 'Subreddit subscriber':
+        console.log(serviceToken.rows)
+        await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
+      checkIfReddit(req, res, serviceToken.rows[0].token, reactionId)
       break;
 
     default:

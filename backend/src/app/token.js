@@ -3,6 +3,7 @@ const { pool } = require('../dbConfig')
 const { env } = require('dotenv').config()
 const axios = require('axios')
 const querystring = require('query-string')
+const utf8 = require('utf8');
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
 
@@ -38,23 +39,25 @@ exports.accessTokenGitHub = async (oldToken) => {
 
 exports.accessTokenReddit = async (code) => {
   let access_token = "";
+  const username = '_AH7eByuCQvZ7TW_NpKGUg';
+  const password = '';
+  let buff = Buffer(utf8.encode(`${username}:${password}`))
+  let base64data = buff.toString('base64');
 
   const data = querystring.stringify({
     grant_type: "authorization_code",
     code: code,
-    redirect_uri: "http://localhost:3000/profile"
+    redirect_uri: "http://localhost:8080"
   });
-  axios.post(process.env.REDDIT_TOKEN_URL, data, {
+  const res = await axios.post(process.env.REDDIT_TOKEN_URL, data, {
     headers: {
-      Authorization: "Basic " + process.env.REDDIT_CLIENT_ID,
+      Authorization: "Basic " + base64data,
       "Content-Type": "application/x-www-form-urlencoded",
     },
-  }).then((res) => {
-    console.log(res.data["access_token"]);
-    access_token = res.data["access_token"];
-  }).catch(error => {
-    console.log("Error getting reddit token")
-  });
+  })
+  console.log(res.data)
+  console.log(res.data.access_token);
+  access_token = res.data.access_token;
   return access_token;
 }
 

@@ -162,6 +162,7 @@ exports.checkIfSubscribe = async (req, res, token, reactionId) => {
 }
 
 exports.checkIfReddit = async (req, res, token, reactionId) => {
+    req.body.config = JSON.parse(req.body.config)
     let subscribers = "";
 
     cron.schedule('*/5 * * * * *', () => {
@@ -169,7 +170,7 @@ exports.checkIfReddit = async (req, res, token, reactionId) => {
             method: 'get',
             url: 'https://oauth.reddit.com/' + req.body.config.subreddit + '/about',
             headers: {
-            'Authorization': 'Bearer ' + process.env.REDDIT_BEARER,
+            'Authorization': 'Bearer ' + token,
             'Cookie': process.env.REDDIT_COOKIE
             }
         };

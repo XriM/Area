@@ -101,8 +101,8 @@ exports.postUserService = async (req, res) => {
     await pool.query(`UPDATE user_service SET service_config = $1 WHERE user_id = $2 AND service_id = $3`, [{email: await getGmailAddress(userService.rows[0])}, userId.rows[0].id, serviceId.rows[0].id]);
   }
   if (service.rows[0].name == 'Outlook') {
-    var outlookToken = getOutlookToken(req.body.token)
-    await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2`, [outlookToken, userId.rows[0].id])
+    var outlookToken = await getOutlookToken(req.body.token)
+    await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 AND service_id = $3`, [outlookToken, userId.rows[0].id, service.rows[0].id])
   }
   if (service.rows[0].name == 'GitHub') {
     console.log('req.body.token:')
@@ -110,12 +110,15 @@ exports.postUserService = async (req, res) => {
 
     var githubToken = await accessTokenGitHub(req.body.token)
     console.log('après le return: ' + githubToken)
-    mafe = await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 RETURNING *`, [githubToken, userId.rows[0].id])
+    mafe = await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 AND service_id = $3 RETURNING *`, [githubToken, userId.rows[0].id, serviceId.rows[0].id])
     console.log(mafe.rows[0].token)
   }
   if (service.rows[0].name == 'Reddit') {
-    var redditToken = accessTokenReddit(req.body.token)
-    await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2`, [redditToken, userId.rows[0].id])
+    console.log('avant le return: ' + req.body.token)
+    var redditToken = await accessTokenReddit(req.body.token)
+    console.log('après le return: ' + redditToken)
+    const temp = await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 AND service_id = $3 RETURNING *`, [redditToken, userId.rows[0].id, serviceId.rows[0].id])
+    console.log(temp.rows)
   }
   res.status(200).send({ message: 'Service token successfully loaded' })
 }
