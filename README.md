@@ -109,9 +109,9 @@ Client web:
 
 ```json
 {
-	email: "test.area@outlook.fr",
-	username: "areaTest",
-	password: "mypassword"
+	"email": "test.area@outlook.fr",
+	"username": "areaTest",
+	"password": "mypassword"
 }
 ```
 
@@ -123,7 +123,7 @@ Client web:
 
 ```json
 {
-	message: "Account created!"
+	"message": "Account created!"
 }
 
 ```
@@ -132,7 +132,7 @@ Client web:
 
 ```json
 {
-	message: "Email address already in use!"
+	"message": "Email address already in use!"
 }
 ```
 
@@ -140,7 +140,7 @@ Client web:
 
 ```json
 {
-	message: "Failed to create an account!"
+	"message": "Failed to create an account!"
 }
 ```
 # POST /users/login
@@ -151,8 +151,8 @@ Client web:
 
 ```json
 {
-	email: "test.area@outlook.fr",
-	password: "mypassword"
+	"email": "test.area@outlook.fr",
+	"password": "mypassword"
 }
 ```
 
@@ -164,9 +164,9 @@ Client web:
 
 ```json
 {
-	token: "cjhdbfb76579yazdbhzebfd",
-	message: "Successfully logged in!",
-	username: "username"
+	"token": "cjhdbfb76579yazdbhzebfd",
+	"message": "Successfully logged in!",
+	"username": "username"
 }
 ```
 
@@ -174,7 +174,7 @@ Client web:
 
 ```json
 {
-	message: "Wrong password!"
+	"message": "Wrong password!"
 }
 ```
 
@@ -182,7 +182,7 @@ Client web:
 
 ```json
 {
-	message: "Email doesn't exist!"
+	"message": "Email doesn't exist!"
 }
 ```
 
@@ -190,7 +190,7 @@ Client web:
 
 ```json
 {
-	message: "Failed to log in!"
+	"message": "Failed to log in!"
 }
 ```
 
@@ -202,7 +202,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -212,7 +212,7 @@ Client web:
 
 ```json
 {
-	message: "Successfully logged out!"
+	"message": "Successfully logged out!"
 }
 ```
 
@@ -220,7 +220,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -228,7 +228,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -240,7 +240,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -252,18 +252,18 @@ Client web:
 
 ```json
 {
-	users: [
+	"users": [
 		{
-			username: "maxime"
+			"username": "maxime"
 		},
 		{
-			username: "david"
+			"username": "david"
 		},
 		{
-			username: "briann"
+			"username": "briann"
 		},
 		{
-			username: "jeff"
+			"username": "jeff"
 		},
 	]
 }
@@ -273,7 +273,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -281,7 +281,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -293,7 +293,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -305,8 +305,8 @@ Client web:
 
 ```json
 {
-	username: "david",
-	email: "david@area.com"
+	"username": "david",
+	"email": "david@area.com"
 }
 ```
 
@@ -314,7 +314,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -322,7 +322,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -334,7 +334,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -342,27 +342,27 @@ Client web:
 
 ```json
 {
-	email: "test@area.fr"
+	"email": "test@area.fr"
 }
 ```
 
 ```json
 {
-	password: "myNewPassword"
+	"password": "myNewPassword"
 }
 ```
 
 ```json
 {
-	username: "myNewUsername"
+	"username": "myNewUsername"
 }
 ```
 
 ```json
 {
-	email: "my.newEmail@area.fr",
-	password: "myNewPassword",
-	username: "myNewUsername"
+	"email": "my.newEmail@area.fr",
+	"password": "myNewPassword",
+	"username": "myNewUsername"
 }
 ```
 
@@ -372,7 +372,7 @@ Client web:
 
 ```json
 {
-	message: "User profile successfully modified!"
+	"message": "User profile successfully modified!"
 }
 ```
 
@@ -380,7 +380,7 @@ Client web:
 
 ```json
 {
-	message: "No fields specified!"
+	"message": "No fields specified!"
 }
 ```
 
@@ -388,7 +388,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -396,7 +396,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -408,7 +408,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -418,7 +418,7 @@ Client web:
 
 ```json
 {
-	message: "Successfully deleted user"
+	"message": "Successfully deleted user"
 }
 ```
 
@@ -426,7 +426,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -434,7 +434,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -446,7 +446,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -456,15 +456,15 @@ Client web:
 
 ```json
 {
-	services: [
+	"services": [
 		{
-			name: "AccuWeather"
+			"name": "AccuWeather"
 		},
 		{
-			name: "Google Calendar"
+			"name": "Google Calendar"
 		},
 		{
-			name: "Gmail"
+			"name": "Gmail"
 		}
 	]
 }
@@ -474,7 +474,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -482,7 +482,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -494,7 +494,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -504,30 +504,30 @@ Client web:
 
 ```json
 {
-	name: "Google Calendar",
-	actions_id: [
+	"name": "Google Calendar",
+	"actions_id": [
 		{
-			id: 1
+			"id": 1
 		},
 		{
-			id: 4
+			"id": 4
 		},
 		{
-			id: 5
-		},
-	],
-	reactions_id: [
-		{
-			id: 3
-		},
-		{
-			id: 6
-		},
-		{
-			id: 8
+			"id": 5
 		},
 	],
-	token: "fenfnzef987vdgzefbehfl"
+	"reactions_id": [
+		{
+			"id": 3
+		},
+		{
+			"id": 6
+		},
+		{
+			"id": 8
+		},
+	],
+	"token": "fenfnzef987vdgzefbehfl"
 }
 ```
 
@@ -535,7 +535,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -543,7 +543,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -555,7 +555,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -563,7 +563,7 @@ Client web:
 
 ```json
 {
-	token: "dvcdzcdjzlcb678edhzfjdknzed"
+	"token": "dvcdzcdjzlcb678edhzfjdknzed"
 }
 ```
 
@@ -573,7 +573,7 @@ Client web:
 
 ```json
 {
-	message: "Service token successfully loaded!"
+	"message": "Service token successfully loaded!"
 }
 ```
 
@@ -581,7 +581,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -589,7 +589,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -601,7 +601,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -609,7 +609,7 @@ Client web:
 
 ```json
 {
-	token: "dvcdzcdjzlcb678edhzfjdknzed"
+	"token": "dvcdzcdjzlcb678edhzfjdknzed"
 }
 ```
 
@@ -619,7 +619,7 @@ Client web:
 
 ```json
 {
-	message: "Service token successfully loaded!"
+	"message": "Service token successfully loaded!"
 }
 ```
 
@@ -627,7 +627,7 @@ Client web:
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -635,7 +635,7 @@ Client web:
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -647,7 +647,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+	"Authorization": "Bearer cjhdbfb76579yazdbhzebfd"
 }
 ```
 
@@ -659,7 +659,7 @@ Client web:
 
 ```json
 {
-	Authorization: "Bearer <token>"
+	"Authorization": "Bearer <token>"
 }
 ```
 
@@ -703,7 +703,7 @@ a
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -711,7 +711,7 @@ a
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -723,7 +723,7 @@ a
 
 ```json
 {
-	Authorization: "Bearer chbzhfbzef"
+	"Authorization": "Bearer chbzhfbzef"
 }
 ```
 
@@ -731,12 +731,12 @@ a
 
 ```json
 {
-	action_id: 1,
-	reaction_id: 1,
-	name: "area name",
-	config:{
-		param1: "value1",
-		param2: "value2"
+	"action_id": 1,
+	"reaction_id": 1,
+	"name": "area name",
+	"config":{
+		"param1": "value1",
+		"param2": "value2"
 	}
 }
 ```
@@ -747,7 +747,7 @@ a
 
 ```json
 {
-	message: "Area successfully created!"
+	"message": "Area successfully created!"
 }
 ```
 
@@ -755,7 +755,7 @@ a
 
 ```json
 {
-	message: "You need to signin to an account!"
+	"message": "You need to signin to an account!"
 }
 ```
 
@@ -763,7 +763,7 @@ a
 
 ```json
 {
-	message: "Invalid token!"
+	"message": "Invalid token!"
 }
 ```
 
@@ -865,7 +865,7 @@ au lieu d’envoyer le token il faut envoyer le code à “POST /users/:username
 }
 ```
 
-GitHub (reaction): 
+GitHub (reaction):
 
 ```json
 {
