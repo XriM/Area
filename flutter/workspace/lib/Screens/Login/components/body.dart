@@ -36,8 +36,6 @@ class Body extends StatelessWidget {
       //     as Map<String, dynamic>;
       print(globals.userMail);
       print(globals.userName);
-      final Map<String, dynamic> myJson =
-          await getLogin(mailController.text, passwordController.text);
 
       if (mailController.text == "" ||
           passwordController.text == "" ||
@@ -49,11 +47,13 @@ class Body extends StatelessWidget {
           _btnController.reset();
         });
       } else {
+        final Map<String, dynamic> myJson =
+            await getLogin(mailController.text, passwordController.text);
         if (myJson['message'].toString() == "Successfully logged in!") {
           globals.userName = myJson['user'].toString();
           globals.token = myJson['token'].toString();
           // globals.userName = userNameController.text;
-          globals.userMail = passwordController.text;
+          globals.userMail = mailController.text;
           Timer(Duration(seconds: 3), () async {
             _btnController.success();
             await Future.delayed(const Duration(seconds: 2), () {

@@ -16,6 +16,11 @@ Future<Map<String, dynamic>> createArea() async {
     globals.ngrokUri,
     '/users/' + globals.userName + '/areas',
   );
+  print("--------- CREATE AREA ---------");
+  print(url);
+  print(header);
+  print(body);
+  print("--------- CREATE AREA ---------");
 
   final http.Response response =
       await http.post(url, headers: header, body: body);
@@ -160,6 +165,7 @@ Map<String, dynamic> jsonCreatorArea() {
       tempBody.map((key, value) => MapEntry(key, value.toString()));
 
   finalBody = {
+    // "device": "flutter",
     "action_id": actionId,
     "reaction_id": reactionId,
     "name": globals.serviceName + " + " + globals.reactionName,

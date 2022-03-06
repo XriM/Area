@@ -211,10 +211,8 @@ exports.hookHandler = async (req, res) => {
     console.log(body.repository.name)
     const query = `SELECT * FROM user_area WHERE config ->> 'github' = '${body.repository.name}'`
     const user = await pool.query(query)
-    console.log("ZEBIIIIIIIIIIII\n" + user.rows[0] + "ZABIIIIIIIIIII\n")
     if (!('config' in user.rows[0]))
       return
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     config = user.rows[0].config
     const area = await pool.query('SELECT * FROM areas WHERE id = $1', [user.rows[0].user_id])
     reaction_id = area.rows[0].reaction_id

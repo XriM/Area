@@ -10,6 +10,7 @@ const fetch = require('node-fetch')
 const querystring = require('query-string')
 const { getHookGitHub } =require('./hook')
 const { sendEmailOutlook, sendDiscordMessage, sendGitIssue } = require('./reactions')
+const { error } = require('console')
 
 
 ////////////////////////////////////////////
@@ -138,25 +139,28 @@ exports.checkIfSubscribe = async (req, res, token, reactionId) => {
 
     console.log(token)
     res.status(200).send({ message: 'Area successfully created' })
-    cron.schedule('*/2 * * * *', async () => {
-        const result = await axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
+    cron.schedule('*/5 * * * * *', () => {
+        axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
             headers: {
               Authorization: "Bearer " + token,
             },
-          })
-        console.log(result.data)
-        subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
-        if (subscribers === "") {
+          }).then(result => {
+            console.log(result.data)
+            subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
+            if (subscribers === "") {
+                subscribers = subscriberCount;
+            }
+            console.log(subscriberCount + " is now")
+            console.log(subscribers + " was before")
+            if (subscribers !== subscriberCount) {
+                console.log("more subs" + subscriberCount);
+                triggerReaction(reactionId, token, req.body.config)
+                //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
+            }
             subscribers = subscriberCount;
-        }
-        console.log(subscriberCount + " is now")
-        console.log(subscribers + " was before")
-        if (subscribers !== subscriberCount) {
-            console.log("more subs" + subscriberCount);
-            triggerReaction(reactionId, token, req.body.config)
-            //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
-        }
-        subscribers = subscriberCount;
+        }).catch(error => {
+            console.log()
+        })
     });
 }
 

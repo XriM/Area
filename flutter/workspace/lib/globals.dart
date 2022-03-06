@@ -24,6 +24,7 @@ var githCode;
 var ootCode;
 var googleToken;
 var lastRedditToken;
+var googleIdToken;
 
 var outlookValues = ['Outlook'];
 var outlookValuesId = '1';
@@ -86,4 +87,109 @@ String youtubeId = '9';
 
 Future<Token> redditToken = fetchEmptyToken();
 
-String ngrokUri = 'e615-163-5-10-27.ngrok.io';
+String ngrokUri = '7f99-163-5-10-196.ngrok.io';
+
+Text steamDescription = Text(
+  "Get notified when there is currently an amount of players between 2 specified values for a specific Steam Game Id",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+
+Text youtubeDescription = Text(
+  "youtube",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+
+Text actionOutlookDescription = Text(
+  "outlook",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+
+Text actionGitDescription = Text(
+  "git",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+
+Text cryptoDescription = Text(
+  "crypto",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+
+Text weatherDescription = Text(
+  "weather",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+
+Text discordDescription = Text(
+  "discord",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+
+Text redditDescription = Text(
+  "reddit",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+
+Text oneDriveDescription = Text(
+  "onedrive",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+Text reactionGitDescription = Text(
+  "git",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+Text trelloDescription = Text(
+  "trello",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
+Text reactionOutlookDescription = Text(
+  "outlook",
+  style: TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+  ),
+  textAlign: TextAlign.justify,
+);
