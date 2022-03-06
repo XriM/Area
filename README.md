@@ -99,774 +99,732 @@ Client web:
 
 ## Routes
 
-    | Method | Endpoint | Headers | Body | Query params | Response | HTTP Status code |  |  |
-    | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-    | POST | /users/signup |  | email
-    username
-    password |  |  | success
-    error |  |  |
-    | POST | /users/login |  | email
-    password |  | jwt (Json web token)
-    id
-    username |  |  |  |
-    |  |  |  |  |  |  |  |  |  |
-    | GET | /users | access_token |  |  | username[] |  |  |  |
-    | GET | /users/:id | access_token |  |  | username
-    email |  |  |  |
-    | PATCH | /users/:id | access_token | email |  |  |  |  |  |
-    | DELETE | /users/:id | access_token |  |  |  |  |  |  |
-    |  |  |  |  |  |  |  |  |  |
-    | GET | /users/:id/services | access_token |  |  | name[] (liste tous les services dispo) |  |  |  |
-    | GET | /users/:id/services/:id | access_token |  |  | isLog (bool) |  |  |  |
-    | POST | /users/:id/services/:id | access_token | string (code ou token) |  | isLog (bool) |  |  |  |
-    | PATCH | /users/:id/services/:id | access_token | string (code ou token) |  | isLog (bool) |  |  |  |
-    | DELETE | /users/:id/services/:id | access_token |  |  |  |  |  |  |
-    |  |  |  |  |  |  |  |  |  |
-    | GET | /users/:id/actions/ | access_token |  |  | list[] (liste toutes les actions dispo) |  |  |  |
-    | GET | /users/:id/actions/:id | access_token |  |  | {} (fichier de config json) |  |  |  |
-    | GET | /users/:id/reactions |  |  |  | list[] (liste toutes les reactions dispo) |  |  |  |
-    | GET | /users/:id/reactions/:id | access_token |  |  | {} (fichier de config json) |  |  |  |
-    | GET | /users/:id/areas/ | access_token |  |  | list[] (toute les areas de l’user) |  |  |  |
-    | GET | /users/:id/areas/:id | access_token |  |  | - nom de l’area
-    - action et sa config
-    - reaction et sa config |  |  |  |
-    | POST | /users/:id/areas/ | access_token | - nom de l’area
-    - action et config
-    - reaction et config |  |  |  |  |  |
-    | PATCH | /users/:id/areas/:id | access_token | - nom de l’area
-    - action et config
-    - reaction et config |  |  |  |  |  |
-    | DELETE | /users/:id/areas/:id | access_token |  |  |  |  |  |  |
-    |  |  |  |  |  |  |  |  |  |
-    |  |  |  |  |  |  |  |  |  |
-
 # POST /users/signup
-    
-    ---
-    
-    ### Body:
-    
-    ---
-    
-    ```json
-    {
-    	email: "test.area@outlook.fr",
-    	username: "areaTest",
-    	password: "mypassword"
-    }
-    ```
-    
-    ### Responses:
-    
-    ---
-    
-    - Response when signup request is successfull (Status code: 200):
-    
-    ```json
-    {
-    	message: "Account created!"
-    }
-    
-    ```
-    
-    - Response when signup request failed because an email address is already in use (Status code: 400):
-    
-    ```json
-    {
-    	message: "Email address already in use!"
-    }
-    ```
-    
-    - Response when signup request failed for other reasons (missing a field, wrong email format... Status code: 400):
-    
-    ```json
-    {
-    	message: "Failed to create an account!"
-    }
-    ```
-    
-    # POST /users/login
-    
-    ---
-    
-    ### Body:
-    
-    ```json
-    {
-    	email: "test.area@outlook.fr",
-    	password: "mypassword"
-    }
-    ```
-    
-    ### Responses:
-    
-    ---
-    
-    - Response when user successfully logged in (status code: 200):
-    
-    ```json
-    {
-    	token: "cjhdbfb76579yazdbhzebfd",
-    	message: "Successfully logged in!",
-    	username: "username"
-    }
-    ```
-    
-    - Response when user password is wrong (status code: 400):
-    
-    ```json
-    {
-    	message: "Wrong password!"
-    }
-    ```
-    
-    - Response when email doesn’t exist (status code: 400):
-    
-    ```json
-    {
-    	message: "Email doesn't exist!"
-    }
-    ```
-    
-    - Response when signin request failed for other reasons (missing a field, wrong email format... Status code: 400):
-    
-    ```json
-    {
-    	message: "Failed to log in!"
-    }
-    ```
-    
-    # POST /users/logout
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Responses:
-    
-    - Response when request succeded
-    
-    ```json
-    {
-    	message: "Successfully logged out!"
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # GET /users
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Responses:
-    
-    ---
-    
-    - Response when request suceeded (status code: 200):
-    
-    ```json
-    {
-    	users: [
-    		{
-    			username: "maxime"
-    		},
-    		{
-    			username: "david"
-    		},
-    		{
-    			username: "briann"
-    		},
-    		{
-    			username: "jeff"
-    		},
-    	]
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # GET /users/:id
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Responses:
-    
-    ---
-    
-    - Response when request succeeded
-    
-    ```json
-    {
-    	username: "david",
-    	email: "david@area.com"
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # PATCH /users/:id
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Bodies:
-    
-    ```json
-    {
-    	email: "test@area.fr"
-    }
-    ```
-    
-    ```json
-    {
-    	password: "myNewPassword"
-    }
-    ```
-    
-    ```json
-    {
-    	username: "myNewUsername"
-    }
-    ```
-    
-    ```json
-    {
-    	email: "my.newEmail@area.fr",
-    	password: "myNewPassword",
-    	username: "myNewUsername"
-    }
-    ```
-    
-    ### Responses:
-    
-    - Response when request succeeded
-    
-    ```json
-    {
-    	message: "User profile successfully modified!"
-    }
-    ```
-    
-    - Response when no fields are specified (status code: 401):
-    
-    ```json
-    {
-    	message: "No fields specified!"
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # DELETE /users/:id
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Responses:
-    
-    - Response when request succeded
-    
-    ```json
-    {
-    	message: "Successfully deleted user"
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # GET /users/:id/services
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Responses:
-    
-    - Response when request is successfull (status code: 200)
-    
-    ```json
-    {
-    	services: [
-    		{
-    			name: "AccuWeather"
-    		},
-    		{
-    			name: "Google Calendar"
-    		},
-    		{
-    			name: "Gmail"
-    		}
-    	]
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # GET /users/:id/services/:id
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Responses:
-    
-    - Response when request is successfull (status code: 200)
-    
-    ```json
-    {
-    	name: "Google Calendar",
-    	actions_id: [
-    		{
-    			id: 1
-    		},
-    		{
-    			id: 4
-    		},
-    		{
-    			id: 5
-    		},
-    	],
-    	reactions_id: [
-    		{
-    			id: 3
-    		},
-    		{
-    			id: 6
-    		},
-    		{
-    			id: 8
-    		},
-    	],
-    	token: "fenfnzef987vdgzefbehfl"
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # PATCH /users/:id/services/:id
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Body:
-    
-    ```json
-    {
-    	token: "dvcdzcdjzlcb678edhzfjdknzed"
-    }
-    ```
-    
-    ### Responses:
-    
-    - Response when request succeeded (status code: 200)
-    
-    ```json
-    {
-    	message: "Service token successfully loaded!"
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # POST /users/:username/services/:id
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    ### Body (optionnal):
-    
-    ```json
-    {
-    	token: "dvcdzcdjzlcb678edhzfjdknzed"
-    }
-    ```
-    
-    ### Responses:
-    
-    - Response when request succeeded (status code: 200)
-    
-    ```json
-    {
-    	message: "Service token successfully loaded!"
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # PATCH /users/:id/services/:id
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
-    }
-    ```
-    
-    # GET /users/:username/areas
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer <token>"
-    }
-    ```
-    
-    a
-    
-    ### Responses:
-    
-    - Response when request succeeded (status code: 200):
-    
-    ```json
-    {
-    	"areas": [
-    		{
-    			"id": 1,
-    		  "name": "Area 1",
-    			"action": {
-    			  "id": 6,
-    			  "name": "Steam players changed"
-    			},
-    			"reaction": {
-    				"id": 1,
-    				"name": "Send email"
-    			}
-    		},
-    		{
-    			"id": 2,
-    			"name": "Area 2",
-    			"action": {
-    				"id": 6,
-    				"name": "Steam players changed"
-    			},
-    			"reaction": {
-    				"id": 1,
-    				"name": "Send email"
-    			}
-    		}
-    	]
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    # POST /users/:username/areas
-    
-    ---
-    
-    ### Header:
-    
-    ```json
-    {
-    	Authorization: "Bearer chbzhfbzef"
-    }
-    ```
-    
-    ### Body (the config parameter is optional):
-    
-    ```json
-    {
-    	action_id: 1,
-    	reaction_id: 1,
-    	name: "area name",
-    	config:{
-    		param1: "value1",
-    		param2: "value2"
-    	}
-    }
-    ```
-    
-    ### Responses:
-    
-    - Response when request succeeded (status code: 200)
-    
-    ```json
-    {
-    	message: "Area successfully created!"
-    }
-    ```
-    
-    - Response when request failed because no token was passed (status code: 401):
-    
-    ```json
-    {
-    	message: "You need to signin to an account!"
-    }
-    ```
-    
-    - Response when request failed because the token is invalid or expired (status code: 498):
-    
-    ```json
-    {
-    	message: "Invalid token!"
-    }
-    ```
-    
-    service Table
-    
-    | ID PRIMARY KEY | NAME VARCHAR |
-    | --- | --- |
-    |  |  |
-    |  |  |
-    
-    action Table
-    
-    | ID PRIMARY KEY | NAME VARCHAR |
-    | --- | --- |
-    |  |  |
-    |  |  |
-    
-    reaction Table
-    
-    | ID PRIMARY KEY | NAME VARCHAR |  |
-    | --- | --- | --- |
-    |  |  |  |
-    |  |  |  |
-    
-    area Table
-    
-    | ID PRIMARY KEY | ACTION_ID (Foreign key) | REACTION_ID (Foreign Key) |  |
-    | --- | --- | --- | --- |
-    |  |  |  |  |
-    |  |  |  |  |
-    
-    service_reaction Table
-    
-    | ID PRIMARY KEY | SERVICE_ID FOREIGN KEY(Service) | TRIGGER_ID FOREIGN KEY(Trigger) |
-    | --- | --- | --- |
-    |  |  |  |
-    |  |  |  |
-    
-    users Table
-    
-    | ID PRIMARY KEY | EMAIL VARCHAR | USERNAME VARCHAR | PASSWORD? VARCHAR |
-    | --- | --- | --- | --- |
-    |  |  |  |  |
-    |  |  |  |  |
-    
-    user_service table
-    
-    | ID PRIMARY KEY | USER_ID FOREIGN KEY(User) | SERVICE_ID FOREIGN KEY(Service) | TOKEN? VARCHAR |
-    | --- | --- | --- | --- |
-    |  |  |  |  |
-    |  |  |  |  |
-    
-    user_area Table
-    
-    | ID PRIMARY KEY | USER_ID FOREIGN KEY(User) | TRIGGER_ID FOREIGN KEY(Trigger) | CONFIG VARCHAR (json) |
-    | --- | --- | --- | --- |
-    |  |  |  |  |
-    |  |  |  |  |
-    
-    # JSON front to back
-    
+
+---
+
+### Body:
+
+---
+
+```json
+{
+	email: "test.area@outlook.fr",
+	username: "areaTest",
+	password: "mypassword"
+}
+```
+
+### Responses:
+
+---
+
+- Response when signup request is successfull (Status code: 200):
+
+```json
+{
+	message: "Account created!"
+}
+
+```
+
+- Response when signup request failed because an email address is already in use (Status code: 400):
+
+```json
+{
+	message: "Email address already in use!"
+}
+```
+
+- Response when signup request failed for other reasons (missing a field, wrong email format... Status code: 400):
+
+```json
+{
+	message: "Failed to create an account!"
+}
+```
+# POST /users/login
+
+---
+
+### Body:
+
+```json
+{
+	email: "test.area@outlook.fr",
+	password: "mypassword"
+}
+```
+
+### Responses:
+
+---
+
+- Response when user successfully logged in (status code: 200):
+
+```json
+{
+	token: "cjhdbfb76579yazdbhzebfd",
+	message: "Successfully logged in!",
+	username: "username"
+}
+```
+
+- Response when user password is wrong (status code: 400):
+
+```json
+{
+	message: "Wrong password!"
+}
+```
+
+- Response when email doesn’t exist (status code: 400):
+
+```json
+{
+	message: "Email doesn't exist!"
+}
+```
+
+- Response when signin request failed for other reasons (missing a field, wrong email format... Status code: 400):
+
+```json
+{
+	message: "Failed to log in!"
+}
+```
+
+# POST /users/logout
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Responses:
+
+- Response when request succeded
+
+```json
+{
+	message: "Successfully logged out!"
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# GET /users
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Responses:
+
+---
+
+- Response when request suceeded (status code: 200):
+
+```json
+{
+	users: [
+		{
+			username: "maxime"
+		},
+		{
+			username: "david"
+		},
+		{
+			username: "briann"
+		},
+		{
+			username: "jeff"
+		},
+	]
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# GET /users/:id
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Responses:
+
+---
+
+- Response when request succeeded
+
+```json
+{
+	username: "david",
+	email: "david@area.com"
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# PATCH /users/:id
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Bodies:
+
+```json
+{
+	email: "test@area.fr"
+}
+```
+
+```json
+{
+	password: "myNewPassword"
+}
+```
+
+```json
+{
+	username: "myNewUsername"
+}
+```
+
+```json
+{
+	email: "my.newEmail@area.fr",
+	password: "myNewPassword",
+	username: "myNewUsername"
+}
+```
+
+### Responses:
+
+- Response when request succeeded
+
+```json
+{
+	message: "User profile successfully modified!"
+}
+```
+
+- Response when no fields are specified (status code: 401):
+
+```json
+{
+	message: "No fields specified!"
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# DELETE /users/:id
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Responses:
+
+- Response when request succeded
+
+```json
+{
+	message: "Successfully deleted user"
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# GET /users/:id/services
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Responses:
+
+- Response when request is successfull (status code: 200)
+
+```json
+{
+	services: [
+		{
+			name: "AccuWeather"
+		},
+		{
+			name: "Google Calendar"
+		},
+		{
+			name: "Gmail"
+		}
+	]
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# GET /users/:id/services/:id
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Responses:
+
+- Response when request is successfull (status code: 200)
+
+```json
+{
+	name: "Google Calendar",
+	actions_id: [
+		{
+			id: 1
+		},
+		{
+			id: 4
+		},
+		{
+			id: 5
+		},
+	],
+	reactions_id: [
+		{
+			id: 3
+		},
+		{
+			id: 6
+		},
+		{
+			id: 8
+		},
+	],
+	token: "fenfnzef987vdgzefbehfl"
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# PATCH /users/:id/services/:id
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Body:
+
+```json
+{
+	token: "dvcdzcdjzlcb678edhzfjdknzed"
+}
+```
+
+### Responses:
+
+- Response when request succeeded (status code: 200)
+
+```json
+{
+	message: "Service token successfully loaded!"
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# POST /users/:username/services/:id
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+### Body (optionnal):
+
+```json
+{
+	token: "dvcdzcdjzlcb678edhzfjdknzed"
+}
+```
+
+### Responses:
+
+- Response when request succeeded (status code: 200)
+
+```json
+{
+	message: "Service token successfully loaded!"
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# PATCH /users/:id/services/:id
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer cjhdbfb76579yazdbhzebfd"
+}
+```
+
+# GET /users/:username/areas
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer <token>"
+}
+```
+
+a
+
+### Responses:
+
+- Response when request succeeded (status code: 200):
+
+```json
+{
+	"areas": [
+		{
+			"id": 1,
+		  "name": "Area 1",
+			"action": {
+			  "id": 6,
+			  "name": "Steam players changed"
+			},
+			"reaction": {
+				"id": 1,
+				"name": "Send email"
+			}
+		},
+		{
+			"id": 2,
+			"name": "Area 2",
+			"action": {
+				"id": 6,
+				"name": "Steam players changed"
+			},
+			"reaction": {
+				"id": 1,
+				"name": "Send email"
+			}
+		}
+	]
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+# POST /users/:username/areas
+
+---
+
+### Header:
+
+```json
+{
+	Authorization: "Bearer chbzhfbzef"
+}
+```
+
+### Body (the config parameter is optional):
+
+```json
+{
+	action_id: 1,
+	reaction_id: 1,
+	name: "area name",
+	config:{
+		param1: "value1",
+		param2: "value2"
+	}
+}
+```
+
+### Responses:
+
+- Response when request succeeded (status code: 200)
+
+```json
+{
+	message: "Area successfully created!"
+}
+```
+
+- Response when request failed because no token was passed (status code: 401):
+
+```json
+{
+	message: "You need to signin to an account!"
+}
+```
+
+- Response when request failed because the token is invalid or expired (status code: 498):
+
+```json
+{
+	message: "Invalid token!"
+}
+```
+
+service Table
+
+| ID PRIMARY KEY | NAME VARCHAR |
+| --- | --- |
+|  |  |
+|  |  |
+
+action Table
+
+| ID PRIMARY KEY | NAME VARCHAR |
+| --- | --- |
+|  |  |
+|  |  |
+
+reaction Table
+
+| ID PRIMARY KEY | NAME VARCHAR |  |
+| --- | --- | --- |
+|  |  |  |
+|  |  |  |
+
+area Table
+
+| ID PRIMARY KEY | ACTION_ID (Foreign key) | REACTION_ID (Foreign Key) |  |
+| --- | --- | --- | --- |
+|  |  |  |  |
+|  |  |  |  |
+
+service_reaction Table
+
+| ID PRIMARY KEY | SERVICE_ID FOREIGN KEY(Service) | TRIGGER_ID FOREIGN KEY(Trigger) |
+| --- | --- | --- |
+|  |  |  |
+|  |  |  |
+
+users Table
+
+| ID PRIMARY KEY | EMAIL VARCHAR | USERNAME VARCHAR | PASSWORD? VARCHAR |
+| --- | --- | --- | --- |
+|  |  |  |  |
+|  |  |  |  |
+
+user_service table
+
+| ID PRIMARY KEY | USER_ID FOREIGN KEY(User) | SERVICE_ID FOREIGN KEY(Service) | TOKEN? VARCHAR |
+| --- | --- | --- | --- |
+|  |  |  |  |
+|  |  |  |  |
+
+user_area Table
+
+| ID PRIMARY KEY | USER_ID FOREIGN KEY(User) | TRIGGER_ID FOREIGN KEY(Trigger) | CONFIG VARCHAR (json) |
+| --- | --- | --- | --- |
+|  |  |  |  |
+|  |  |  |  |
+
+# JSON front to back
+
 
 Weather  (action):
 
