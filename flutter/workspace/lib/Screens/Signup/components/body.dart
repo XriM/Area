@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:area_app/Screens/Api/googleLogin.dart';
 import 'package:area_app/Screens/Api/googleSignInApi.dart';
 import 'package:area_app/Screens/Api/signUpCall.dart';
 import 'package:area_app/Screens/App/app.dart';
@@ -86,32 +87,25 @@ class Body extends StatelessWidget {
     }
 
     Future<void> signIn() async {
-      try {
-        final user = await GoogleSignInApi.login();
+      final user = await GoogleSignInApi.login();
 
-        print(user?.displayName);
-        print(user?.email);
-        print(user?.serverAuthCode);
-        print(user?.id);
-        globals.user = user;
-        globals.userName = user?.displayName;
-        globals.userMail = user?.email;
-        user!.authentication.then((googleKey) {
-          print(googleKey.accessToken);
-          globals.googleToken = googleKey.accessToken;
-          // print(googleKey.idToken);
-        }).catchError((err) {
-          print('inner error');
-        });
+      print(user?.displayName);
+      print(user?.email);
+      print(user?.id);
+      globals.user = user;
+      globals.userName = user?.displayName;
+      globals.userMail = user?.email;
+      user!.authentication.then((googleKey) async {
+        print(googleKey.accessToken);
+        print(googleKey.idToken);
+        globals.googleToken = googleKey.accessToken;
+        globals.googleIdToken = googleKey.idToken;
+        final Map<String, dynamic> myJson = await getgoogleLogin();
 
-        if (globals.userName == null || globals.userMail == null) {
-          Timer(Duration(seconds: 1), () async {
-            _btnController.error();
-          });
-          Timer(Duration(seconds: 3), () async {
-            _btnController.reset();
-          });
-        } else {
+        if (myJson['message'].toString() == "Successfully logged in!") {
+          globals.userName = myJson['user'].toString();
+          globals.token = myJson['token'].toString();
+          globals.userMail = mailController.text;
           Timer(Duration(seconds: 3), () async {
             _btnController.success();
             await Future.delayed(const Duration(seconds: 2), () {
@@ -125,10 +119,42 @@ class Body extends StatelessWidget {
               );
             });
           });
+        } else {
+          Timer(Duration(seconds: 1), () async {
+            _btnController.error();
+          });
+          Timer(Duration(seconds: 3), () async {
+            _btnController.reset();
+          });
         }
-      } catch (e) {
-        print('Error signing in $e');
-      }
+
+        // print(googleKey.idToken);
+      }).catchError((err) {
+        print('inner error');
+      });
+
+      //   if (globals.userName == null || globals.userMail == null) {
+      //     Timer(Duration(seconds: 1), () async {
+      //       _btnController.error();
+      //     });
+      //     Timer(Duration(seconds: 3), () async {
+      //       _btnController.reset();
+      //     });
+      //   } else {
+      //     Timer(Duration(seconds: 3), () async {
+      //       _btnController.success();
+      //       await Future.delayed(const Duration(seconds: 2), () {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //             builder: (context) {
+      //               return Application();
+      //             },
+      //           ),
+      //         );
+      //       });
+      //     });
+      //   }
     }
 
     Size size = MediaQuery.of(context).size;

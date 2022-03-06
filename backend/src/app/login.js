@@ -43,7 +43,7 @@ exports.googleLogin = async (req, res) => {
   email = result.data.email
   username = result.data.name
   const user = await pool.query('SELECT * FROM users WHERE email = $1', [email])
-  if (!('id' in user.rows[0]) ) {
+  if (!('id' in user.rows) ) {
     await pool.query('INSERT INTO users (email, username) VALUES ($1, $2)', [email, username])
     newToken = token.generateAccessToken(username)
     new Cookies(req, res).set('access_token', newToken, {

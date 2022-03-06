@@ -26,9 +26,9 @@ class _OotlookWebviewState extends State<OotlookWebview> {
   late WebViewController controller;
 
   static final Config config = new Config(
-      tenant: "901cb4ca-b862-4029-9306-e5cd0f6d9f86",
-      clientId: "dee479f7-7be3-49a8-a238-71bf50de2175",
-      clientSecret: "Re47Q~hMlvpAZ7BN8SnBIChQK4SMEIFvgv1XF",
+      tenant: "c63dfed5-a22f-42f6-9d9d-35703cf453b8",
+      clientId: "e5427ba3-bbbd-4c91-b696-ff0a1d337e44",
+      clientSecret: "WTr7Q~2ILsDGX5BG5jJfv8MoSSuJcu25TdmC2",
       scope:
           "email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All",
       redirectUri: "https://localhost/callback");

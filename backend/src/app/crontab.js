@@ -137,7 +137,8 @@ exports.checkIfSubscribe = async (req, res, token, reactionId) => {
 
     console.log(token)
     res.status(200).send({ message: 'Area successfully created' })
-    cron.schedule('*/2 * * * *', async () => {
+    cron.schedule('*/5 * * * * *', async () => {
+        console.log(token)
         const result = await axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
             headers: {
               Authorization: "Bearer " + token,
