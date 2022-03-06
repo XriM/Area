@@ -67,15 +67,20 @@ exports.postArea = async (req, res) => {
   const actionServiceId = await pool.query('SELECT * FROM service_action WHERE action_id = $1', [actionId])
   const reactionServiceId = await pool.query('SELECT * FROM service_reaction WHERE reaction_id = $1', [reactionId])
   const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, actionServiceId.rows[0].service_id]);
-  const reactionServiceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, reactionServiceId.rows[0].service_id]);
-  switch (actionRes.name) {
+  let reactionServiceToken
+  let tokenReaction = ''
+  if (reactionId != 4) {
+    reactionServiceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, reactionServiceId.rows[0].service_id]);
+    tokenReaction = reactionServiceToken.rows[0].token
+  }
+    switch (actionRes.name) {
     case 'Received email':
       createOutlookHook(req, serviceToken, result, userId, res)
       break;
 
     case 'Steam players changed':
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfSteam(req, res, '', reactionServiceToken.rows[0].token, reactionId)
+      checkIfSteam(req, res, '', tokenReaction, reactionId)
       break;
 
     case 'GitHub repo stared':
@@ -91,12 +96,12 @@ exports.postArea = async (req, res) => {
         req.body.config = JSON.parse(req.body.config)
       }
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfWeather(req, res, '', reactionServiceToken.rows[0].token,  reactionId)
+      checkIfWeather(req, res, '', tokenReaction,  reactionId)
       break;
 
     case 'CryptoCurrency price changed':
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfCrypto(req, res, '', reactionServiceToken.rows[0].token, reactionId)
+      checkIfCrypto(req, res, '', tokenReaction, reactionId)
       break;
 
     case 'File added':
@@ -108,18 +113,18 @@ exports.postArea = async (req, res) => {
 
     case 'Youtube subscribers changed':
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfSubscribe(req, res, serviceToken.rows[0].token, reactionServiceToken.rows[0].token, reactionId)
+      checkIfSubscribe(req, res, serviceToken.rows[0].token, tokenReaction, reactionId)
       break;
 
       case 'Subreddit subscriber':
         console.log(serviceToken.rows)
         await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfReddit(req, res, serviceToken.rows[0].token, reactionServiceToken.rows[0].token, reactionId)
+      checkIfReddit(req, res, serviceToken.rows[0].token, tokenReaction, reactionId)
       break;
 
     case 'New youtube video':
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfNewVideo(req, res, serviceToken.rows[0].token, reactionServiceToken.rows[0].token, reactionId)
+      checkIfNewVideo(req, res, serviceToken.rows[0].token, tokenReaction, reactionId)
 
     default:
       res.status(404).send({ message: "Error parsing user's Areas"})

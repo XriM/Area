@@ -3,7 +3,7 @@ import { Button, Card, Form, Row, Col, Accordion, FloatingLabel, Modal, Containe
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink, faUser, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 import { NavbarLogged, TrelloSignin, YoutubeSignin, createArea, getUser } from "..";
 
@@ -666,9 +666,9 @@ function Body() {
     const handleShow = () => setShow(true);
 
     const [actualWebhookId, setWebhookId] = useState<string>("");
-    const [actualWebhookToken, setWebhookToken] = useState<string>("");
+    //const [actualWebhookToken, setWebhookToken] = useState<string>("");
     var webhookId : string = "";
-    var webhookToken : string = "";
+    //var webhookToken : string = "";
 
     return (
       <>
@@ -694,7 +694,7 @@ function Body() {
               />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
+            {/* <Form.Group className="mb-3">
               <FloatingLabel controlId="floatingInput" label="Webhook token" className="mb-3">
               <Form.Control type="text" value={actualWebhookToken}
                 onChange={(e) => {
@@ -703,7 +703,7 @@ function Body() {
                 }}
               />
               </FloatingLabel>
-            </Form.Group>
+            </Form.Group> */}
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -711,15 +711,16 @@ function Body() {
             onClick = { () => {
               reaction = "Send Discord message";
               reactionId = "4";
-              config['discord'] = actualWebhookId;
-              config['url_token'] = actualWebhookToken;
+              let discordParams: string[] = actualWebhookId.split('/');
+              config['discord'] = discordParams[5];
+              config['url_token'] = discordParams[6];
               handleClose();
             }}>
               Select Reaction
             </Button>
             <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
               setWebhookId("");
-              setWebhookToken("");
+              //setWebhookToken("");
               handleClose();
             }}>
             Cancel
@@ -945,7 +946,7 @@ function Body() {
   }
 
   return (
-    <>
+    <div>
     <Container>
       <br/>
       <Row>
@@ -1098,25 +1099,6 @@ function Body() {
         </FloatingLabel>
       </Form.Group>
     </Form>
-    <Row>
-      <Col md={12} className="centered__bottom__buttons">
-        <Button variant="primary" className="secondary__btn__color" style={{marginBottom: 20}} onClick= { async () => {
-          if (config !== {} && name !== '' && actionId !== '' && reactionId !== '') {
-            let device = "desktop";
-            const result = await createArea(config, name, device, actionId, reactionId);
-            if (result === 0) {
-              alert("Area successfully created.");
-              navigate("/triggers");
-            }
-            setName("");
-            config = {};
-            actionId = '';
-            reactionId = '';
-            name = '';
-          }
-        }}>Add an AREA</Button>
-      </Col>
-    </Row>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
     <Modal show={show} onHide={handleClose}>
@@ -1133,6 +1115,26 @@ function Body() {
         </Button>
       </Modal.Footer>
     </Modal>
-    </>
+
+    <Row>
+        <Col md={12} className="centered__bottom__buttons">
+          <Button variant="primary" className="secondary__btn__color" style={{marginBottom: 20}} disabled={false} onClick= { async () => {
+            if (config !== {} && name !== '' && actionId !== '' && reactionId !== '') {
+              let device = "desktop";
+              const result = await createArea(config, name, device, actionId, reactionId);
+              if (result === 0) {
+                alert("Area successfully created.");
+                navigate("/triggers");
+              }
+              setName("");
+              config = {};
+              actionId = '';
+              reactionId = '';
+              name = '';
+            }
+          }}>Add an AREA</Button>
+        </Col>
+      </Row>
+    </div>
   );
 }
