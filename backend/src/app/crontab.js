@@ -63,7 +63,9 @@ async function triggerReaction(reactionId, token, config)
 }
 
 exports.checkIfWeather = async (req, res, token, reactionId) => {
-    req.body.config = JSON.parse(req.body.config)
+    if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+    }
     const city = req.body.config.city
     const temp_min = parseInt(req.body.config.temp_min)
     const temp_max = parseInt(req.body.config.temp_max)
@@ -89,7 +91,9 @@ exports.checkIfWeather = async (req, res, token, reactionId) => {
 }
 
 exports.checkIfCrypto = async (req, res, token, reactionId) => {
-    req.body.config = JSON.parse(req.body.config)
+    if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+    }
     console.log(req.body.config.crypto)
     console.log(req.body.config.value_min)
     console.log(req.body.config.value_max)
@@ -116,6 +120,9 @@ exports.checkIfCrypto = async (req, res, token, reactionId) => {
 
 exports.checkIfSteam = async (req, res, token, reactionId) => {
     //req.body.config = JSON.parse(req.body.config)
+    if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+    }
     console.log(req.body.config)
     res.status(200).send({ message: 'Area successfully created' })
     cron.schedule('*/2 * * * *', async () => {
@@ -133,7 +140,9 @@ exports.checkIfSteam = async (req, res, token, reactionId) => {
 }
 
 exports.checkIfSubscribe = async (req, res, token, reactionId) => {
-    req.body.config = JSON.parse(req.body.config)
+    if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+    }
     //const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
     let subscribers = "";
 
@@ -165,7 +174,9 @@ exports.checkIfSubscribe = async (req, res, token, reactionId) => {
 }
 
 exports.checkIfReddit = async (req, res, token, reactionId) => {
-    req.body.config = JSON.parse(req.body.config)
+    if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+    }
     let subscribers = "";
 
     cron.schedule('*/5 * * * * *', () => {
@@ -200,7 +211,9 @@ exports.checkIfReddit = async (req, res, token, reactionId) => {
 }
 
 exports.checkIfIntra = async (req, res, token, reactionId) => {
-    req.body.config = JSON.parse(req.body.config)
+    if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+    }
     res.status(200).send({ message: 'Area successfully created' })
     //cron.schedule('*/2 * * * *'), () => {
     //    axios.get()

@@ -67,6 +67,9 @@ exports.postArea = async (req, res) => {
   const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
   switch (actionRes.name) {
     case 'Received email':
+      if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+      }
       createOutlookHook(req, serviceToken, result, userId, res)
       break;
 
@@ -76,12 +79,17 @@ exports.postArea = async (req, res) => {
       break;
 
     case 'GitHub repo stared':
-      req.body.config = JSON.parse(req.body.config)
+      if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+      }
       console.log("repo: " + req.body.config.github + " owner: " + req.body.config.owner)
       createGitHubHook(req, serviceToken, result, userId, res)
       break;
 
     case 'Weather changed':
+      if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+      }
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
       checkIfWeather(req, res, '', reactionId)
       break;
@@ -92,6 +100,9 @@ exports.postArea = async (req, res) => {
       break;
 
     case 'File added':
+      if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+      }
       createOneDriveHook(req, serviceToken, result, userId, res)
       break
 
