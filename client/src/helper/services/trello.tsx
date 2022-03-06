@@ -7,7 +7,6 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { logToService } from "../api";
 
 var trelloKey = "7b6292b9c2d2d0d8cbe96937dee3765a";
-var token = "a60c5415cca82f9742c540076f00dd32bdc069dc4aece6cf6d8e4913df450000";
 
 export function TrelloSignin() {
   const [actualKey, setKey] = useState("");
@@ -52,8 +51,7 @@ export function TrelloSignin() {
               className="principal__btn__color"
               onClick={ async () => {
                 const insert = await logToService(actualKey, '1');
-                if (insert == "Service token successfully loaded") {
-                  token = actualKey;
+                if (insert === "Service token successfully loaded") {
                   handleClose();
                   setKey("");
                 }
@@ -80,5 +78,5 @@ export function TrelloSignin() {
 }
 
 function TrelloOauth() {
-  window.open("https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=" + trelloKey);
+  window.open("https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read,write&response_type=token&key=" + trelloKey);
 }

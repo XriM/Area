@@ -163,7 +163,7 @@ function ProfileServices() {
                 <a><Image fluid={true} srcSet="https://ih1.redbubble.net/image.1121504414.0314/pp,840x830-pad,1000x1000,f8f8f8.jpg" style={{width: 50, height: '1rem', objectFit: 'cover'}}></Image>OneDrive</a>
               </Col>
               <Col md={1}>
-                <OutlookSignin/>
+              <Button className="principal__btn__color" onClick={ () => { navigate("/outlook-onedrive-profile") }}><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
               </Col>
             </Row>
             </div>

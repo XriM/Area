@@ -46,6 +46,7 @@ async function triggerReaction(reactionId, token, config)
             break;
 
         case 2:
+            await postCardTrello(token, config)
             break;
 
         case 3:
