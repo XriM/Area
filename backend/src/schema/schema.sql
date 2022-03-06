@@ -90,6 +90,7 @@ INSERT INTO actions (name) VALUES ('Weather changed');
 INSERT INTO actions (name) VALUES ('Steam players changed');
 INSERT INTO actions (name) VALUES ('CryptoCurrency price changed');
 INSERT INTO actions (name) VALUES ('File added');
+INSERT INTO actions (name) VALUES ('New youtube video');
 
 INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test1');
 INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test2');
@@ -112,3 +113,4 @@ INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM servi
 INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Steam'), (SELECT id FROM actions WHERE name = 'Steam players changed'));
 INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Crypto'), (SELECT id FROM actions WHERE name = 'CryptoCurrency price changed'));
 INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Outlook'), (SELECT id FROM actions WHERE name = 'File added'));
+INSERT INTO service_action (service_id, action_id) VALUES ((SELECT id FROM services WHERE name = 'Youtube'), (SELECT id FROM actions WHERE name = 'New youtube video'));
