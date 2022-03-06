@@ -64,8 +64,10 @@ exports.postArea = async (req, res) => {
   reactionRes = reactionRes.rows[0];
   console.log(reactionRes)
   console.log("user id: " + userId.rows[0].id)
-  const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, actionRes.id]);
-  const reactionServiceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, reactionRes.id]);
+  const actionServiceId = await pool.query('SELECT * FROM service_action WHERE action_id = $1', [actionId])
+  const reactionServiceId = await pool.query('SELECT * FROM service_reaction WHERE reaction_id = $1', [reactionId])
+  const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, actionServiceId.rows[0].service_id]);
+  const reactionServiceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, reactionServiceId.rows[0].service_id]);
   switch (actionRes.name) {
     case 'Received email':
       createOutlookHook(req, serviceToken, result, userId, res)
