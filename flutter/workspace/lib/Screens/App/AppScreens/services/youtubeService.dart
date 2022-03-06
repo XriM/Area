@@ -26,6 +26,7 @@ class YoutubeServiceForm extends StatelessWidget {
         final user = await GoogleSignInApi.login();
 
         user!.authentication.then((googleKey) {
+          print("GOOGLE TOKEN");
           print(googleKey.accessToken);
           globals.googleToken = googleKey.accessToken;
           // print(googleKey.idToken);

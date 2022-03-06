@@ -3,7 +3,8 @@ const { pool } = require('../dbConfig')
 exports.about = async (req, res) => {
     let json = {client: {}, server: {}}
     json.client = req.socket.remoteAddress
-    json.server = {current_time: 0, services: []}
+    const secondsSinceEpoch = Math.round(Date.now() / 1000)
+    json.server = {current_time: secondsSinceEpoch, services: []}
     const services = await pool.query('SELECT * FROM services')
     for (const service of services.rows) {
         let actions = []
