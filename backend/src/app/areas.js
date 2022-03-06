@@ -43,19 +43,26 @@ exports.getArea = async (req, res) => {
 }
 
 exports.postArea = async (req, res) => {
-  //req.body = JSON.parse(JSON.stringify(req.body))
+  req.body = JSON.parse(JSON.stringify(req.body))
+  //req.body.config = JSON.parse(req.body.config)
+  console.log(req.body)
   if (req.user.username !== req.params.username) {
     return res.status(498).send({ message: 'Invalid token!' })
   }
   const userId = await pool.query('SELECT id FROM users WHERE username = $1', [req.user.username])
   const actionId = parseInt(req.body.action_id)
   const reactionId = parseInt(req.body.reaction_id)
+  console.log("actionid : " + actionId)
+  console.log("reactionid : " + reactionId)
   const areaName = req.body.name
+  console.log("name : " + areaName)
   const result = await pool.query('INSERT INTO areas (action_id, reaction_id, name) VALUES ($1, $2, $3) RETURNING *', [actionId, reactionId, areaName])
   let actionRes = await pool.query(`SELECT * FROM actions WHERE id = $1`, [actionId]);
   actionRes = actionRes.rows[0];
+  console.log(actionRes)
   let reactionRes = await pool.query(`SELECT * FROM reactions WHERE id = $1`, [reactionId]);
   reactionRes = reactionRes.rows[0];
+  console.log(reactionRes)
   console.log("user id: " + userId.rows[0].id)
   const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
   switch (actionRes.name) {
@@ -91,7 +98,7 @@ exports.postArea = async (req, res) => {
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
       checkIfSubscribe(req, res, serviceToken.rows[0].token, reactionId)
       break;
-      
+
       case 'Subreddit subscriber':
         console.log(serviceToken.rows)
         await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])

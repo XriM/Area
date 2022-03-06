@@ -73,8 +73,8 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This action triggers when you receive an <a style={{fontWeight: 'bold'}}>important</a> email. Please login to your account.
           <br/>
           <br/>
-          <Button variant="primary" className="principal__btn__color" style={{marginBottom: 20}}><FontAwesomeIcon icon={faLink} style={{color: 'white'}} onClick= { () => {
-            navigate('/outlook-onedrive-create');
+          <Button variant="primary" className="principal__btn__color" style={{marginBottom: 20}}><FontAwesomeIcon icon={faUser} style={{color: 'white'}} onClick= { () => {
+            navigate('/profile');
           }}/></Button>
         </Modal.Body>
         <Modal.Footer>
@@ -372,7 +372,7 @@ function Body() {
         <Modal.Header closeButton>
           <Modal.Title>Github configuration</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{textAlign: 'center'}}>This action triggers when something happens on a specific <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>link</a> of the repository you want to monitor and its <a style={{fontWeight: 'bold'}}>owner</a>. Please login to your account on your <a style={{fontWeight: 'bold'}}>profile</a> page.
+        <Modal.Body style={{textAlign: 'center'}}>This action triggers when something happens on a specific <a style={{fontWeight: 'bold'}}>repository</a>. Please enter the <a style={{fontWeight: 'bold'}}>name</a> of the repository you want to monitor and its <a style={{fontWeight: 'bold'}}>owner</a>. Please login to your account on your <a style={{fontWeight: 'bold'}}>profile</a> page.
           <br/>
           <br/>
           <Button variant="dark" className="principal__btn__color" onClick={() => { navigate('/profile') }}><FontAwesomeIcon icon={faUser} style={{color: 'white'}}/></Button>
@@ -380,7 +380,7 @@ function Body() {
           <br/>
           <Form>
             <Form.Group className="mb-3">
-              <FloatingLabel controlId="floatingInput" label="Repository link" className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Repository" className="mb-3">
               <Form.Control required type="text" value={actualRepo}
                 onChange={(e) => {
                   repoUrl = e.target.value;
@@ -546,7 +546,7 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This action triggers when an action happens on a folder of your <a style={{fontWeight: 'bold'}}>drive</a>. Leave the field blank if you wish to monitor all your OneDrive. Please login to your account.
           <br/>
           <br/>
-          <Button className="principal__btn__color" onClick={ () => { navigate("/onedrive") }}><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
+          <Button className="principal__btn__color" onClick={ () => { navigate("/profile") }}><FontAwesomeIcon icon={faUser} style={{color: 'white'}}/></Button>
           <br/>
           <br/>
           <Form>
@@ -1113,13 +1113,18 @@ function Body() {
     <Row>
       <Col md={12} className="centered__bottom__buttons">
         <Button variant="primary" className="secondary__btn__color" style={{marginBottom: 20}} onClick= { async () => {
-          const result = await createArea(config, name, actionId, reactionId);
-
-          if (result === 0) {
-            alert("Area successfully created.");
-            navigate("/triggers");
+          if (config !== {} && name !== '' && actionId !== '' && reactionId !== '') {
+            const result = await createArea(config, name, actionId, reactionId);
+            if (result === 0) {
+              alert("Area successfully created.");
+              navigate("/triggers");
+            }
+            setName("");
+            config = {};
+            actionId = '';
+            reactionId = '';
+            name = '';
           }
-          setName("");
         }}>Add an AREA</Button>
       </Col>
     </Row>

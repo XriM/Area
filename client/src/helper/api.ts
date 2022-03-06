@@ -412,11 +412,11 @@ export async function getAreas() {
     })
     .then((res) => {
       console.log(res);
-      for (let i = 0; i < res.data.length; i++) {
-        areas.id.push(res.data[i].id);
-        areas.name.push(res.data[i].name);
-        areas.action.push(res.data[i].action.name);
-        areas.reaction.push(res.data[i].reaction.name);
+      for (let i = 0; i < res.data.areas.length; i++) {
+        areas.id.push(res.data.areas[i].id);
+        areas.name.push(res.data.areas[i].name);
+        areas.action.push(res.data.areas[i].action.name);
+        areas.reaction.push(res.data.areas[i].reaction.name);
       }
     })
     .catch((error) => {
@@ -458,9 +458,7 @@ export async function createArea(params : any, name : string, actionId : string,
     action_id: actionId,
     reaction_id: reactionId,
     name: name,
-    config:{
-      params
-	  }
+    config: params
   }
   let usernameLogged = window.sessionStorage.getItem("username");
   let token = window.sessionStorage.getItem("token");
