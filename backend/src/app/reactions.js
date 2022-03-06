@@ -10,7 +10,7 @@ exports.sendDiscordMessage = async(token, config) => {
   const embed = new MessageEmbed()
 	.setTitle('Area-Notification')
 	.setColor('#0099ff')
-
+  console.log("SALUT JE SUIS DANS DISCORD" + config)
   try {
     webhookClient.send({
       content: 'Reaction triggered',

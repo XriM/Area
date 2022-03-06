@@ -3,7 +3,7 @@ const axios = require('axios');
 const fetch = require('node-fetch');
 const { TokenExpiredError } = require('jsonwebtoken');
 const { user } = require('pg/lib/defaults');
-const { sendEmailOutlook } = require('./reactions');
+const { sendEmailOutlook, sendDiscordMessage } = require('./reactions');
 const { config } = require('dotenv');
 const { env } = require('dotenv').config()
 //const { json } = require('stream/consumers');
@@ -135,12 +135,11 @@ exports.createGitHubHook = async (req, serviceToken, result, userId, res) => {
       }
     })
     let config = req.body.config
-    console.log(resultat.data)
-    req.body.config.subscriptionId = resultat.data.repository.id
+    //req.body.config.subscriptionId = resultat.data.repository.id
     const conf = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, config])
     console.log(conf.rows[0])
   } catch (err) {
-    console.log(err)
+    //console.log(err)
     //console.log(err.response.data.error)
   }
   res.status(200).send({ message: 'Area successfully created' })
@@ -209,10 +208,10 @@ exports.hookHandler = async (req, res) => {
     }
   }
   if ('action' in body) {
-    const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.repository.id}'`
+    console.log(body.repository.name)
+    const query = `SELECT * FROM user_area WHERE config ->> 'github' = '${body.repository.name}'`
     const user = await pool.query(query)
-    console.log(user.rows)
-    if (!('config' in user.rows))
+    if (!('config' in user.rows[0]))
       return
     config = user.rows[0].config
     const area = await pool.query('SELECT * FROM areas WHERE id = $1', [user.rows[0].user_id])
@@ -225,5 +224,9 @@ exports.hookHandler = async (req, res) => {
     case 1:
       sendEmailOutlook(token, config)
       break;
+    case 4:
+      sendDiscordMessage(token, config)
+      break;
+
   }
 }

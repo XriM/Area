@@ -115,7 +115,8 @@ exports.checkIfCrypto = async (req, res, token, reactionId) => {
 }
 
 exports.checkIfSteam = async (req, res, token, reactionId) => {
-    req.body.config = JSON.parse(req.body.config)
+    //req.body.config = JSON.parse(req.body.config)
+    console.log(req.body.config)
     res.status(200).send({ message: 'Area successfully created' })
     cron.schedule('*/2 * * * *', async () => {
         try {

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { NavbarLogged, signout, getUser, TrelloSignin, GithubSignin,
-  RedditSignin, YoutubeSignin } from "..";
+  RedditSignin, YoutubeSignin, OutlookSignin } from "..";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
@@ -163,7 +163,7 @@ function ProfileServices() {
                 <a><Image fluid={true} srcSet="https://ih1.redbubble.net/image.1121504414.0314/pp,840x830-pad,1000x1000,f8f8f8.jpg" style={{width: 50, height: '1rem', objectFit: 'cover'}}></Image>OneDrive</a>
               </Col>
               <Col md={1}>
-                <Button className="principal__btn__color" onClick={ () => { navigate("/outlook-onedrive-profile") }}><FontAwesomeIcon icon={faLink} style={{color: 'white'}}/></Button>
+                <OutlookSignin/>
               </Col>
             </Row>
             </div>

@@ -115,6 +115,7 @@ function Body() {
     {Areas}
 
     </CardGroup>
+    <br/><br/><br/>
     </>
   );
 }
