@@ -380,7 +380,7 @@ function Body() {
           <br/>
           <Form>
             <Form.Group className="mb-3">
-              <FloatingLabel controlId="floatingInput" label="Repository" className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Repository name" className="mb-3">
               <Form.Control required type="text" value={actualRepo}
                 onChange={(e) => {
                   repoUrl = e.target.value;
@@ -591,11 +591,9 @@ function Body() {
 
     const [actualTitle, setTitle] = useState<string>("");
     const [actualDescription, setDescription] = useState<string>("");
-    const [actualBoard, setBoard] = useState<string>("");
     const [actualList, setList] = useState<string>("");
     var title : string = "";
     var description : string = "";
-    var board : string = "";
     var list : string = "";
 
     return (
@@ -608,23 +606,13 @@ function Body() {
         <Modal.Header closeButton>
           <Modal.Title>Trello configuration</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{textAlign: 'center'}}>This Reaction will create a card in the board and list you desire. Please login to your account. Then to find the board ID and list ID, go to your Trello board, add <a style={{fontWeight: 'bold'}}>.json</a> at the end, the first ID is the board ID and to find the list ID go to the field <a style={{fontWeight: 'bold'}}>actions</a> and you'll see all your lists.
+        <Modal.Body style={{textAlign: 'center'}}>This Reaction will create a card in the board and list you desire. Please login to your account. Then to find the list ID, go to your Trello board, add <a style={{fontWeight: 'bold'}}>.json</a> at the end, the list ID is in the field <a style={{fontWeight: 'bold'}}>lists</a> and you'll see all your lists.
           <br/>
           <br/>
           <TrelloSignin/>
           <br/>
           <br/>
           <Form>
-            <Form.Group className="mb-3">
-              <FloatingLabel controlId="floatingInput" label="Board ID" className="mb-3">
-              <Form.Control required type="text" value={actualBoard}
-                onChange={(e) => {
-                  board = e.target.value;
-                  setBoard(e.target.value);
-                }}
-              />
-              </FloatingLabel>
-            </Form.Group>
             <Form.Group className="mb-3">
               <FloatingLabel controlId="floatingInput" label="List ID" className="mb-3">
               <Form.Control required type="text" value={actualList}
@@ -645,16 +633,6 @@ function Body() {
               />
               </FloatingLabel>
             </Form.Group>
-
-            <Form.Group className="mb-3">
-              <FloatingLabel controlId="floatingTextarea" label="Description" className="mb-3">
-              <Form.Control as="textarea" value={actualDescription}
-                onChange={(e) => {
-                  description = e.target.value;
-                  setDescription(e.target.value);
-                }}/>
-              </FloatingLabel>
-            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -662,7 +640,6 @@ function Body() {
             onClick = { () => {
               reaction = "Add trello card";
               reactionId = "2";
-              config['idBoard'] = actualBoard;
               config['idList'] = actualList;
               config['name'] = actualTitle;
               config['description'] = actualDescription;
@@ -780,6 +757,11 @@ function Body() {
         <Modal.Body style={{textAlign: 'center'}}>This Reaction will send an <a style={{fontWeight: 'bold'}}>email</a> to any adress.
           <br/>
           <br/>
+          <Button variant="primary" className="principal__btn__color" style={{marginBottom: 20}}><FontAwesomeIcon icon={faUser} style={{color: 'white'}} onClick= { () => {
+            navigate('/profile');
+          }}/></Button>
+          <br/>
+          <br/>
           <Form>
             <Form.Group className="mb-3">
               <FloatingLabel controlId="floatingTextarea" label="Receiver email(s) -- separate each email by a ," className="mb-3">
@@ -831,8 +813,14 @@ function Body() {
             onClick = { () => {
               reaction = "Send email";
               reactionId = "1";
-              config['to'] = actualReceiver;
-              config['cc'] = actualCopy;
+              let toArray : string[] = actualReceiver.split(",");
+              let to : string[] = [];
+              to.push(...toArray);
+              config['to'] = to;
+              let ccArray : string[] = actualCopy.split(",");
+              let cc : string[] = [];
+              cc.push(...ccArray);
+              config['cc'] = cc;
               config['subject'] = actualSubject;
               config['message'] = actualMessage;
               handleClose();
@@ -886,7 +874,7 @@ function Body() {
           <br/>
           <Form>
             <Form.Group className="mb-3">
-              <FloatingLabel controlId="floatingInput" label="Repository link" className="mb-3">
+              <FloatingLabel controlId="floatingInput" label="Repository name" className="mb-3">
               <Form.Control required type="text" value={actualRepo}
                 onChange={(e) => {
                   repoUrl = e.target.value;
@@ -941,7 +929,7 @@ function Body() {
               config['message'] = actualMessage;
               handleClose();
             }}>
-              Select Action
+              Select Reaction
             </Button>
             <Button variant="primary" style={{marginLeft: 5}} className="principal__cancel__color" onClick = { () => {
               setRepo("");

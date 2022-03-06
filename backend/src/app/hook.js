@@ -37,7 +37,7 @@ exports.createOutlookHook = async (req, serviceToken, result, userId, res) => {
     //let config = req.body.config
     //console.log("id: " + resSub.data.id)
     //config.subscriptionId = resSub.data.id
-    
+
     console.log(config)
     const data = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, config])
     console.log(data.rows)

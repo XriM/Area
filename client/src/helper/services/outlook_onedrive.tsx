@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 
-var clientId = "dee479f7-7be3-49a8-a238-71bf50de2175 ";
-var secretId = "2e88322a-c579-45ce-95b9-5788c7f7072c";
-var clientSecret = "Re47Q~hMlvpAZ7BN8SnBIChQK4SMEIFvgv1XF";
+var clientId = "b0ffd704-b17f-46bd-9aa1-31d15f6a7795";
+var clientSecret = "_wM7Q~fQR9T.08lSpO8e~PeBAQrVjFem6vzcX";
+var tenantId = "901cb4ca-b862-4029-9306-e5cd0f6d9f86";
 
 export function OutlookSignin() {
   let navigate = useNavigate();
@@ -19,7 +19,7 @@ export function OutlookSignin() {
 
   // const config = {
   //   auth: {
-  //     authority: 'https://login.microsoftonline.com/901cb4ca-b862-4029-9306-e5cd0f6d9f86',
+  //     authority: 'https://login.microsoftonline.com/' + tenantId,
   //     clientId: clientId,
   //     redirectUri: 'http://localhost:3000/profile',
   //     navigateToLoginRequestUrl: true
@@ -37,12 +37,12 @@ export function OutlookSignin() {
   //     'email',
   //     'openid',
   //     'profile',
-  //     ' https://graph.microsoft.com/IMAP.AccessAsUser.All',
-  //     ' https://graph.microsoft.com/Mail.Read',
-  //     ' https://graph.microsoft.com/Mail.ReadBasic',
-  //     ' https://graph.microsoft.com/Mail.ReadWrite',
-  //     ' https://graph.microsoft.com/Mail.Send',
-  //     ' https://graph.microsoft.com/Files.ReadWrite.All'
+  //     'https://graph.microsoft.com/IMAP.AccessAsUser.All',
+  //     'https://graph.microsoft.com/Mail.Read',
+  //     'https://graph.microsoft.com/Mail.ReadBasic',
+  //     'https://graph.microsoft.com/Mail.ReadWrite',
+  //     'https://graph.microsoft.com/Mail.Send',
+  //     'https://graph.microsoft.com/Files.ReadWrite.All'
   //   ]
   // }
 
@@ -84,32 +84,32 @@ export function OutlookSignin() {
   //   </>
   // );
 
-//   useEffect(() => {
-//     async function getCodeGithub() {
-//       if (window.location.href.includes("code=") === true && window.sessionStorage.getItem("oauth") === "outlook") {
-//         const url = new URL(window.location.href);
-//         let code = url.searchParams.get("code");
-//         const params = {
-//           token: code,
-//         };
+  useEffect(() => {
+    async function getCodeGithub() {
+      if (window.location.href.includes("code=") === true && window.sessionStorage.getItem("oauth") === "outlook") {
+        const url = new URL(window.location.href);
+        let code = url.searchParams.get("code");
+        const params = {
+          token: code,
+        };
 
-//         await axios
-//           .post("http://localhost:8000/users/" + usernameLogged + "/services/7", params, {
-//             headers: {
-//               Authorization: "Bearer " + accessToken,
-//             },
-//           })
-//           .then((res) => {
-//             console.log(res);
-//             navigate("/profile");
-//           })
-//           .catch((error) => {
-//             console.log(error);
-//           })
-//       }
-//     }
-//     getCodeGithub();
-//   }, [])
+        await axios
+          .post("http://localhost:8000/users/" + usernameLogged + "/services/7", params, {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            navigate("/profile");
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
+    }
+    getCodeGithub();
+  }, [])
 
   return (
     <>

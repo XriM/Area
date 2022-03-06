@@ -28,6 +28,7 @@ exports.sendGitIssue = async(token, config) => {
     "title": config.title,
     "body": config.message
   }), headers: { Authorization: "Token " + token}}).then(() => {
+    console.log("nik zebi")
     return
   }).catch((error) => {
     console.error('Error posting the issue')
@@ -74,16 +75,16 @@ exports.sendEmailOutlook = async (token, config) => {
 }
 
 exports.postCardTrello = async (token, config) => {
-  let idList = config.rows[0].config.trello.idList;
+  let idList = config.idList;
   let key = process.env.TRELLO_KEY;
 
   const result = await axios
-    .get('https://api.trello.com/1/cards?key=' + key + '&idList=' + idList + '&token=' + token + '&name=' + config.name)
+    .post('https://api.trello.com/1/cards?key=' + key + '&idList=' + idList + '&token=' + token + '&name=' + config.name)
     .then(response => {
       console.log(
         `Response: ${response.status} ${response.statusText}`
       );
-      return response.text();
+      return response;
     })
     .then((response) => {
       console.log(response);
