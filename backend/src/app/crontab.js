@@ -177,26 +177,29 @@ exports.checkIfNewVideo = async (req, res, token, reactionToken, reactionId) => 
     }
     let videos = ""
     cron.schedule('*/5 * * * * *', () => {
-        axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
+        axios.get("https://www.googleapis.com/youtube/v3/search?part=snippet&q=SQUEEZIE&maxResults=1&type=channel", {
             headers: {
               Authorization: "Bearer " + token,
             },
           }).then(result => {
-            console.log(result.data)
-            subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
-            if (subscribers === "") {
-                subscribers = subscriberCount;
-            }
-            console.log(subscriberCount + " is now")
-            console.log(subscribers + " was before")
-            if (subscribers !== subscriberCount) {
-                console.log("more subs" + subscriberCount);
-                triggerReaction(reactionId, reactionToken, req.body.config)
-                //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
-            }
-            subscribers = subscriberCount;
+              axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${result.items[0].id.channelId}&maxResults=1`, {
+                  headers: {
+                    Authorization: "Bearer " + token,
+                  }
+              }).then(last => {
+                  if (videos === "") {
+                      videos = last.items[0].statistics.videoCount;
+                  }
+                  console.log(videos)
+                  if (videos !== last.items[0].statistics.videoCount) {
+                    triggerReaction(reactionId, reactionToken, req.body.config)
+                    //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
+                }
+              }).catch(error => {
+                  console.log(error)
+              })
         }).catch(error => {
-            console.log()
+            console.log(error)
         })
     });
 }
