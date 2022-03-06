@@ -67,9 +67,6 @@ exports.postArea = async (req, res) => {
   const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
   switch (actionRes.name) {
     case 'Received email':
-      if (req.body.device == 'flutter') {
-        req.body.config = JSON.parse(req.body.config)
-      }
       createOutlookHook(req, serviceToken, result, userId, res)
       break;
 

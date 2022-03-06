@@ -87,7 +87,7 @@ String youtubeId = '9';
 
 Future<Token> redditToken = fetchEmptyToken();
 
-String ngrokUri = '7f99-163-5-10-196.ngrok.io';
+String ngrokUri = '7dc7-163-5-10-196.ngrok.io';
 
 Text steamDescription = Text(
   "Get notified when there is currently an amount of players between 2 specified values for a specific Steam Game Id",

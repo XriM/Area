@@ -165,7 +165,7 @@ Map<String, dynamic> jsonCreatorArea() {
       tempBody.map((key, value) => MapEntry(key, value.toString()));
 
   finalBody = {
-    // "device": "flutter",
+    "device": "flutter",
     "action_id": actionId,
     "reaction_id": reactionId,
     "name": globals.serviceName + " + " + globals.reactionName,
