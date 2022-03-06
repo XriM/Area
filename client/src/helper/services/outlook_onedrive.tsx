@@ -27,7 +27,7 @@ export function OutlookSignin() {
         };
 
         await axios
-          .post("http://localhost:8000/users/" + usernameLogged + "/services/7", params, {
+          .post("http://localhost:8080/users/" + usernameLogged + "/services/7", params, {
             headers: {
               Authorization: "Bearer " + accessToken,
             },
@@ -56,5 +56,5 @@ export function OutlookSignin() {
 }
 
 async function GithubOauth() {
-  await window.location.replace("https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id="+clientId+"&response_type=code&redirect_uri=http://localhost:3000/profile&response_mode=query&scope=email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All&state=12345");
+  await window.location.replace("https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id="+clientId+"&response_type=code&redirect_uri=http://localhost:8081/profile&response_mode=query&scope=email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All&state=12345");
 }

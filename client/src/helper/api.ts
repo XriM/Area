@@ -5,7 +5,7 @@ import { User, UserResponse } from './types';
 // set axios params
 
 axios.defaults.withCredentials = true;
-const url = "http://localhost:8000";
+const url = "http://localhost:8080";
 
 function getError(error : any) {
   let message : string = "";
@@ -93,7 +93,7 @@ export async function google_signin(tokenId: string) {
   let signedIn: boolean = false;
 
   await axios
-  .post("http://localhost:8000/users/google_login", param)
+  .post("http://localhost:8080/users/google_login", param)
   .then((res) => {
     console.log(res);
     alert(

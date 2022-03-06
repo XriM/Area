@@ -15,7 +15,7 @@ exports.getOutlookToken = async (code) => {
     'code': code,
     'client_id': 'b0ffd704-b17f-46bd-9aa1-31d15f6a7795',
     'scope': 'email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All',
-    'redirect_uri': 'http://localhost:3000/profile',
+    'redirect_uri': 'http://localhost:8081/profile',
     'grant_type': 'authorization_code',
     'client_secret': '_wM7Q~fQR9T.08lSpO8e~PeBAQrVjFem6vzcX'
   });

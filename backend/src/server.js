@@ -33,7 +33,7 @@ const swaggerOptions = {
       version: '1.0.0',
       title: 'Area API',
       description: 'Area API Information',
-      servers: ['http://localhost:8000/'],
+      servers: ['http://localhost:8080/'],
     },
   },
   apis: ['./src/server.js'],
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:8081',
     credentials: true,
   })
 );

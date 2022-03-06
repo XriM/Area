@@ -26,7 +26,7 @@ export function RedditSignin(props : { where : string }) {
           };
 
           await axios
-          .post("http://localhost:8000/users/" + usernameLogged + "/services/2", params, {
+          .post("http://localhost:8080/users/" + usernameLogged + "/services/2", params, {
             headers: {
               Authorization: "Bearer " + accessToken,
             },
@@ -55,7 +55,7 @@ export function RedditSignin(props : { where : string }) {
   }
 
   async function RedditOauth() {
-    await window.location.replace("https://www.reddit.com/api/v1/authorize?client_id=wYjSwi69CLvtQFZU67KTVQ&response_type=code&state=issou&redirect_uri=http://localhost:3000/profile&duration=temporary&scope=identity,edit,flair,history,modconfig,modflair,modlog,modposts,modwiki,mysubreddits,privatemessages,read,report,save,submit,subscribe,vote,wikiedit,wikiread");
+    await window.location.replace("https://www.reddit.com/api/v1/authorize?client_id=wYjSwi69CLvtQFZU67KTVQ&response_type=code&state=issou&redirect_uri=http://localhost:8081/profile&duration=temporary&scope=identity,edit,flair,history,modconfig,modflair,modlog,modposts,modwiki,mysubreddits,privatemessages,read,report,save,submit,subscribe,vote,wikiedit,wikiread");
   }
 
   async function sendCode(code : string) {

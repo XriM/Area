@@ -60,7 +60,7 @@ class _GithubWebviewState extends State<GithubWebview> {
         body: WebView(
           javascriptMode: JavascriptMode.unrestricted,
           initialUrl:
-              'https://github.com/login/oauth/authorize?client_id=d05e9c2d8d588d4cb47c&redirect_uri=http://localhost:3000/profile&scope=repo,notifications,gist,user',
+              'https://github.com/login/oauth/authorize?client_id=d05e9c2d8d588d4cb47c&redirect_uri=http://localhost:8081/profile&scope=repo,notifications,gist,user',
           onWebViewCreated: (controller) {
             this.controller = controller;
           },

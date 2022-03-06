@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 
 var clientId = "364030105707-i3koe2sbo4ecf7km0ijenpstlav1khi5.apps.googleusercontent.com";
 var secret = "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";
-var redirectUri = "http://localhost:3000";
+var redirectUri = "http://localhost:8081";
 
 export function GoogleSignin() {
   let navigate = useNavigate();

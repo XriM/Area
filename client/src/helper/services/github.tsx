@@ -11,7 +11,7 @@ import { logToService } from "../api";
 var clientId = "d05e9c2d8d588d4cb47c";
 var secret = "8313b9cbdea767e6e0a6227333cd525845c9c5e8";
 var scopes = "repo,notifications,gist,user";
-var redirectUri = "http://localhost:3000/profile";
+var redirectUri = "http://localhost:8081/profile";
 
 var success : boolean = false;
 
@@ -31,7 +31,7 @@ export function GithubSignin(props : { where : string }) {
         };
 
         await axios
-          .post("http://localhost:8000/users/" + usernameLogged + "/services/6", params, {
+          .post("http://localhost:8080/users/" + usernameLogged + "/services/6", params, {
             headers: {
               Authorization: "Bearer " + accessToken,
             },
