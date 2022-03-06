@@ -4,7 +4,7 @@
 ## About
 | Url                                                               | Version | Contact                                                                       | Terms of Service                                                        | License                                                                 |
 | ----------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| [127.0.0.1:8080/](http://127.0.0.1:8080/ "API url") | 1.0.0   | [julian.ladjani@epitech.eu](mailto:julian.ladjani@epitech.eu "Contact Email") | [http://swagger.io/terms/](http://swagger.io/terms/ "Terms of Service") | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html "License") |
+| [127.0.0.1:8080/](http://127.0.0.1:8080/ "API url") | 1.0.0   | [area@epitech.eu](mailto:julian.ladjani@epitech.eu "Contact Email") | [http://swagger.io/terms/](http://swagger.io/terms/ "Terms of Service") | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html "License") |
 
 ## Introduction 👋
 
@@ -43,7 +43,7 @@ The application is similar to [Netvibes](https://www.netvibes.com/fr)
 
 ## How to launch the project? 📲
 
-1. Clone the project: `git clone https://github.com/Albert-Corson/area`
+1. Clone the project: `git clone https://github.com/XriM/area`
 
 Then run the following commands to start the app.
 
