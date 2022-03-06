@@ -28,8 +28,17 @@ exports.createOutlookHook = async (req, serviceToken, result, userId, res) => {
       }
     })
     console.log(resSub)
+    if (req.body.device == 'flutter') {
+      req.body.config = JSON.parse(req.body.config)
+    }
     let config = req.body.config
-    req.body.config.subscriptionId = resSub.data.id
+    console.log("id: " + resSub.data.id)
+    config.subscriptionId = resSub.data.id
+    //let config = req.body.config
+    //console.log("id: " + resSub.data.id)
+    //config.subscriptionId = resSub.data.id
+    
+    console.log(config)
     const data = await pool.query('INSERT INTO user_area (area_id, user_id, config) VALUES ($1, $2, $3) RETURNING *', [result.rows[0].id, userId.rows[0].id, config])
     console.log(data.rows)
   } catch (err) {
@@ -176,9 +185,11 @@ exports.hookHandler = async (req, res) => {
       console.log(body.value[0].subscriptionId)
       const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.value[0].subscriptionId}'`
       const user = await pool.query(query)
-      console.log(user.rows)
-      if (!('config' in user))
+      console.log(user.rows[0])
+      console.log("before")
+      if (!('config' in user.rows[0]))
         return
+      console.log("after")
       config = user.rows[0].config
       const tokenRes = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [user.rows[0].user_id])
       token = tokenRes.rows[0].token
