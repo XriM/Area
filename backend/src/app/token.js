@@ -10,11 +10,11 @@ const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
 exports.getOutlookToken = async (code) => {
   const outlookToken = await axios.get('https://login.microsoftonline.com/common/oauth2/v2.0/token', {
     'code': code,
-    'client_id': 'dee479f7-7be3-49a8-a238-71bf50de2175',
+    'client_id': 'e5427ba3-bbbd-4c91-b696-ff0a1d337e44',
     'scope': 'email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All',
     'redirect_uri': 'https://localhost/callback',
     'grant_type': 'authorization_code',
-    'client_secret': 'Re47Q~hMlvpAZ7BN8SnBIChQK4SMEIFvgv1XF',
+    'client_secret': 'WTr7Q~2ILsDGX5BG5jJfv8MoSSuJcu25TdmC2',
   });
   return outlookToken.access_token
 }

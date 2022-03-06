@@ -209,10 +209,10 @@ exports.hookHandler = async (req, res) => {
     }
   }
   if ('action' in body) {
-    console.log(body.value[0].subscriptionId)
-    const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.value[0].subscriptionId}'`
+    const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.repository.id}'`
     const user = await pool.query(query)
-    if (!('config' in user))
+    console.log(user.rows)
+    if (!('config' in user.rows))
       return
     config = user.rows[0].config
     const area = await pool.query('SELECT * FROM areas WHERE id = $1', [user.rows[0].user_id])
