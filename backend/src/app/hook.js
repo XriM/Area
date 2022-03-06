@@ -185,11 +185,8 @@ exports.hookHandler = async (req, res) => {
       console.log(body.value[0].subscriptionId)
       const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.value[0].subscriptionId}'`
       const user = await pool.query(query)
-      console.log(user.rows[0])
-      console.log("before")
       if (!('config' in user.rows[0]))
         return
-      console.log("after")
       config = user.rows[0].config
       const tokenRes = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [user.rows[0].user_id])
       token = tokenRes.rows[0].token
@@ -211,7 +208,7 @@ exports.hookHandler = async (req, res) => {
       console.log(body.value[0].subscriptionId)
       const query = `SELECT * FROM user_area WHERE config ->> 'subscriptionId' = '${body.value[0].subscriptionId}'`
       const user = await pool.query(query)
-      if (!('config' in user))
+      if (!('config' in user.rows[0]))
         return
       config = user.rows[0].config
       const tokenRes = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [user.rows[0].user_id])
