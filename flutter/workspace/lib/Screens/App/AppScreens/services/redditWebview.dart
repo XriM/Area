@@ -81,13 +81,14 @@ class _RedditWebviewState extends State<RedditWebview> {
               parsedToken =
                   parsedToken.substring(codeParameterIndex, parsedToken.length);
               parsedToken = parsedToken.substring(0, parsedToken.indexOf('#'));
-              globals.redditToken = fetchToken(parsedToken);
-              // Navigator.pushNamed(context, '/home');
+              globals.lastRedditToken = parsedToken;
+              // globals.redditToken = fetchToken(parsedToken);
               Navigator.pop(context);
-              print('---------------------------');
-              globals.redditToken.then(
-                  (value) => globals.lastRedditToken = value.getAccessToken);
-              print('---------------------------');
+              // Navigator.pushNamed(context, '/home');
+              // print('---------------------------');
+              // globals.redditToken.then(
+              //     (value) => globals.lastRedditToken = value.getAccessToken);
+              // print('---------------------------');
             }
           }),
     );
