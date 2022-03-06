@@ -89,7 +89,7 @@ String youtubeId = '9';
 
 Future<Token> redditToken = fetchEmptyToken();
 
-String ngrokUri = 'fbe9-163-5-10-196.ngrok.io';
+String ngrokUri = 'e433-163-5-10-196.ngrok.io';
 
 Text steamDescription = Text(
   "Get notified when there is currently an amount of players between 2 specified values for a specific Steam Game Id",
@@ -101,7 +101,7 @@ Text steamDescription = Text(
 );
 
 Text youtubeDescription = Text(
-  "youtube",
+  "Get notified when you get a sub !",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -110,7 +110,7 @@ Text youtubeDescription = Text(
 );
 
 Text actionOutlookDescription = Text(
-  "outlook",
+  "Outlook account to listen",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -119,7 +119,7 @@ Text actionOutlookDescription = Text(
 );
 
 Text actionGitDescription = Text(
-  "git",
+  "Github repo that we will listen to",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -128,7 +128,7 @@ Text actionGitDescription = Text(
 );
 
 Text cryptoDescription = Text(
-  "crypto",
+  "Currency and limit to check",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -137,7 +137,7 @@ Text cryptoDescription = Text(
 );
 
 Text weatherDescription = Text(
-  "weather",
+  "City and degrees Celcius",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -146,7 +146,7 @@ Text weatherDescription = Text(
 );
 
 Text discordDescription = Text(
-  "discord",
+  "Discord Webhook",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -155,7 +155,7 @@ Text discordDescription = Text(
 );
 
 Text redditDescription = Text(
-  "reddit",
+  "Rddit subreddit to follow",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -164,7 +164,7 @@ Text redditDescription = Text(
 );
 
 Text oneDriveDescription = Text(
-  "onedrive",
+  "One Drive to check",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -172,7 +172,7 @@ Text oneDriveDescription = Text(
   textAlign: TextAlign.justify,
 );
 Text reactionGitDescription = Text(
-  "git",
+  "Github repo that we will create an issue",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -180,7 +180,7 @@ Text reactionGitDescription = Text(
   textAlign: TextAlign.justify,
 );
 Text trelloDescription = Text(
-  "trello",
+  "Trello board where we will create a flag",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,
@@ -188,7 +188,7 @@ Text trelloDescription = Text(
   textAlign: TextAlign.justify,
 );
 Text reactionOutlookDescription = Text(
-  "outlook",
+  "Outlook email to send mail",
   style: TextStyle(
     fontSize: 16,
     color: Colors.white,

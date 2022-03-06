@@ -1,3 +1,4 @@
+import 'package:area_app/Screens/Api/delWidgets.dart';
 import 'package:area_app/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,10 @@ class _FirstScreenState extends State<FirstScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 1.1;
     double height = MediaQuery.of(context).size.height / 3.5;
+    deleteArea(String areaId) {
+      delWidgets(areaId);
+    }
+
     Icon getIconAction(String serviceName) {
       print('----------');
       print(serviceName);
@@ -30,49 +35,49 @@ class _FirstScreenState extends State<FirstScreen> {
           size: 40,
         );
       }
-      if (serviceName == 'Github') {
+      if (serviceName == 'GitHub repo stared') {
         return Icon(
           MdiIcons.github,
           color: Colors.white,
           size: 40,
         );
       }
-      if (serviceName == 'Weather') {
+      if (serviceName == 'Weather changed') {
         return Icon(
           MdiIcons.weatherRainy,
           color: Colors.white,
           size: 40,
         );
       }
-      if (serviceName == 'Crypto') {
+      if (serviceName == 'CryptoCurrency price changed') {
         return Icon(
           MdiIcons.bitcoin,
           color: Colors.white,
           size: 40,
         );
       }
-      if (serviceName == 'Outlook') {
+      if (serviceName == 'Received email') {
         return Icon(
           MdiIcons.microsoftOutlook,
           color: Colors.white,
           size: 40,
         );
       }
-      if (serviceName == 'Youtube') {
+      if (serviceName == 'Youtube subscribers changed') {
         return Icon(
           MdiIcons.youtube,
           color: Colors.white,
           size: 40,
         );
       }
-      if (serviceName == 'Reddit') {
+      if (serviceName == 'Subreddit subscriber') {
         return Icon(
           MdiIcons.reddit,
           color: Colors.white,
           size: 40,
         );
       }
-      if (serviceName == 'One Drive') {
+      if (serviceName == 'File added') {
         return Icon(
           MdiIcons.microsoftOnedrive,
           color: Colors.white,
@@ -91,7 +96,7 @@ class _FirstScreenState extends State<FirstScreen> {
     Icon getIconReaction(String reactionName) {
       print('----------');
       print(reactionName);
-      if (reactionName == 'Trello') {
+      if (reactionName == 'Add trello card') {
         return Icon(
           MdiIcons.trello,
           color: Colors.white,
@@ -105,14 +110,14 @@ class _FirstScreenState extends State<FirstScreen> {
           size: 40,
         );
       }
-      if (reactionName == 'Outlook') {
+      if (reactionName == 'Send email') {
         return Icon(
           MdiIcons.microsoftOutlook,
           color: Colors.white,
           size: 40,
         );
       }
-      if (reactionName == 'Github') {
+      if (reactionName == 'Send Git Issue') {
         return Icon(
           MdiIcons.github,
           color: Colors.white,
@@ -251,7 +256,17 @@ class _FirstScreenState extends State<FirstScreen> {
                                       style: ElevatedButton.styleFrom(
                                         primary: Colors.red,
                                       ),
-                                      onPressed: () => {},
+                                      onPressed: () => {
+                                            // print(snapshot.data!['areas'][index]
+                                            //         ['id']
+                                            //     .toString())
+                                            delWidgets(snapshot.data!['areas']
+                                                    [index]['id']
+                                                .toString())
+                                          },
+                                      // onPressed: deleteArea(snapshot
+                                      //     .data!['areas'][index]['id']
+                                      //     .toString()),
                                       icon: Icon(Icons.cancel_rounded),
                                       label: Text("CANCEL"))
                                 ],

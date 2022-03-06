@@ -69,7 +69,7 @@ class OutlookReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Outlook email',
+                  'Outlook email to send mail',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(

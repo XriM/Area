@@ -56,7 +56,7 @@ class DiscordReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Discord account',
+                  'Discord Webhook',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(

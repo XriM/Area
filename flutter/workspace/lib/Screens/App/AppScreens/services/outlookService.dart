@@ -55,7 +55,7 @@ class OutlookServiceForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Outlook',
+                  'Outlook account to listen',
                   style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w500,

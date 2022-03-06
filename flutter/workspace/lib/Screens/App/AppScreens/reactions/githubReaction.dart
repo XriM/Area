@@ -69,7 +69,7 @@ class GithubReactionForm extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Github repo that we will listen to',
+                  'Github repo that we will create an issue',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(
