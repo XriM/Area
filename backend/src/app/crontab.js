@@ -173,35 +173,35 @@ exports.checkIfSubscribe = async (req, res, token, reactionToken, reactionId) =>
     });
 }
 
-//exports.checkIfNewVideo = async (req, res, token, reactionId) => {
-//    if (req.body.device == 'flutter') {
-//        req.body.config = JSON.parse(req.body.config)
-//    }
-//    let videos = ""
-//    cron.schedule('*/5 * * * * *', () => {
-//        axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
-//            headers: {
-//              Authorization: "Bearer " + token,
-//            },
-//          }).then(result => {
-//            console.log(result.data)
-//            subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
-//            if (subscribers === "") {
-//                subscribers = subscriberCount;
-//            }
-//            console.log(subscriberCount + " is now")
-//            console.log(subscribers + " was before")
-//            if (subscribers !== subscriberCount) {
-//                console.log("more subs" + subscriberCount);
-//                triggerReaction(reactionId, token, req.body.config)
-//                //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
-//            }
-//            subscribers = subscriberCount;
-//        }).catch(error => {
-//            console.log()
-//        })
-//    });
-//}
+exports.checkIfNewVideo = async (req, res, token, reactionToken, reactionId) => {
+    if (req.body.device == 'flutter') {
+        req.body.config = JSON.parse(req.body.config)
+    }
+    let videos = ""
+    cron.schedule('*/5 * * * * *', () => {
+        axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }).then(result => {
+            console.log(result.data)
+            subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
+            if (subscribers === "") {
+                subscribers = subscriberCount;
+            }
+            console.log(subscriberCount + " is now")
+            console.log(subscribers + " was before")
+            if (subscribers !== subscriberCount) {
+                console.log("more subs" + subscriberCount);
+                triggerReaction(reactionId, reactionToken, req.body.config)
+                //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
+            }
+            subscribers = subscriberCount;
+        }).catch(error => {
+            console.log()
+        })
+    });
+}
 
 exports.checkIfReddit = async (req, res, token, reactionToken, reactionId) => {
     if (req.body.device == 'flutter') {

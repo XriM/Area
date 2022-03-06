@@ -1,7 +1,7 @@
 const { user } = require('pg/lib/defaults')
 const { pool } = require('../dbConfig')
 const axios = require('axios')
-const { checkIfWeather, checkIfSubscribe, checkIfSteam, checkIfCrypto, checkIfReddit } = require('./crontab')
+const { checkIfWeather, checkIfSubscribe, checkIfSteam, checkIfCrypto, checkIfReddit, checkIfNewVideo } = require('./crontab')
 const fetch = require('node-fetch')
 const { response } = require('express')
 const { env } = require('dotenv').config()
@@ -114,6 +114,10 @@ exports.postArea = async (req, res) => {
         await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
       checkIfReddit(req, res, serviceToken.rows[0].token, reactionServiceToken.rows[0].token, reactionId)
       break;
+
+    case 'New youtube video':
+      await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
+      checkIfNewVideo(req, res, serviceToken.rows[0].token, reactionServiceToken.rows[0].token, reactionId)
 
     default:
       res.status(404).send({ message: "Error parsing user's Areas"})
