@@ -135,29 +135,27 @@ exports.checkIfSubscribe = async (req, res, token, reactionId) => {
     //const key = await pool.query('SELECT token FROM user_services WHERE user_id = $1 AND service_id = NEED YOUTUBE SERVICE ID', [userId])
     let subscribers = "";
 
+    console.log(token)
+    res.status(200).send({ message: 'Area successfully created' })
     cron.schedule('*/2 * * * *', () => {
-        axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
+        const result = await axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
             headers: {
               Authorization: "Bearer " + token,
             },
-          }).then((result) => {
-            subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
-            if (subscribers === "") {
-                subscribers = subscriberCount;
-            }
-            console.log(subscriberCount + " is now")
-            console.log(subscribers + " was before")
-            if (subscribers !== subscriberCount) {
-                console.log("more subs" + subscriberCount);
-                triggerReaction(reactionId, token, req.body.config)
-                //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
-            }
+          })
+        console.log(result.data)
+        subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
+        if (subscribers === "") {
             subscribers = subscriberCount;
-          }).catch(error => {
-            console.log('Error to fetch userdata\n' + error);
-            res.status(404).send({message: 'Crontabs youtube error.'})
-          });
-    res.status(200).send({ message: 'Area successfully created' })
+        }
+        console.log(subscriberCount + " is now")
+        console.log(subscribers + " was before")
+        if (subscribers !== subscriberCount) {
+            console.log("more subs" + subscriberCount);
+            triggerReaction(reactionId, token, req.body.config)
+            //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
+        }
+        subscribers = subscriberCount;
     });
 }
 
