@@ -86,6 +86,29 @@ export async function signin(email: string, password: string) {
   return id;
 }
 
+export async function google_signin(tokenId: string) {
+  const param = {
+    id_token: tokenId
+  }
+  let signedIn: boolean = false;
+
+  await axios
+  .post("http://localhost:8000/users/google_login", param)
+  .then((res) => {
+    console.log(res);
+    alert(
+      res.data.message
+    );
+    window.sessionStorage.setItem("username", res.data.user);
+    window.sessionStorage.setItem("token", res.data.token);
+    signedIn = true;
+  })
+  .catch((error) => {
+    getError(error);
+  })
+  return signedIn;
+}
+
 export async function updateUser(email : string) {
   let new_email = "";
   let usernameLogged = window.sessionStorage.getItem("username");

@@ -105,6 +105,7 @@ exports.postUserService = async (req, res) => {
       await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 AND service_id = $3`, [req.body.token, userId.rows[0].id, service.rows[0].id])
     } else {
       var outlookToken = await getOutlookToken(req.body.token)
+      console.log("après la func: "+outlookToken)
       await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 AND service_id = $3`, [outlookToken, userId.rows[0].id, service.rows[0].id])
     }
   }

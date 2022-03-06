@@ -8,15 +8,36 @@ const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
 
 exports.getOutlookToken = async (code) => {
-  const outlookToken = await axios.get('https://login.microsoftonline.com/common/oauth2/v2.0/token', {
+  let token = '';
+  var axios = require('axios');
+  var qs = require('qs');
+  var data = qs.stringify({
     'code': code,
-    'client_id': 'ecbd6044-a055-4525-b98d-9882ff350c59',
+    'client_id': 'b0ffd704-b17f-46bd-9aa1-31d15f6a7795',
     'scope': 'email openid profile https://graph.microsoft.com/IMAP.AccessAsUser.All https://graph.microsoft.com/Mail.Read https://graph.microsoft.com/Mail.ReadBasic https://graph.microsoft.com/Mail.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Files.ReadWrite.All',
-    'redirect_uri': 'https://localhost/callback',
+    'redirect_uri': 'http://localhost:3000/profile',
     'grant_type': 'authorization_code',
-    'client_secret': '~mv7Q~voQrdE_CdqiBbB41GBOj-AZt1Qj~f01',
+    'client_secret': '_wM7Q~fQR9T.08lSpO8e~PeBAQrVjFem6vzcX'
   });
-  return outlookToken.access_token
+  var config = {
+    method: 'post',
+    url: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      // 'Cookie': 'fpc=AuDe8GTsKq5CvBhXfWn1CK8uyl36AQAAAMiFsdkOAAAA'
+    },
+    data : data
+  };
+
+  axios(config)
+  .then(function (response) {
+    token = JSON.stringify(response.data.access_token)
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  return token
 }
 
 exports.accessTokenGitHub = async (oldToken) => {

@@ -9,7 +9,7 @@ const axios = require('axios')
 const fetch = require('node-fetch')
 const querystring = require('query-string')
 const { getHookGitHub } =require('./hook')
-const { sendEmailOutlook, sendDiscordMessage, sendGitIssue } = require('./reactions')
+const { sendEmailOutlook, sendDiscordMessage, sendGitIssue, postCardTrello } = require('./reactions')
 const { error } = require('console')
 
 
@@ -146,7 +146,7 @@ exports.checkIfSubscribe = async (req, res, token, reactionToken, reactionId) =>
 
     console.log(token)
     res.status(200).send({ message: 'Area successfully created' })
-    cron.schedule('*/5 * * * * *', () => {
+    cron.schedule('*/2 * * * *', () => {
         axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
             headers: {
               Authorization: "Bearer " + token,
