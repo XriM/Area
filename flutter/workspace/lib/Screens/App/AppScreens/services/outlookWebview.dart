@@ -102,6 +102,9 @@ class _OotlookWebviewState extends State<OotlookWebview> {
     try {
       await oauth.login();
       var accessToken = await oauth.getAccessToken();
+      // print(accessToken);
+      debugPrint(accessToken);
+
       // showMessage('Logged in successfully, your access token: $accessToken');
       globals.ootCode = accessToken;
     } catch (e) {

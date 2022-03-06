@@ -2,8 +2,10 @@
 
 import 'dart:async';
 
+import 'package:area_app/Screens/App/AppScreens/services/trelloWebview.dart';
 import 'package:area_app/Screens/App/AppScreens/thenFilled.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:io';
@@ -12,16 +14,24 @@ import 'package:area_app/globals.dart' as globals;
 class TrelloReactionForm extends StatelessWidget {
   TrelloReactionForm({Key? key}) : super(key: key);
 
-  TextEditingController idBoard = TextEditingController();
+  TextEditingController accessToken = TextEditingController();
   TextEditingController idList = TextEditingController();
   TextEditingController name = TextEditingController();
-  TextEditingController description = TextEditingController();
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
+    _test() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => TrelloWebview(),
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -64,10 +74,10 @@ class TrelloReactionForm extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: idBoard,
+                controller: accessToken,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Board Id',
+                  labelText: 'Access Token',
                 ),
               ),
             ),
@@ -100,15 +110,12 @@ class TrelloReactionForm extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: description,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Description',
-                ),
-              ),
+            SizedBox(
+              height: 20,
+            ),
+            SignInButton(
+              Buttons.Email,
+              onPressed: _test,
             ),
             SizedBox(
               height: 20,
@@ -121,11 +128,11 @@ class TrelloReactionForm extends StatelessWidget {
                 globals.reactionName = globals.trelloValues[0] as String;
                 globals.reactionColor = globals.trelloColor;
                 // globals.reactionPara = _email.text;
+                // globals.trelloToken = {'token': accessToken.text};
+                globals.trellToken = accessToken.text;
                 globals.trelloPara = {
-                  "\"idBoard\"": "\"" + idBoard.text + "\"",
                   "\"idList\"": "\"" + idList.text + "\"",
                   "\"name\"": "\"" + name.text + "\"",
-                  "\"description\"": "\"" + description.text + "\""
                 };
                 Navigator.push(
                   context,

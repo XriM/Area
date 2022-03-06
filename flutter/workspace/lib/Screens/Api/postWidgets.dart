@@ -202,7 +202,7 @@ Map<String, dynamic> jsonCreatorServiceA(String serviceName) {
 Map<String, dynamic> jsonCreatorServiceR(String reactionName) {
   Map<String, dynamic> body = {};
 
-  if (globals.reactionName == 'Trello') body = {};
+  if (globals.reactionName == 'Trello') body = {'token': globals.trellToken};
   if (globals.reactionName == 'Discord') body = {};
   if (globals.reactionName == 'Outlook') body = {'token': globals.ootCode};
   if (globals.reactionName == 'Github') body = {'token': globals.githCode};

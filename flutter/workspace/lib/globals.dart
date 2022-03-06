@@ -25,6 +25,7 @@ var ootCode;
 var googleToken;
 var lastRedditToken;
 var googleIdToken;
+var trellToken;
 
 var outlookValues = ['Outlook'];
 var outlookValuesId = '1';
@@ -45,6 +46,7 @@ var oneDriveValuesId = '8';
 Map<String, dynamic> steamPara = {};
 Map<String, dynamic> githubPara = {};
 Map<String, dynamic> githubToken = {};
+Map<String, dynamic> trelloToken = {};
 Map<String, dynamic> weatherPara = {};
 Map<String, dynamic> cryptoPara = {};
 Map<String, dynamic> outlookPara = {};
@@ -87,7 +89,7 @@ String youtubeId = '9';
 
 Future<Token> redditToken = fetchEmptyToken();
 
-String ngrokUri = '7dc7-163-5-10-196.ngrok.io';
+String ngrokUri = 'fbe9-163-5-10-196.ngrok.io';
 
 Text steamDescription = Text(
   "Get notified when there is currently an amount of players between 2 specified values for a specific Steam Game Id",

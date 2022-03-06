@@ -64,9 +64,6 @@ async function triggerReaction(reactionId, token, config)
 }
 
 exports.checkIfWeather = async (req, res, token, reactionToken, reactionId) => {
-    if (req.body.device == 'flutter') {
-        req.body.config = JSON.parse(req.body.config)
-    }
     const city = req.body.config.city
     const temp_min = parseInt(req.body.config.temp_min)
     const temp_max = parseInt(req.body.config.temp_max)
