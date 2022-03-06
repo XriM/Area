@@ -4,13 +4,11 @@
 ## About
 | Url                                                               | Version | Contact                                                                       | Terms of Service                                                        | License                                                                 |
 | ----------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| [127.0.0.1:8080/](http://127.0.0.1:8080/ "API url") | 1.0.0   | [area@epitech.eu](mailto:julian.ladjani@epitech.eu "Contact Email") | [http://swagger.io/terms/](http://swagger.io/terms/ "Terms of Service") | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html "License") |
+| [127.0.0.1:8080/](http://127.0.0.1:8080/ "API url") | 1.0.0   | [area@epitech.eu](mailto:julian.ladjani@epitech.eu "Contact Email") | [http://swagger.io/terms/](http://localhost:8080/api-docs "API docs") | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html "License") |
 
 ## Introduction 👋
 
-The goal of this project is to make a dashboard-style web app to gather feeds from multiple external APIs and centralize them into one interface.
-
-The application is similar to [Netvibes](https://www.netvibes.com/fr)
+The goal of this project is to make a action-reaction web app to gather areas from multiple triggers APIs.
 
 
 ## The project 🚀
