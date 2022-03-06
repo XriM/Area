@@ -197,3 +197,11 @@ exports.checkIfReddit = async (req, res, token, reactionId) => {
         res.status(200).send({ message: 'Area successfully created' })
     });
 }
+
+exports.checkIfIntra = async (req, res, token, reactionId) => {
+    req.body.config = JSON.parse(req.body.config)
+    res.status(200).send({ message: 'Area successfully created' })
+    //cron.schedule('*/2 * * * *'), () => {
+    //    axios.get()
+    //}
+}

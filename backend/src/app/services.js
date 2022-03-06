@@ -101,8 +101,12 @@ exports.postUserService = async (req, res) => {
     await pool.query(`UPDATE user_service SET service_config = $1 WHERE user_id = $2 AND service_id = $3`, [{email: await getGmailAddress(userService.rows[0])}, userId.rows[0].id, serviceId.rows[0].id]);
   }
   if (service.rows[0].name == 'Outlook') {
-    var outlookToken = await getOutlookToken(req.body.token)
-    await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 AND service_id = $3`, [outlookToken, userId.rows[0].id, service.rows[0].id])
+    if (req.body.token[0] == 'e' && req.body.token[1] == 'y') {
+      await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 AND service_id = $3`, [req.body.token, userId.rows[0].id, service.rows[0].id])
+    } else {
+      var outlookToken = await getOutlookToken(req.body.token)
+      await pool.query(`UPDATE user_service SET token = $1 WHERE user_id = $2 AND service_id = $3`, [outlookToken, userId.rows[0].id, service.rows[0].id])
+    }
   }
   if (service.rows[0].name == 'GitHub') {
     console.log('req.body.token:')
