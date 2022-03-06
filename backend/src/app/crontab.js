@@ -62,7 +62,7 @@ async function triggerReaction(reactionId, token, config)
     return true
 }
 
-exports.checkIfWeather = async (req, res, token, reactionId) => {
+exports.checkIfWeather = async (req, res, token, reactionToken, reactionId) => {
     if (req.body.device == 'flutter') {
         req.body.config = JSON.parse(req.body.config)
     }
@@ -84,13 +84,13 @@ exports.checkIfWeather = async (req, res, token, reactionId) => {
         weather.getSmartJSON(function(err, smart) {
             console.log(smart) //debug
             if (parseInt(smart.temp) < temp_min || parseInt(smart.temp) > temp_max) {
-                triggerReaction(reactionId, token, req.body.config)
+                triggerReaction(reactionId, reactionToken, req.body.config)
             }
         })
     })
 }
 
-exports.checkIfCrypto = async (req, res, token, reactionId) => {
+exports.checkIfCrypto = async (req, res, token, reactionToken, reactionId) => {
     if (req.body.device == 'flutter') {
         req.body.config = JSON.parse(req.body.config)
     }
@@ -108,7 +108,7 @@ exports.checkIfCrypto = async (req, res, token, reactionId) => {
         kraken.fetchOHLCV(pair, '1m').then(data  => {
             res = parseFloat(data[0][1])
             if (value_min > res || value_max < res) {
-                triggerReaction(reactionId, token, req.body.config)
+                triggerReaction(reactionId, reactionToken, req.body.config)
             }
             console.log(data)
         }).catch(error => {
@@ -118,7 +118,7 @@ exports.checkIfCrypto = async (req, res, token, reactionId) => {
     })
 }
 
-exports.checkIfSteam = async (req, res, token, reactionId) => {
+exports.checkIfSteam = async (req, res, token, reactionToken, reactionId) => {
     //req.body.config = JSON.parse(req.body.config)
     if (req.body.device == 'flutter') {
         req.body.config = JSON.parse(req.body.config)
@@ -131,7 +131,7 @@ exports.checkIfSteam = async (req, res, token, reactionId) => {
                 params: { "appid": req.body.config.steam }
             })
             if (result.data.response.player_count < req.body.config.players_min || result.data.response.player_count > req.body.config.players_max) {
-                triggerReaction(reactionId, token, req.body.config)
+                triggerReaction(reactionId, reactionToken, req.body.config)
             }
         } catch (err) {
             throw err;
@@ -139,7 +139,7 @@ exports.checkIfSteam = async (req, res, token, reactionId) => {
     })
 }
 
-exports.checkIfSubscribe = async (req, res, token, reactionId) => {
+exports.checkIfSubscribe = async (req, res, token, reactionToken, reactionId) => {
     if (req.body.device == 'flutter') {
         req.body.config = JSON.parse(req.body.config)
     }
@@ -163,7 +163,7 @@ exports.checkIfSubscribe = async (req, res, token, reactionId) => {
             console.log(subscribers + " was before")
             if (subscribers !== subscriberCount) {
                 console.log("more subs" + subscriberCount);
-                triggerReaction(reactionId, token, req.body.config)
+                triggerReaction(reactionId, reactionToken, req.body.config)
                 //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
             }
             subscribers = subscriberCount;
@@ -172,6 +172,36 @@ exports.checkIfSubscribe = async (req, res, token, reactionId) => {
         })
     });
 }
+
+//exports.checkIfNewVideo = async (req, res, token, reactionId) => {
+//    if (req.body.device == 'flutter') {
+//        req.body.config = JSON.parse(req.body.config)
+//    }
+//    let videos = ""
+//    cron.schedule('*/5 * * * * *', () => {
+//        axios.get("https://www.googleapis.com/youtube/v3/channels?part=statistics&part=brandingSettings&mine=true", {
+//            headers: {
+//              Authorization: "Bearer " + token,
+//            },
+//          }).then(result => {
+//            console.log(result.data)
+//            subscriberCount = result.data["items"][0]["statistics"]["subscriberCount"];
+//            if (subscribers === "") {
+//                subscribers = subscriberCount;
+//            }
+//            console.log(subscriberCount + " is now")
+//            console.log(subscribers + " was before")
+//            if (subscribers !== subscriberCount) {
+//                console.log("more subs" + subscriberCount);
+//                triggerReaction(reactionId, token, req.body.config)
+//                //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
+//            }
+//            subscribers = subscriberCount;
+//        }).catch(error => {
+//            console.log()
+//        })
+//    });
+//}
 
 exports.checkIfReddit = async (req, res, token, reactionId) => {
     if (req.body.device == 'flutter') {
@@ -198,7 +228,7 @@ exports.checkIfReddit = async (req, res, token, reactionId) => {
             console.log(subscribers + " was before")
             if (subscribers !== subscriberCount) {
                 console.log("more subs" + subscriberCount);
-                triggerReaction(reactionId, token, req.body.config)
+                triggerReaction(reactionId, reactionToken, req.body.config)
                 //getIdsFromActionAndData("Youtube subscribers changed", subscriberCount)
             }
             subscribers = subscriberCount;
@@ -210,12 +240,12 @@ exports.checkIfReddit = async (req, res, token, reactionId) => {
     });
 }
 
-exports.checkIfIntra = async (req, res, token, reactionId) => {
-    if (req.body.device == 'flutter') {
-        req.body.config = JSON.parse(req.body.config)
-    }
-    res.status(200).send({ message: 'Area successfully created' })
-    //cron.schedule('*/2 * * * *'), () => {
-    //    axios.get()
-    //}
-}
+//exports.checkIfIntra = async (req, res, token, reactionId) => {
+//    if (req.body.device == 'flutter') {
+//        req.body.config = JSON.parse(req.body.config)
+//    }
+//    res.status(200).send({ message: 'Area successfully created' })
+//    //cron.schedule('*/2 * * * *'), () => {
+//    //    axios.get()
+//    //}
+//}

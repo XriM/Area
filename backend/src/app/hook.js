@@ -162,6 +162,7 @@ exports.hookHandler = async (req, res) => {
   let reaction_id
   let config
   let token
+  let reactionToken
   console.log(body)
   if ('message' in  body) {
     console.log('Gmail push notification: ')
@@ -189,6 +190,8 @@ exports.hookHandler = async (req, res) => {
       })
       const area = await pool.query('SELECT * FROM areas WHERE id = $1', [user.rows[0].user_id])
       reaction_id = area.rows[0].reaction_id
+      const reactionService = await pool.query('SELECT * FROM service_reaction WHERE reaction_id = $1', [reaction_id])
+      reactionToken = await pool.query('SELECT * FROM user_service WHERE user_id = $1 AND service_id = $2', [user.rows[0].user_id, reactionService.rows[0].service_id])
       console.log(messageRes.data.from.emailAddress.address)
       console.log(config.email)
       if (messageRes.data.from.emailAddress.address == config.email)
@@ -204,6 +207,8 @@ exports.hookHandler = async (req, res) => {
       token = tokenRes.rows[0].token
       const area = await pool.query('SELECT * FROM areas WHERE id = $1', [user.rows[0].user_id])
       reaction_id = area.rows[0].reaction_id
+      const reactionService = await pool.query('SELECT * FROM service_reaction WHERE reaction_id = $1', [reaction_id])
+      reactionToken = await pool.query('SELECT * FROM user_service WHERE user_id = $1 AND service_id = $2', [user.rows[0].user_id, reactionService.rows[0].service_id])
       triggered = true
     }
   }
@@ -216,16 +221,18 @@ exports.hookHandler = async (req, res) => {
     config = user.rows[0].config
     const area = await pool.query('SELECT * FROM areas WHERE id = $1', [user.rows[0].user_id])
     reaction_id = area.rows[0].reaction_id
+    const reactionService = await pool.query('SELECT * FROM service_reaction WHERE reaction_id = $1', [reaction_id])
+    reactionToken = await pool.query('SELECT * FROM user_service WHERE user_id = $1 AND service_id = $2', [user.rows[0].user_id, reactionService.rows[0].service_id])
     triggered = true
   }
   if (!triggered)
     return
   switch (reaction_id) {
     case 1:
-      sendEmailOutlook(token, config)
+      sendEmailOutlook(reactionToken, config)
       break;
     case 4:
-      sendDiscordMessage(token, config)
+      sendDiscordMessage(reactionToken, config)
       break;
 
   }

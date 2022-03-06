@@ -64,7 +64,8 @@ exports.postArea = async (req, res) => {
   reactionRes = reactionRes.rows[0];
   console.log(reactionRes)
   console.log("user id: " + userId.rows[0].id)
-  const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1`, [userId.rows[0].id]);
+  const serviceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, actionRes.id]);
+  const reactionServiceToken = await pool.query(`SELECT token FROM user_service WHERE user_id = $1 AND service_id = $2`, [userId.rows[0].id, reactionRes.id]);
   switch (actionRes.name) {
     case 'Received email':
       if (req.body.device == 'flutter') {
@@ -75,7 +76,7 @@ exports.postArea = async (req, res) => {
 
     case 'Steam players changed':
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfSteam(req, res, '', reactionId)
+      checkIfSteam(req, res, '', reactionServiceToken.rows[0].token, reactionId)
       break;
 
     case 'GitHub repo stared':
@@ -91,12 +92,12 @@ exports.postArea = async (req, res) => {
         req.body.config = JSON.parse(req.body.config)
       }
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfWeather(req, res, '', reactionId)
+      checkIfWeather(req, res, '', reactionServiceToken.rows[0].token,  reactionId)
       break;
 
     case 'CryptoCurrency price changed':
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfCrypto(req, res, '', reactionId)
+      checkIfCrypto(req, res, '', reactionServiceToken.rows[0].token, reactionId)
       break;
 
     case 'File added':
@@ -108,13 +109,13 @@ exports.postArea = async (req, res) => {
 
     case 'Youtube subscribers changed':
       await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfSubscribe(req, res, serviceToken.rows[0].token, reactionId)
+      checkIfSubscribe(req, res, serviceToken.rows[0].token, reactionServiceToken.rows[0].token, reactionId)
       break;
 
       case 'Subreddit subscriber':
         console.log(serviceToken.rows)
         await pool.query(`INSERT INTO user_area (user_id, area_id, config) VALUES ($1, $2, $3)`, [userId.rows[0].id, result.rows[0].id, req.body.config])
-      checkIfReddit(req, res, serviceToken.rows[0].token, reactionId)
+      checkIfReddit(req, res, serviceToken.rows[0].token, reactionServiceToken.rows[0].token, reactionId)
       break;
 
     default:
