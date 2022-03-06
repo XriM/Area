@@ -203,7 +203,7 @@ exports.checkIfSubscribe = async (req, res, token, reactionToken, reactionId) =>
 //    });
 //}
 
-exports.checkIfReddit = async (req, res, token, reactionId) => {
+exports.checkIfReddit = async (req, res, token, reactionToken, reactionId) => {
     if (req.body.device == 'flutter') {
         req.body.config = JSON.parse(req.body.config)
     }
