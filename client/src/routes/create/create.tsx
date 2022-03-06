@@ -1114,7 +1114,8 @@ function Body() {
       <Col md={12} className="centered__bottom__buttons">
         <Button variant="primary" className="secondary__btn__color" style={{marginBottom: 20}} onClick= { async () => {
           if (config !== {} && name !== '' && actionId !== '' && reactionId !== '') {
-            const result = await createArea(config, name, actionId, reactionId);
+            let device = "desktop";
+            const result = await createArea(config, name, device, actionId, reactionId);
             if (result === 0) {
               alert("Area successfully created.");
               navigate("/triggers");

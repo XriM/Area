@@ -453,11 +453,12 @@ export async function getArea(areaId : string) {
 }
 
 
-export async function createArea(params : any, name : string, actionId : string, reactionId : string) {
+export async function createArea(params : any, name : string, device : string, actionId : string, reactionId : string) {
   const config = {
     action_id: actionId,
     reaction_id: reactionId,
     name: name,
+    device: device,
     config: params
   }
   let usernameLogged = window.sessionStorage.getItem("username");
