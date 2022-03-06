@@ -7,12 +7,14 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE actions (
     id SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL
+    name VARCHAR NOT NULL,
+    description VARCHAR NOT NULL
 );
 
 CREATE TABLE reactions (
     id SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL
+    name VARCHAR NOT NULL,
+    description VARCHAR NOT NULL
 );
 
 CREATE TABLE services (
@@ -78,19 +80,19 @@ INSERT INTO services (name) VALUES ('Outlook');
 INSERT INTO services (name) VALUES ('Steam');
 INSERT INTO services (name) VALUES ('Youtube');
 
-INSERT INTO reactions (name) VALUES ('Send email');
-INSERT INTO reactions (name) VALUES ('Add trello card');
-INSERT INTO reactions (name) VALUES ('Send Git Issue');
-INSERT INTO reactions (name) VALUES ('Send Discord message');
-INSERT INTO actions (name) VALUES ('Received email');
-INSERT INTO actions (name) VALUES ('Youtube subscribers changed');
-INSERT INTO actions (name) VALUES ('Subreddit subscriber');
-INSERT INTO actions (name) VALUES ('GitHub repo stared');
-INSERT INTO actions (name) VALUES ('Weather changed');
-INSERT INTO actions (name) VALUES ('Steam players changed');
-INSERT INTO actions (name) VALUES ('CryptoCurrency price changed');
-INSERT INTO actions (name) VALUES ('File added');
-INSERT INTO actions (name) VALUES ('New youtube video');
+INSERT INTO reactions (name, description) VALUES ('Send email', 'Send an email via Outlook');
+INSERT INTO reactions (name, description) VALUES ('Add trello card', 'Add a trello card to board');
+INSERT INTO reactions (name, description) VALUES ('Send Git Issue', 'Send a git issue on repository');
+INSERT INTO reactions (name, description) VALUES ('Send Discord message', 'Send a discord message to user');
+INSERT INTO actions (name, description) VALUES ('Received email', 'Receive a notification when an email is received');
+INSERT INTO actions (name, description) VALUES ('Youtube subscribers changed', 'A user as subscribed to your channel');
+INSERT INTO actions (name, description) VALUES ('Subreddit subscriber', 'A user as subscribed to your subreddit');
+INSERT INTO actions (name, description) VALUES ('GitHub repo stared', 'A Github repository was starred');
+INSERT INTO actions (name, description) VALUES ('Weather changed', 'The weather has changed');
+INSERT INTO actions (name, description) VALUES ('Steam players changed', 'Too much or not enough players');
+INSERT INTO actions (name, description) VALUES ('CryptoCurrency price changed', 'Cryptocurrency value has changed');
+INSERT INTO actions (name, description) VALUES ('File added', 'A file has been added to the root');
+INSERT INTO actions (name, description) VALUES ('New youtube video', 'A new youtube video has been posted');
 
 INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test1');
 INSERT INTO areas (action_id, reaction_id, name) VALUES ((SELECT id FROM actions WHERE name = 'Weather changed'), (SELECT id FROM reactions WHERE name = 'Send email'), 'Test2');

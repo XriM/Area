@@ -13,7 +13,7 @@ exports.about = async (req, res) => {
             const service_action = await pool.query('SELECT * FROM actions WHERE id = $1', [action.action_id])
             actions.push({
                 name: service_action.rows[0].name,
-                description: "description",
+                description: service_action.rows[0].description,
             })
         }
         let reactions = []
@@ -22,7 +22,7 @@ exports.about = async (req, res) => {
             const service_reaction = await pool.query('SELECT * FROM reactions WHERE id = $1', [reaction.reaction_id])
             reactions.push({
                 name: service_reaction.rows[0].name,
-                description: "description",
+                description: service_reaction.rows[0].description,
             })
         }
         const service_actions = await pool.query('SELECT * FROM actions WHERE id = $1', [service.id])
