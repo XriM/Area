@@ -21,6 +21,8 @@ class _FirstScreenState extends State<FirstScreen> {
     double width = MediaQuery.of(context).size.width / 1.1;
     double height = MediaQuery.of(context).size.height / 3.5;
     Icon getIconAction(String serviceName) {
+      print('----------');
+      print(serviceName);
       if (serviceName == 'Steam players changed') {
         return Icon(
           MdiIcons.steam,
@@ -87,6 +89,8 @@ class _FirstScreenState extends State<FirstScreen> {
     }
 
     Icon getIconReaction(String reactionName) {
+      print('----------');
+      print(reactionName);
       if (reactionName == 'Trello') {
         return Icon(
           MdiIcons.trello,
