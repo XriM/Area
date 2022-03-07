@@ -1,4 +1,4 @@
-# Epitech Area
+# Area
 > *This is an Epitech 3rd-year project.*
 
 ## About
