@@ -4,8 +4,8 @@ import GoogleLogin from 'react-google-login';
 import axios from "axios";
 import { useNavigate } from "react-router";
 
-var clientId = "364030105707-i3koe2sbo4ecf7km0ijenpstlav1khi5.apps.googleusercontent.com";
-var secret = "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";
+var clientId = "-.apps.googleusercontent.com";
+var secret = "";
 var redirectUri = "http://localhost:8081";
 
 export function GoogleSignin() {

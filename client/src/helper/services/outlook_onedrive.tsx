@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 
-var clientId = "b0ffd704-b17f-46bd-9aa1-31d15f6a7795";
-var clientSecret = "_wM7Q~fQR9T.08lSpO8e~PeBAQrVjFem6vzcX";
-var tenantId = "901cb4ca-b862-4029-9306-e5cd0f6d9f86";
+var clientId = "";
+var clientSecret = "";
+var tenantId = "";
 
 export function OutlookSignin() {
   let navigate = useNavigate();

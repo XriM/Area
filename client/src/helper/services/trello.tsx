@@ -6,7 +6,7 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 import { logToService } from "../api";
 
-var trelloKey = "7b6292b9c2d2d0d8cbe96937dee3765a";
+var trelloKey = "";
 
 export function TrelloSignin() {
   const [actualKey, setKey] = useState("");
