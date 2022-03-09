@@ -1,5 +1,5 @@
 # Area
-> *This is an Epitech 3rd-year project.*
+> *This is an personnal project.*
 
 ## About
 | Url                                                               | Version | Contact                                                                       | Terms of Service                                                        | License                                                                 |
